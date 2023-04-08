@@ -42,7 +42,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
   useEffect(() => {
     if (data) {
       setPlaceInfo(data)
-      // setPlaceImage(data.images)
+      setPlaceImage(data.images)
       setPlacePolicy(data)
     }
   }, [data])
@@ -110,11 +110,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
             method: 'put',
             data: {
               ...placeInfo,
-              images: [
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229710619?alt=media&token=d37c42f4-e0de-4bcd-8fbd-7bf7c3d3fe4e',
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229701652?alt=media&token=29dccb44-c7b0-4566-8640-d870521b7869',
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229790195?alt=media&token=bcc1be89-2a32-4e3f-bd8a-ed87b4a9896f',
-              ],
+              images: placeImage,
               ...placePolicy,
             },
           })
@@ -143,11 +139,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
             method: 'post',
             data: {
               ...placeInfo,
-              images: [
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229710619?alt=media&token=d37c42f4-e0de-4bcd-8fbd-7bf7c3d3fe4e',
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229701652?alt=media&token=29dccb44-c7b0-4566-8640-d870521b7869',
-                'https://firebasestorage.googleapis.com/v0/b/easy-accomod-57b04.appspot.com/o/images%2F1609229790195?alt=media&token=bcc1be89-2a32-4e3f-bd8a-ed87b4a9896f',
-              ],
+              images: placeImage,
               ...placePolicy,
             },
           })

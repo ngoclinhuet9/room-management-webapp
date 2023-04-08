@@ -18,7 +18,7 @@ import RejectRooms from 'components/owner/RejectRooms'
 export default function Header() {
   const history = useHistory()
   const create = async () => {
-    history.push('/create-room')
+    history.push('/owner/create-room')
   }
   return (
     <OwnerLayout title='Home'>

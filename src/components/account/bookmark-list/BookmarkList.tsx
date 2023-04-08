@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RoomList from '../../roomlist/RoomList'
-import axios from 'axios'
+import axios from 'utils/axios'
 
 function BookmarkList() {
   const [roomList, setRoomList] = useState([]) as any

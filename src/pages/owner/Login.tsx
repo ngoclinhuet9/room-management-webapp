@@ -62,7 +62,6 @@ const Login = () => {
       })
     }
     setLoading(true)
-    localStorage.setItem('redirectUrl', router.path.split('/owner')[1]);
     await dispatch(
       actions.loginByEmailAndPassword({
         email,
@@ -74,7 +73,7 @@ const Login = () => {
 
   useEffect(() => {
     if (auth.isAuth) {
-      history.push(`/${localStorage.getItem('redirectUrl')}`)
+      history.push('/owner')
     }
   }, [auth.isAuth, history])
 
@@ -193,7 +192,7 @@ const Login = () => {
                       Bạn chưa có tài khoản 3S?{' '}
                       <Link
                         as={ReactLink}
-                        to='signup'
+                        to='/owner/signup'
                         color='orange.600'
                         textDecoration='none'
                         _hover={{ textDecoration: 'none', color: 'black' }}>

@@ -48,6 +48,7 @@ export default function Header() {
         const { data } = result.data
         setName(data.name)
       })
+      console.log(name,'name')
     } catch (error: any) {
       if (error.response.status === 403) {
         signOut()
@@ -75,7 +76,7 @@ export default function Header() {
   }
 
   const redirectToOwner = () => {
-    history.push('/renter')
+    history.push('/owner')
   }
 
   return (

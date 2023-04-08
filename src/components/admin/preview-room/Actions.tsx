@@ -1,6 +1,6 @@
 import { Box, Button, Flex, useToast } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import axios from 'utils/axios'
 import { useParams, useHistory } from 'react-router-dom'
 import { firestore } from 'firebase-config'
 

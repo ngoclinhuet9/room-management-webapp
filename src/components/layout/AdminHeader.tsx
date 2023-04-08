@@ -1,7 +1,7 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {
   Box,
@@ -143,6 +143,11 @@ export default function AdminHeader() {
                 <MenuItem>
                   <Button onClick={signOut} variant='link'>
                     Đăng xuất
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <Button onClick={() => history.push('/admin/dashboard')} variant='link'>
+                    Dashboard
                   </Button>
                 </MenuItem>
               </MenuList>

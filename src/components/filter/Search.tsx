@@ -37,7 +37,7 @@ function Search(data: any) {
         maxPrice = res[2]
       }
       history.push({
-        pathname: '/search',
+        pathname: '/renter/search',
         state: { city, roomType, minPrice, maxPrice }
       })
     }

@@ -161,7 +161,7 @@ const PlaceDetailsComponent = () => {
           maxW='calc(1100px + 5.6rem)'>
           <Box width='100%'>
             <Flex width='100%' flexDirection='row'>
-              <Box flex='2'>
+              <Box flex='2' width='850px'>
                 <Box paddingRight='50px'>
                   <PlaceRoute />
                   <PlaceIntro

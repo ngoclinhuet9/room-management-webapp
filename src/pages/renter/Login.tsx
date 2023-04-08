@@ -41,7 +41,6 @@ const Login = () => {
 
   const handleShowPassword = () => setShowPassword(!showPassword)
   const handleLogin = async () => {
-    debugger
     if (!email || !password) {
       return toast({
         title: 'Lỗi',
@@ -73,7 +72,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    debugger
+    console.log(auth,'auth');
+    
     if (auth.isAuth) {
       history.push('/')
     }

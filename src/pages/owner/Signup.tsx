@@ -23,6 +23,7 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
+  Select,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import MediaBox from 'components/login/MediaBox'
@@ -99,7 +100,7 @@ const SignUp = () => {
   }
 
   return (
-    <OwnerLayout title='SignUp'>
+    <>
       <Grid templateRows='auto 1fr auto' maxWidth='100%' minH='100vh'>
         <Box>
           <Box
@@ -443,7 +444,7 @@ const SignUp = () => {
           </Container>
         </Box>
       </Grid>
-    </OwnerLayout>
+    </>
   )
 }
 

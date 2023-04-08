@@ -1,51 +1,60 @@
 import React from 'react'
-import {BrowserRouter, Route, Router, Switch, useLocation, useRouteMatch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 
-import RenterRouter from './renter'
-import AdminRouter from './admin'
-import OwnerRouter from './owner'
-import NotFound from '../pages/static-page/NotFound'
-import Home from '../pages/renter/Home';
-import Login from '../pages/renter/Login';
-import RoomDetail from '../pages/renter/Detail';
-import SearchResult from '../pages/renter/City';
-import Signup from '../pages/renter/Signup';
-import Account from '../pages/renter/Account';
-import Bookmark from '../pages/renter/Bookmark';
-import CreatPlace from '../pages/owner/CreatPlace';
-import PreviewRoom from '../components/owner/PreviewRoom';
-import ViewRoom from '../components/owner/ViewRoom';
-import RenewRoom from '../pages/owner/RenewRoom';
-import EditRoom from '../pages/owner/EditRoom';
+import Signup from 'pages/renter/Signup'
+import Home from 'pages/renter/Home'
+import NotFound from 'pages/static-page/NotFound'
+import SearchResult from 'pages/renter/City'
+import RoomDetail from 'pages/renter/Detail'
+import Account from 'pages/renter/Account'
+import Bookmark from 'pages/renter/Bookmark'
+import RenterLogin from 'pages/renter/Login';
+
+import OwnerHome from 'pages/owner/Home'
+import CreatPlace from 'pages/owner/CreatPlace'
+import RenewRoom from 'pages/owner/RenewRoom'
+import OwnerPreviewRoom from 'components/owner/PreviewRoom'
+import OwnerSignup from 'pages/owner/Signup'
+import ViewRoom from 'components/owner/ViewRoom'
+import EditRoom from 'pages/owner/EditRoom'
+import OwnerLogin from 'pages/owner/Login';
+
+import AdminHome from 'pages/admin/Home'
+import AdminPreviewRoom from 'pages/admin/PreviewRoom'
+import Dashboard from 'pages/admin/Dashboard'
+import AdminLogin from 'pages/admin/Login';
 
 function App() {
   return (
-    <Route
-      path='/'
-      render={() => {
-        const pathname = window.location.pathname
-        if (pathname.startsWith("/renter") || pathname === '/') return <RenterRouter />
-        else {
-          if (pathname.startsWith('/admin')) return <AdminRouter />
-          if (pathname.startsWith('/owner')) return <OwnerRouter />
-        }
-        return <NotFound />
-      }}
-    />
-    // <BrowserRouter>
-    //   <Route path='/admin'>
-    //     <AdminRouter />
-    //   </Route>
-    //   <Route path='/owner'>
-    //     <OwnerRouter />
-    //   </Route>
-    //   <Route path='/renter'>
-    //     <RenterRouter />
-    //   </Route>
-    //   <Route path='/'>
-    //     <RenterRouter />
-    //   </Route>
-    // </BrowserRouter>
+    <Switch>
+      <Route exact path={`/`} component={Home} />
+      <Route exact path={`/renter`} component={Home} />
+      <Route path={`/renter/login`} component={RenterLogin} />
+      <Route path={`/renter/rooms/:room_id`} component={RoomDetail} />
+      <Route path={`/renter/search`} component={SearchResult} />
+      <Route path={`/renter/signup`} component={Signup} />
+      <Route path={`/renter/account`} component={Account} />
+      <Route path={`/renter/bookmarks`} component={Bookmark} />
+
+      <Route exact path={`/owner`} component={OwnerHome} />
+      <Route path={`/owner/login`} component={OwnerLogin} />
+      <Route path={`/owner/signup`} component={OwnerSignup} />
+      <Route path={`/owner/create-room`} component={CreatPlace} />
+      <Route path={`/owner/rooms/:room_id/preview`} component={OwnerPreviewRoom} />
+      <Route path={`/owner/rooms/:room_id/rent_preview`} component={OwnerPreviewRoom} />
+      <Route path={`/owner/rooms/:room_id/live_room`} component={OwnerPreviewRoom} />
+      <Route path={`/owner/rooms/:room_id/pending`} component={OwnerPreviewRoom} />
+      <Route path={`/owner/rooms/:room_id/view`} component={ViewRoom} />
+      <Route path={`/owner/rooms/:room_id/renew`} component={RenewRoom} />
+      <Route path={`/owner/rooms/:room_id/edit`} component={EditRoom} />
+
+      <Route exact path={`/admin`} component={AdminHome} />
+      <Route path={`/admin/login`} component={AdminLogin} />
+      <Route path={`/admin/rooms/:room_id/preview`} component={AdminPreviewRoom} />
+      <Route path={`/admin/dashboard`} component={Dashboard} />
+
+      <Route component={NotFound} />
+    </Switch>
   )
 }
 

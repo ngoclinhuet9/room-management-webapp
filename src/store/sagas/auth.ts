@@ -14,7 +14,6 @@ function* logInByEmailAndPasswordSaga({
   payload,
 }: ReturnType<typeof loginByEmailAndPassword>) {
   try {
-    debugger
     yield auth
       .signInWithEmailAndPassword(payload.email, payload.password)
       .catch(async (error) => {
@@ -27,11 +26,8 @@ function* logInByEmailAndPasswordSaga({
         }
       })
 
-    debugger
-
     const token: string = yield auth?.currentUser?.getIdToken(true)
 
-    debugger
     localStorage.setItem('token', token)
     if (token) {
       yield put(authSuccess(token))

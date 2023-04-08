@@ -21,7 +21,7 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios from 'utils/axios'
 
 type Intro = {
   _id: string

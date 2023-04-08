@@ -86,7 +86,7 @@ const PlaceImage = ({
         images.push(file.response)
       }
     })
-    syncData(fileList)
+    syncData(images)
     console.log(images)
   }
 
@@ -101,7 +101,7 @@ const PlaceImage = ({
     onSuccess,
   }: {
     file: any
-    onSuccess: Function
+    onSuccess: Function | any
   }): void => {
     const name = Date.now().toString()
     storage
@@ -114,6 +114,7 @@ const PlaceImage = ({
           .child(name)
           .getDownloadURL()
           .then((url) => {
+            console.log(url);
             onSuccess(url)
           })
           .catch((err) => {
@@ -142,7 +143,7 @@ const PlaceImage = ({
           <FormControl id='overview_image' isRequired mb={5}>
             <FormLabel>Ảnh chỗ nghỉ (Ít nhất 1 ảnh):</FormLabel>
             <Upload
-              // customRequest={customRequest}
+              customRequest={({file, onSuccess}) => customRequest({file, onSuccess})}
               action='localhost:3000'
               listType='picture-card'
               fileList={fileList}

@@ -30,7 +30,6 @@ function Notifi({ role }: { role: string }): any {
       //     //   type: doc.data().type
       //     // }])
       //     console.log(data)
-      //     debugger
       //     // await setData([...data, {
       //     //   roomName: room.data.data.room?.name,
       //     //   roomId: doc.data().roomId,
@@ -38,7 +37,6 @@ function Notifi({ role }: { role: string }): any {
       //     // }])
       //   })
       //   setData(notifications)
-      //   debugger
       // })
     })
   }

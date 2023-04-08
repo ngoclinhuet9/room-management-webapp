@@ -1,7 +1,7 @@
 import { Container, Box, Flex, chakra, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
-import axios from 'axios'
+import axios from 'utils/axios'
 import { useParams } from 'react-router-dom'
 
 import ImageSlider from '../../place/place-details/ImageSlider'
@@ -60,7 +60,6 @@ const PlaceDetailsComponent = () => {
     axios
       .get(`/rooms/${params?.room_id}`)
       .then((res) => {
-        // debugger
         setDetails(res.data.data.room)
         console.log(res.data.data.room)
       })

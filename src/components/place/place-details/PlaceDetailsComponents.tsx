@@ -34,6 +34,7 @@ import PolicyAndRule from './PolicyAndRule'
 import BookingForm from './BookingForm'
 import Reviews from './Reviews'
 import ShareAndLikeBtn from './ShareAndLikeBtn'
+import Price from './Price'
 
 type Intro = {
   _id: string
@@ -230,7 +231,8 @@ const PlaceDetailsComponent = () => {
           <Box width='100%'>
             <Flex width='100%' flexDirection='row'>
               <Box flex='2'>
-                <Box paddingRight='50px'>
+                <Box paddingRight='30px'
+                  width='900px'>
                   <PlaceRoute city={details?.city} />
                   <PlaceIntro
                     name={details?.name}
@@ -245,7 +247,7 @@ const PlaceDetailsComponent = () => {
                     description={details?.description}
                   />
                   <Amenities listAmenties={details} />
-                  {/* <Price /> */}
+                  <Price />
                   <Reviews roomId={details?._id} reviews={reviews} />
                   <PolicyAndRule rule={details?.rule} />
                 </Box>
