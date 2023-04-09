@@ -17,3 +17,8 @@ code {
 .ant-picker-dropdown {
   z-index: 1500 !important;
 }
+
+.chakra-menu__menu-button .css-taj3dd{
+  position: absolute !important;
+    right: 120px !important;
+}

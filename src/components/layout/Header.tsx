@@ -147,13 +147,13 @@ export default function Header() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link to='/account'>Cài đặt tài khoản</Link>
+                    <Link to='/renter/account'>Cài đặt tài khoản</Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to='/bookmarks'>Yêu thích</Link>
+                    <Link to='/renter/bookmarks'>Yêu thích</Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to='/bookmarks'>Lịch sử đặt phòng</Link>
+                    <Link to='/renter/bookmarks'>Lịch sử đặt phòng</Link>
                   </MenuItem>
                   <MenuItem>
                     <Button onClick={signOut} variant='link'>

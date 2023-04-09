@@ -43,11 +43,9 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
     //   debugger
       if (hasToVerify) {
         axios.get('/profile').then((result) => {
-          debugger
           const { data } = result.data
           setName(data.name)
         }).catch((error) => {
-          debugger
           if (error.response?.status === 403 || 401) {
             signOut()
             toast({

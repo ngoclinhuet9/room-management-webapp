@@ -11,8 +11,8 @@ const Header = () => {
   // const [session] = useSession()
   let location = useLocation();
   const ActiveBar = {
-    editAccount: '/account',
-    wishList: '/bookmarks'
+    editAccount: '/renter/account',
+    wishList: '/renter/bookmarks'
   }
 
   return (

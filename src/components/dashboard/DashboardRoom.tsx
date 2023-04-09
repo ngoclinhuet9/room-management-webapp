@@ -43,6 +43,14 @@ const DashboardRoom = () => {
       })
   }, [])
 
+  useEffect(() => {
+    axios
+      .get(`/admin/getDashBoardRentRate`)
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
   
   const config = {
     appendPadding: 10,
@@ -75,7 +83,6 @@ const DashboardRoom = () => {
               height: any; 
             }; 
           }, 
-          view: any,
           datum: any
         ) => {
           const { width, height } = container.getBoundingClientRect();
@@ -97,7 +104,6 @@ const DashboardRoom = () => {
                 width: any;
               }; 
             }, 
-            view: any,
             datum: any,
             data: any
           ) => {

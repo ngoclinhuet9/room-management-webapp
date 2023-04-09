@@ -9,9 +9,9 @@ type Props = {
 }
 
 function TopDestinationBox ({ name, imageUrl, city }: Props) {
-  const minPrice = useState('')
-  const maxPrice = useState('')
-  const roomType = useState('')
+  const minPrice = ''
+  const maxPrice = ''
+  const roomType = ''
   const history = useHistory()
   const onSearch = () =>  {
       history.push({
