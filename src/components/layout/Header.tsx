@@ -39,11 +39,7 @@ export default function Header() {
 
   useEffect(() => {
     auth.onAuthStateChanged(async () => {
-      console.log('linh1');
-      
     try {
-      console.log('linh2');
-      
       axios.get('/profile').then((result) => {
         const { data } = result.data
         setName(data.name)
@@ -155,6 +151,9 @@ export default function Header() {
                   </MenuItem>
                   <MenuItem>
                     <Link to='/bookmarks'>Yêu thích</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to='/bookmarks'>Lịch sử đặt phòng</Link>
                   </MenuItem>
                   <MenuItem>
                     <Button onClick={signOut} variant='link'>

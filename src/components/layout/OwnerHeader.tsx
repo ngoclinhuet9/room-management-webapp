@@ -32,7 +32,7 @@ import { HamburgerIcon, ChevronDownIcon, EmailIcon } from '@chakra-ui/icons'
 import Logo from 'assets/logo2.png'
 import Notifi from './Notifi'
 
-export default function Header() {
+export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
   const toast = useToast()
   const history = useHistory()
   const { dispatch } = useRedux()
@@ -40,10 +40,10 @@ export default function Header() {
   const [name, setName] = useState('')
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
+    // auth.onAuthStateChanged(async (user) => {
+      if (hasToVerify) {
           axios.get('/profile').then((result) => {
+            debugger
             const { data } = result.data
             setName(data.name)
             if (data.status !== 'APPROVED') {
@@ -57,32 +57,34 @@ export default function Header() {
                 position: 'top',
               })
             }
+          }).catch((error: any) => {
+            debugger
+            if (error.response?.status === 403 || 401) {
+              signOut()
+              toast({
+                title: 'Có sự cố xảy ra',
+                description: 'Bạn không đủ quyền để truy cập trang này',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top',
+              })
+            }
           })
-        } catch (error: any) {
-          if (error.response?.status === 403) {
-            signOut()
-            toast({
-              title: 'Có sự cố xảy ra',
-              description: 'Bạn không đủ quyền để truy cập trang này',
-              status: 'error',
-              duration: 3000,
-              isClosable: true,
-              position: 'top',
-            })
-          }
-        }
-      } else {
-        history.push('/owner/login')
-        toast({
-          title: 'Có sự cố xảy ra',
-          description: 'Bạn cần đăng nhập tài khoản admin để tiếp tục',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        })
-      }
-    })
+      } 
+      // else {
+      //   debugger
+      //   history.push('/owner/login')
+      //   toast({
+      //     title: 'Có sự cố xảy ra',
+      //     description: 'Bạn cần đăng nhập tài khoản admin để tiếp tục',
+      //     status: 'error',
+      //     duration: 3000,
+      //     isClosable: true,
+      //     position: 'top',
+      //   })
+      // }
+    // })
   }, [])
 
   const signOut = async () => {

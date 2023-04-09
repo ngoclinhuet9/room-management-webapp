@@ -25,7 +25,7 @@ import TopSales from 'assets/signin/top-sales.png'
 import Wallet from 'assets/signin/wallet.png'
 import BackPack from 'assets/signin/backpack.png'
 import { isValidEmail } from 'utils/validation'
-import AdminLayout from 'layouts/AdminLayout'
+import AdminHeader from 'components/layout/AdminHeader'
 
 const Login = () => {
   const toast = useToast()
@@ -77,7 +77,8 @@ const Login = () => {
   }, [auth.isAuth, history])
 
   return (
-    <AdminLayout title='Login'>
+    <>
+      <AdminHeader hasToVerify={false} />
       <Grid templateRows='auto 1fr auto' maxWidth='100%' minH='100vh'>
         <Box>
           <Box
@@ -237,7 +238,7 @@ const Login = () => {
           </Container>
         </Box>
       </Grid>
-    </AdminLayout>
+    </>
   )
 }
 

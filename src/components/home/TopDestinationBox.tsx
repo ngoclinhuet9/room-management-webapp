@@ -1,16 +1,26 @@
 import { Box, Link, Image } from '@chakra-ui/react'
-import { Link as ReactLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link as ReactLink, useHistory } from 'react-router-dom'
 
 type Props = {
   name: string
   imageUrl: string
-  url: string
+  city: string
 }
 
-const TopDestinationBox = ({ name, imageUrl, url }: Props) => {
+function TopDestinationBox ({ name, imageUrl, city }: Props) {
+  const minPrice = useState('')
+  const maxPrice = useState('')
+  const roomType = useState('')
+  const history = useHistory()
+  const onSearch = () =>  {
+      history.push({
+        pathname: '/renter/search',
+        state: { city, roomType, minPrice, maxPrice }
+      })
+    }
   return (
-    <ReactLink to={`/cities/${url}`}>
-      <Box w='263px' h='310px'>
+      <Box w='263px' h='310px' onClick={onSearch}>
         <Link
           h='100%'
           w='95%'
@@ -47,8 +57,6 @@ const TopDestinationBox = ({ name, imageUrl, url }: Props) => {
           </Box>
         </Link>
       </Box>
-    </ReactLink>
-  )
-}
+  )}
 
 export default TopDestinationBox

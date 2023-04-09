@@ -31,7 +31,7 @@ import actions from 'store/actions'
 import { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import Logo from 'assets/logo2.png'
 
-export default function AdminHeader() {
+export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Boolean }) {
   const toast = useToast()
   const history = useHistory()
   const { dispatch } = useRedux()
@@ -40,26 +40,27 @@ export default function AdminHeader() {
 
   useEffect(() => {
     // auth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    try {
-      axios.get('/profile').then((result) => {
-        const { data } = result.data
-        setName(data.name)
-      })
-    } catch (error: any) {
-      if (error.response?.status === 403 || 401) {
-        signOut()
-        toast({
-          title: 'Có sự cố xảy ra',
-          description: 'Bạn không đủ quyền để truy cập trang này',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
+    //   debugger
+      if (hasToVerify) {
+        axios.get('/profile').then((result) => {
+          debugger
+          const { data } = result.data
+          setName(data.name)
+        }).catch((error) => {
+          debugger
+          if (error.response?.status === 403 || 401) {
+            signOut()
+            toast({
+              title: 'Có sự cố xảy ra',
+              description: 'Bạn không đủ quyền để truy cập trang này',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top',
+            })
+          }
         })
       }
-    }
-    //   }
     // })
   }, [])
 

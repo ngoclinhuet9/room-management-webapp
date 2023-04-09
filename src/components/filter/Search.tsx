@@ -19,7 +19,6 @@ function Search(data: any) {
   const [price, setPrice] = useState(data?.price)
   const [roomType, setRoomType] = useState(data?.roomType)
   const history = useHistory()
-  console.log(history, '=====history')
   useEffect(() => {
     const params: any = history.location.state;
     if (params) {

@@ -37,6 +37,8 @@ import TopDestinationBox from './TopDestinationBox'
 import ServiceBox from './ServiceBox'
 import HomeSectionHeader from './HomeSectionHeader'
 import PlaceBox from './PlaceBox'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 type PlacesByCity = {
   accepted: boolean
@@ -52,6 +54,7 @@ type PlacesByCity = {
 
 const Home = () => {
   const toast = useToast()
+  const history = useHistory()
   const a = {
     sm: 2,
     md: 2,
@@ -212,67 +215,67 @@ const Home = () => {
                 lg: 'none',
               }}>
               <Slider infinite speed={500} slidesToShow={2} slidesToScroll={5}>
-                <TopDestinationBox name='Hà Nội' url='hanoi' imageUrl={Hanoi} />
+                <TopDestinationBox name='Hà Nội' city='hanoi' imageUrl={Hanoi} />
                 <TopDestinationBox
                   name='TP.Hồ Chí Minh'
-                  url='hcm'
+                  city='hcm'
                   imageUrl={HCM}
                 />
                 <TopDestinationBox
                   name='Vũng Tàu'
-                  url='vungtau'
+                  city='vungtau'
                   imageUrl={Vungtau}
                 />
-                <TopDestinationBox name='Đà Lạt' url='dalat' imageUrl={Dalat} />
+                <TopDestinationBox name='Đà Lạt' city='dalat' imageUrl={Dalat} />
                 <TopDestinationBox
                   name='Đà Nẵng'
-                  url='danang'
+                  city='danang'
                   imageUrl={Danang}
                 />
                 <TopDestinationBox
                   name='Nha Trang'
-                  url='nhatrang'
+                  city='nhatrang'
                   imageUrl={Nhatrang}
                 />
                 <TopDestinationBox
                   name='Quảng Ninh'
-                  url='quangninh'
+                  city='quangninh'
                   imageUrl={QuangNinh}
                 />
-                <TopDestinationBox name='Hội An' url='hoian' imageUrl={Hoian} />
+                <TopDestinationBox name='Hội An' city='hoian' imageUrl={Hoian} />
               </Slider>
             </Box>
             <Box
               display={{ base: 'none', sm: 'none', md: 'block', lg: 'none' }}>
               <Slider infinite speed={500} slidesToShow={3} slidesToScroll={5}>
-                <TopDestinationBox name='Hà Nội' url='hanoi' imageUrl={Hanoi} />
+                <TopDestinationBox name='Hà Nội' city='hanoi' imageUrl={Hanoi} />
                 <TopDestinationBox
                   name='TP.Hồ Chí Minh'
-                  url='hcm'
+                  city='hcm'
                   imageUrl={HCM}
                 />
                 <TopDestinationBox
                   name='Vũng Tàu'
-                  url='vungtau'
+                  city='vungtau'
                   imageUrl={Vungtau}
                 />
-                <TopDestinationBox name='Đà Lạt' url='dalat' imageUrl={Dalat} />
+                <TopDestinationBox name='Đà Lạt' city='dalat' imageUrl={Dalat} />
                 <TopDestinationBox
                   name='Đà Nẵng'
-                  url='danang'
+                  city='danang'
                   imageUrl={Danang}
                 />
                 <TopDestinationBox
                   name='Nha Trang'
-                  url='nhatrang'
+                  city='nhatrang'
                   imageUrl={Nhatrang}
                 />
                 <TopDestinationBox
                   name='Quảng Ninh'
-                  url='quangninh'
+                  city='quangninh'
                   imageUrl={QuangNinh}
                 />
-                <TopDestinationBox name='Hội An' url='hoian' imageUrl={Hoian} />
+                <TopDestinationBox name='Hội An' city='hoian' imageUrl={Hoian} />
               </Slider>
             </Box>
             <Box
@@ -284,34 +287,34 @@ const Home = () => {
                 xl: 'none',
               }}>
               <Slider infinite speed={500} slidesToShow={4} slidesToScroll={5}>
-                <TopDestinationBox name='Hà Nội' url='hanoi' imageUrl={Hanoi} />
+                <TopDestinationBox name='Hà Nội' city='hanoi' imageUrl={Hanoi} />
                 <TopDestinationBox
                   name='TP.Hồ Chí Minh'
-                  url='hcm'
+                  city='hcm'
                   imageUrl={HCM}
                 />
                 <TopDestinationBox
                   name='Vũng Tàu'
-                  url='vungtau'
+                  city='vungtau'
                   imageUrl={Vungtau}
                 />
-                <TopDestinationBox name='Đà Lạt' url='dalat' imageUrl={Dalat} />
+                <TopDestinationBox name='Đà Lạt' city='dalat' imageUrl={Dalat} />
                 <TopDestinationBox
                   name='Đà Nẵng'
-                  url='danang'
+                  city='danang'
                   imageUrl={Danang}
                 />
                 <TopDestinationBox
                   name='Nha Trang'
-                  url='nhatrang'
+                  city='nhatrang'
                   imageUrl={Nhatrang}
                 />
                 <TopDestinationBox
                   name='Quảng Ninh'
-                  url='quangninh'
+                  city='quangninh'
                   imageUrl={QuangNinh}
                 />
-                <TopDestinationBox name='Hội An' url='hoian' imageUrl={Hoian} />
+                <TopDestinationBox name='Hội An' city='hoian' imageUrl={Hoian} />
               </Slider>
             </Box>
             <Box
@@ -323,34 +326,34 @@ const Home = () => {
                 xl: 'block',
               }}>
               <Slider infinite speed={500} slidesToShow={5} slidesToScroll={5}>
-                <TopDestinationBox name='Hà Nội' url='hanoi' imageUrl={Hanoi} />
+                <TopDestinationBox name='Hà Nội' city='hanoi' imageUrl={Hanoi} />
                 <TopDestinationBox
                   name='TP.Hồ Chí Minh'
-                  url='hcm'
+                  city='hcm'
                   imageUrl={HCM}
                 />
                 <TopDestinationBox
                   name='Vũng Tàu'
-                  url='vungtau'
+                  city='vungtau'
                   imageUrl={Vungtau}
                 />
-                <TopDestinationBox name='Đà Lạt' url='dalat' imageUrl={Dalat} />
+                <TopDestinationBox name='Đà Lạt' city='dalat' imageUrl={Dalat} />
                 <TopDestinationBox
                   name='Đà Nẵng'
-                  url='danang'
+                  city='danang'
                   imageUrl={Danang}
                 />
                 <TopDestinationBox
                   name='Nha Trang'
-                  url='nhatrang'
+                  city='nhatrang'
                   imageUrl={Nhatrang}
                 />
                 <TopDestinationBox
                   name='Quảng Ninh'
-                  url='quangninh'
+                  city='quangninh'
                   imageUrl={QuangNinh}
                 />
-                <TopDestinationBox name='Hội An' url='hoian' imageUrl={Hoian} />
+                <TopDestinationBox name='Hội An' city='hoian' imageUrl={Hoian} />
               </Slider>
             </Box>
           </Box>

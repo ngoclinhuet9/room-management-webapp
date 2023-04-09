@@ -57,23 +57,21 @@ function* signUpByEmailAndPasswordSaga({
     localStorage.setItem('token', token)
     if (token) {
       yield put(authSuccess(token))
-      const domain = window.location.hostname.split('.')
-      if (domain.length === 1) {
+      const path = window.location.pathname
+      if (path.startsWith("/renter")) {
         yield axios.post('/renters/create', {
           email: payload.email,
           name: payload.name,
         })
       }
-      if (domain.length === 2) {
-        if (domain[0] === 'owner') {
-          yield axios.post('/owners/create', {
-            email: payload.email,
-            name: payload.name,
-            identity: payload.identity,
-            phone: payload.phone,
-            address: payload.address,
-          })
-        }
+      if (path.startsWith("/owner")) {
+        yield axios.post('/owners/create', {
+          email: payload.email,
+          name: payload.name,
+          identity: payload.identity,
+          phone: payload.phone,
+          address: payload.address,
+        })
       }
     }
   } catch (e) {
