@@ -4,7 +4,7 @@ import RoomList from 'components/roomlist/RoomList'
 import Layout from 'layouts/Layout'
 import axios from 'utils/axios'
 import { useHistory, useParams } from 'react-router-dom'
-import { Text, Box, Select, Menu, MenuButton, MenuItem, MenuList, Button } from '@chakra-ui/react'
+import { Text, Box, Menu, MenuButton, MenuItem, MenuList, Button } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
 type Params = {
@@ -28,6 +28,26 @@ const City = () => {
         console.log(err)
       })
   }, [params?.city, history.location.state])
+
+  const filterOptionChange = (value: any) => {
+    let listData = roomList;
+    switch (value) {
+      case 'sale':
+        listData.sort((item1: any, item2: any) => item1.countRent > item2.countRent ? 1 : -1)
+      break;
+
+      case 'increase':
+        listData.sort((item1: any, item2: any) => item1.roomPrice > item2.roomPrice ? 1 : -1)
+      break;
+
+      case 'decrease':
+        listData.sort((item1: any, item2: any) => item1.roomPrice < item2.roomPrice ? 1 : -1)
+      break;
+
+    }
+    setRoomList([...listData]);
+  }
+
   return (
     <Layout>
       <Search data={history.location.state} />
@@ -40,9 +60,9 @@ const City = () => {
             Sắp xếp
           </MenuButton>
           <MenuList>
-            <MenuItem>Bán chạy nhất</MenuItem>
-            <MenuItem>Giá tăng dần</MenuItem>
-            <MenuItem>Giá giảm dần</MenuItem>
+            <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
+            <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
+            <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
           </MenuList>
         </Menu>
       </Box>

@@ -10,6 +10,7 @@ function RoomList({ roomList }: { roomList: Array<any> }) {
         {roomList.map((item: any) => {
           return (
             <RoomItem
+              key={`room-${item._id}`}
               placeId={item._id}
               name={item.name}
               placeType={item.roomType}
