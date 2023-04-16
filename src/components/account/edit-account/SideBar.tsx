@@ -46,23 +46,12 @@ const SideBar = () => {
             Thay đổi mật khẩu
           </Button>
         </ListItem>
-        <ListItem
-          style={{
-            color: part === 'changePass' ? '#333 !important' : '',
-            fontWeight: part === 'changePass' ? 'bold' : 'normal',
-          }}>
-          <Button variant='ghost' onClick={() => setPart('aaaa')}>
-            Liên kết tài khoản
-          </Button>
-        </ListItem>
       </List>
       <Box flex='3' ml='50px'>
         {part === 'info' ? (
           <EditAccount />
-        ) : part === 'changePass' ? (
+        ) :(
           <ChangePasswordForm />
-        ) : (
-          <Box>3</Box>
         )}
       </Box>
     </Container>

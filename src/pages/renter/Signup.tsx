@@ -348,7 +348,7 @@ const SignUp = () => {
                         Bạn đã có tài khoản 3S?{' '}
                         <Link
                           as={ReactLink}
-                          to='/owner/login'
+                          to='/login'
                           color='orange.600'
                           textDecoration='none'
                           _hover={{ textDecoration: 'none', color: 'black' }}>

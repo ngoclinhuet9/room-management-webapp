@@ -16,6 +16,7 @@ type Params = {
 
 const City = () => {
   const [roomList, setRoomList] = useState([])
+  const [nameOrder, setNameOrder] = useState('Sắp xếp')
   const params: Params = useParams()
   const history = useHistory()
   useEffect(() => {
@@ -34,14 +35,17 @@ const City = () => {
     switch (value) {
       case 'sale':
         listData.sort((item1: any, item2: any) => item1.countRent > item2.countRent ? 1 : -1)
+        setNameOrder('Bán chạy nhất')
       break;
 
       case 'increase':
         listData.sort((item1: any, item2: any) => item1.roomPrice > item2.roomPrice ? 1 : -1)
+        setNameOrder('Giá tăng dần')
       break;
 
       case 'decrease':
         listData.sort((item1: any, item2: any) => item1.roomPrice < item2.roomPrice ? 1 : -1)
+        setNameOrder('Giá giảm dần')
       break;
 
     }
@@ -51,20 +55,22 @@ const City = () => {
   return (
     <Layout>
       <Search data={history.location.state} />
-      <Box display='flex'>
+      <Box display='flex' justifyContent='space-between'>
         <Text fontSize='28px' fontWeight='semibold' mx={22} mt={5} ml='125px'>
           {`Kết quả search- ${roomList?.length} phòng`}
         </Text>
-        <Menu >
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            Sắp xếp
-          </MenuButton>
-          <MenuList>
-            <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
-            <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
-            <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
-          </MenuList>
-        </Menu>
+        <Box margin='30px 110px'>
+          <Menu>
+            <MenuButton as={Button} width='150px' rightIcon={<ChevronDownIcon />}>
+              {nameOrder}
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
+              <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
+              <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
       </Box>
       <RoomList roomList={roomList} />
     </Layout>

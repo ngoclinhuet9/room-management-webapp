@@ -7,6 +7,7 @@ type LoginByEmailAndPasswordType = {
 type SignupByEmailAndPasswordType = {
   email: string
   password: string
+  role: string
   name: string
   address?: string
   phone?: string

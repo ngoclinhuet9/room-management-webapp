@@ -35,6 +35,7 @@ import BookingForm from './BookingForm'
 import Reviews from './Reviews'
 import ShareAndLikeBtn from './ShareAndLikeBtn'
 import Price from './Price'
+import moment from 'moment'
 
 type Intro = {
   _id: string
@@ -55,7 +56,7 @@ type Intro = {
   waterPrice: number
   electricityPrice: number
   images: Array<string>
-  owner: { name: string }
+  user: { name: string }
   rule: string
   city: string
 }
@@ -79,6 +80,20 @@ const PlaceDetailsComponent = () => {
   const [startDate, setStartDate] = useState('2023/04/05')
   const [endDate, setEndDate] = useState('2023/04/05')
   const history = useHistory()
+
+  let amount = '100000000'  //thêm field tiền đặt cọc khi tạo phòng
+  let vnp_Command = 'pay'
+  let vnp_CreateDate = dayjs(new Date()).format('YYYYMMDDHHmmss')
+  let vnp_CurrCode = 'VND'
+  let vnp_IpAddr = '192.168.10.102'
+  let vnp_OrderInfo = 'Thanh+toan+don+hang'
+  let vnp_OrderType = '170000'
+  let vnp_ReturnUrl ='http://room-management.local:3000/'
+  let vnp_TmnCode = 'GJKNDUTB'
+  let vnp_TxnRef='2'
+  let vnp_Version= '2.1.0'
+  let vnp_SecureHash='JKIJTKECTGVIMIHECGARUPTCMKUKDVPD'
+
   const handleScroll = () => {
     const position = window.pageYOffset
     if (position >= 650) {
@@ -87,6 +102,29 @@ const PlaceDetailsComponent = () => {
       setShowStickyNavBar(false)
     }
   }
+
+  const handlePayment = () => {
+    axios
+      .post(`/payment`)
+      .then((res) => {
+        window.open(res.data.data.vnpUrl)
+      })
+      .catch((err) => {
+        console.log(err)
+        toast({
+          title: 'Có sự cố xảy ra',
+          description: 'Bạn không đủ quyền để truy cập trang này',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+          position: 'top',
+        })
+      })
+
+    //https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    //window.open(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=${amount}&vnp_Command=${vnp_Command}&vnp_CreateDate=${vnp_CreateDate}&vnp_CurrCode=${vnp_CurrCode}&vnp_IpAddr=${vnp_IpAddr}&vnp_Locale=vn&vnp_OrderInfo=${vnp_OrderInfo}&vnp_OrderType=${vnp_OrderType}&vnp_ReturnUrl=${vnp_ReturnUrl}&vnp_TmnCode=${vnp_TmnCode}&vnp_TxnRef=${vnp_TxnRef}&vnp_Version=${vnp_Version}&vnp_SecureHash=${vnp_SecureHash}`)
+  }
+
   const next = async () => {
     if (startDate <= endDate) {
       try {
@@ -243,7 +281,7 @@ const PlaceDetailsComponent = () => {
                     details={details?.description}
                     placeType={details?.roomType}
                     maxNumOfPeople='2'
-                    ownerName={details?.owner?.name}
+                    ownerName={details?.user?.name}
                     description={details?.description}
                   />
                   <Amenities listAmenties={details} />
@@ -273,7 +311,7 @@ const PlaceDetailsComponent = () => {
                             <FormLabel>Số tiền cần đặt cọc</FormLabel>
                             <Input
                               isDisabled={inputDisable}
-                              placeholder='6000'
+                              placeholder={amount}
                             />
                           </FormControl>
                           <FormControl>
@@ -307,7 +345,7 @@ const PlaceDetailsComponent = () => {
                             onClick={() => next()}>
                             Thanh toán sau
                           </Button>
-                          <Button colorScheme='orange' mr='50px' mb='15px'>
+                          <Button colorScheme='orange' mr='50px' mb='15px' onClick={() => handlePayment()}>
                             Thanh toán ngay
                           </Button>
                         </ModalFooter>

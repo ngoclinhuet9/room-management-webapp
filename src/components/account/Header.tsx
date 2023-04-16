@@ -12,7 +12,8 @@ const Header = () => {
   let location = useLocation();
   const ActiveBar = {
     editAccount: '/renter/account',
-    wishList: '/renter/bookmarks'
+    wishList: '/renter/bookmarks',
+    history: '/renter/histories'
   }
 
   return (
@@ -48,6 +49,20 @@ const Header = () => {
                   cursor: 'pointer',
                 },
               }}>Yêu thích</Text>
+            </Link>
+            <Link as={ReactLink}
+              to='/renter/histories'
+            >
+              <Text sx={{
+                borderBottom: location.pathname === ActiveBar.history ? '4px solid #F65E39' : '',
+                color: location.pathname === ActiveBar.history ? '#222' : '',
+                py: '3',
+                fontWeight: 'medium',
+                ':hover': {
+                  color: '#222',
+                  cursor: 'pointer',
+                },
+              }}>Lịch sử đặt phòng</Text>
             </Link>
           </Stack>
         </Container>

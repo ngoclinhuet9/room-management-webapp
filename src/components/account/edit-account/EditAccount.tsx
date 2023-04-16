@@ -14,23 +14,24 @@ import {
   Text,
   InputLeftAddon,
   InputGroup,
-  RadioGroup,
-  Stack,
-  Radio,
-  Textarea,
   useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'utils/axios'
 
 type Intro = {
   _id: string
   name: string
   email: string
+  phone: string
 }
 const EditAccount = () => {
   // const [session, loading] = useSession()
+  const isEnable = true
+  const [isView, setIsView] = useState(true)
   const [details, setDetails] = useState<Intro>()
+  const history = useHistory()
   const toast = useToast()
   useEffect(() => {
     axios
@@ -41,24 +42,72 @@ const EditAccount = () => {
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  })
+
+  const setView = () => {
+    if(isView === true)
+      setIsView(false)
+    else
+      setIsView(true)
+  }
+
+  const handleEdit = async () => {
+    try{
+    const res = await axios({
+      url: `/renters/update`,
+      method: 'put',
+      data: {...details},
+    })
+    if (res) {
+      toast({
+        title: 'Thành công',
+        description:
+          'Update thông tin thành công',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+      history.push(`/renter/account`)
+    }}
+    catch (error: any) {
+      console.log(error)
+      toast({
+        title: 'Update data không thành công',
+        description: error?.response?.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+    }
+  }
 
   return (
     <Box flexBasis='66.67%' pl={8}>
       <Box animation='fadeIn .4s ease-in-out'>
-        <Box display='flex' alignItems='center'>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Avatar size='xl' />
+          {isView ? (
+                      <Button colorScheme='orange' onClick={setView}>Edit</Button>
+                    ) : 
+                    (<Box>
+                      <Button colorScheme='orange' ml='5px'>Edit</Button>
+                      <Button colorScheme='gray' ml='5px' onClick={setView}>Cancel</Button>
+                    </Box>)
+                    }
         </Box>
         <Box mt={6}>
           <Text mb={2} color='#666' fontWeight='bold'>
             Tên
           </Text>
           <Input
-            backgroundColor='rgba(0,0,0,.07)!important'
+            //backgroundColor='rgba(0,0,0,.07)!important'
             borderRadius='5px !important'
             boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
-            variant='filled'
-            placeholder={details?.name}
+            isDisabled = {isView}
+            defaultValue={details?.name}
+            //onChange ={(event: any) => {}}
           />
         </Box>
         <Box mt={6}>
@@ -66,11 +115,11 @@ const EditAccount = () => {
             Email
           </Text>
           <Input
-            backgroundColor='rgba(0,0,0,.07)!important'
+            //backgroundColor='rgba(0,0,0,.07)!important'
             borderRadius='5px !important'
             boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
-            variant='filled'
-            placeholder={details?.email}
+            defaultValue={details?.email}
+            isDisabled ={isEnable}
           />
         </Box>
         <Box mt={6}>
@@ -80,34 +129,36 @@ const EditAccount = () => {
           <InputGroup>
             <InputLeftAddon
               children='+84'
-              backgroundColor='rgba(0,0,0,.07)!important'
+              //backgroundColor='rgba(0,0,0,.07)!important'
               borderRadius='5px !important'
               boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
             />
             <Input
-              backgroundColor='rgba(0,0,0,.07)!important'
+              //backgroundColor='rgba(0,0,0,.07)!important'
               borderRadius='5px !important'
               boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
+              isDisabled = {isView}
+              defaultValue={details?.phone}
               type='phone'
             />
           </InputGroup>
-          <Box mt={6}>
+          {/* <Box mt={6}>
             <Text mb={2} color='#666' fontWeight='bold'>
               Địa chỉ
             </Text>
             <Input
-              backgroundColor='rgba(0,0,0,.07)!important'
+              //backgroundColor='rgba(0,0,0,.07)!important'
               borderRadius='5px !important'
               boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
-              variant='filled'
+              isDisabled = {isView}
             />
           </Box>
           <Box mt={6}>
             <Text mb={2} color='#666' fontWeight='bold'>
               Ngày sinh
             </Text>
-          </Box>
-          <Box mt={6}>
+          </Box> */}
+          {/* <Box mt={6}>
             <Text mb={2} color='#666' fontWeight='bold'>
               Giới tính
             </Text>
@@ -154,7 +205,7 @@ const EditAccount = () => {
               minH='120px'
               resize='none'
             />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>

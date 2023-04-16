@@ -52,18 +52,18 @@ function LiveRooms() {
       ),
     },
   ]
-  const [pendingRoom, setpendingRoom] = useState<any>([])
+  const [liveRoom, setLiveRoom] = useState<any>([])
   useEffect(() => {
     axios
       .get(`/owner/rooms/ready`)
       .then((res) => {
-        setpendingRoom(res.data.data)
+        setLiveRoom(res.data.data)
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
-  return <Table columns={columns} dataSource={pendingRoom} />
+  return <Table columns={columns} dataSource={liveRoom} />
 }
 
 export default LiveRooms

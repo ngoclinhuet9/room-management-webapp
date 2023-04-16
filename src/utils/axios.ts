@@ -15,7 +15,6 @@ instance.interceptors.request.use(
       config.headers.Authorization = token
       config.headers.role = role
     }
-
     return config
   },
   (error) => Promise.reject(error)

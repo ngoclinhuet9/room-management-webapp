@@ -40,52 +40,96 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
   const [name, setName] = useState('')
 
   useEffect(() => {
-    // auth.onAuthStateChanged(async (user) => {
-      if (hasToVerify) {
-          axios.get('/profile').then((result) => {
-            debugger
-            const { data } = result.data
-            setName(data.name)
-            if (data.status !== 'APPROVED') {
-              signOut()
-              toast({
-                title: 'Có sự cố xảy ra',
-                description: 'Tài khoản đang chờ phê duyệt',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top',
-              })
-            }
-          }).catch((error: any) => {
-            debugger
-            if (error.response?.status === 403 || 401) {
-              signOut()
-              toast({
-                title: 'Có sự cố xảy ra',
-                description: 'Bạn không đủ quyền để truy cập trang này',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top',
-              })
-            }
+    if (hasToVerify) {
+      axios.get('/profile').then((result) => {
+        const { data } = result.data
+        console.log(data);
+        if(data.role === 'owner'){
+          setName(data.name)
+        }
+        if(data.role === 'admin'){
+          toast({
+            title: 'Có sự cố xảy ra',
+            description: 'Bạn không có quyền truy cập trang này',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
           })
-      } 
-      // else {
-      //   debugger
-      //   history.push('/owner/login')
-      //   toast({
-      //     title: 'Có sự cố xảy ra',
-      //     description: 'Bạn cần đăng nhập tài khoản admin để tiếp tục',
-      //     status: 'error',
-      //     duration: 3000,
-      //     isClosable: true,
-      //     position: 'top',
-      //   })
-      // }
+          history.push('/admin')
+        }
+        if(data.role === 'renter'){
+          toast({
+            title: 'Có sự cố xảy ra',
+            description: 'Bạn không có quyền truy cập trang này',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
+          history.push('/')
+        }
+      }).catch((error) => {
+        if (error.response?.status === 403 || 401) {
+          signOut()
+          toast({
+            title: 'Có sự cố xảy ra',
+            description: 'Bạn không đủ quyền để truy cập trang này',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
+        }
+      })
+    }
+  // })
+}, [])
+    // if(!hasToVerify) return;
+    // //auth.onAuthStateChanged(async (user) => {
+    //   if (user) {
+    //       axios.get('/profile').then((result) => {
+    //         const { data } = result.data
+    //         setName(data.name)
+    //         if (data.status !== 'APPROVED') {
+    //           signOut()
+    //           toast({
+    //             title: 'Có sự cố xảy ra',
+    //             description: 'Tài khoản đang chờ phê duyệt',
+    //             status: 'error',
+    //             duration: 3000,
+    //             isClosable: true,
+    //             position: 'top',
+    //           })
+    //         }
+    //       }).catch((error: any) => {
+    //         if (error.response?.status === 403 || 401) {
+    //           signOut()
+    //           toast({
+    //             title: 'Có sự cố xảy ra',
+    //             description: 'Bạn không đủ quyền để truy cập trang này Linhowner',
+    //             status: 'error',
+    //             duration: 3000,
+    //             isClosable: true,
+    //             position: 'top',
+    //           })
+    //         }
+    //       })
+    //   } 
+    //   else {
+    //     history.push('/login')
+    //     toast({
+    //       title: 'Có sự cố xảy ra',
+    //       description: 'Bạn cần đăng nhập tài khoản owner để tiếp tục',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //       position: 'top',
+    //     })
+    //   }
     // })
-  }, [])
+    // return;
+  //})
 
   const signOut = async () => {
     await auth.signOut()
@@ -94,7 +138,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
       actions.signOut()
     )
     localStorage.clear()
-    history.push('/owner/login')
+    history.push('/')
   }
 
   return (
@@ -128,10 +172,10 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
             <DrawerHeader>Create your account</DrawerHeader>
             <DrawerBody>
               <Button variant='ghost'>
-                <Link to='/owner/login'>Đăng nhập</Link>
+                <Link to='/login'>Đăng nhập</Link>
               </Button>
               <Button variant='ghost'>
-                <Link to='/owner/signup'>Đăng ký</Link>
+                <Link to='/signup'>Đăng ký</Link>
               </Button>
             </DrawerBody>
           </DrawerContent>
@@ -161,7 +205,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
           <Spacer />
           {name !== '' ? (
             <>
-              <Menu>
+              {/* <Menu>
                 <MenuButton
                   px={8}
                   py={2}
@@ -172,12 +216,15 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
                 <MenuList w='350px'>
                   <Notifi role='owner' />
                 </MenuList>
-              </Menu>
+              </Menu> */}
               <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                <MenuButton width='18w%' as={Button} rightIcon={<ChevronDownIcon />}>
                   {name}
                 </MenuButton>
                 <MenuList>
+                  <MenuItem>
+                    <Link to='/renter/account'>Cài đặt tài khoản</Link>
+                  </MenuItem>
                   <MenuItem>
                     <Button onClick={signOut} variant='link'>
                       Đăng xuất
@@ -190,10 +237,10 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
           ) : (
               <Flex display='flex' alignItems='center'>
                 <Button variant='ghost'>
-                  <Link to='/owner/login'>Đăng nhập</Link>
+                  <Link to='/login'>Đăng nhập</Link>
                 </Button>
                 <Button variant='ghost'>
-                  <Link to='/owner/signup'>Đăng ký</Link>
+                  <Link to='/signup'>Đăng ký</Link>
                 </Button>
               </Flex>
             )}

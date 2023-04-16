@@ -39,7 +39,7 @@ function OwnerList() {
         const { data } = res.data
         const temp: any = []
         data.forEach((item: any, index: number) => {
-          temp.push({ ...item.owner, _id: item._id, key: index })
+          temp.push({ ...item, _id: item._id, key: index })
         })
         setOwnerList(temp)
       })

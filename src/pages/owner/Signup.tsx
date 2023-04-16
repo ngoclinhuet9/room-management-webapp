@@ -40,6 +40,7 @@ type FormData = {
   name: string
   identity: string
   email: string
+  role: string
   phone: string
   address: string
   password: string
@@ -84,7 +85,7 @@ const SignUp = () => {
       })
       auth.signOut()
       localStorage.clear()
-      history.push('/owner/login')
+      history.push('/login')
     } catch (error: any) {
       console.log(error?.response?.data?.error)
       setLoading(false)
@@ -198,6 +199,33 @@ const SignUp = () => {
                       <FormErrorMessage>
                         {errors.email?.message}
                       </FormErrorMessage>
+                    </FormControl>
+                    <FormControl
+                      id='role'
+                      isRequired
+                      mt={4}>
+                      <FormLabel>Role</FormLabel>
+                      <InputGroup size='lg'>
+                      <Select
+                        pr='4.5rem'
+                        alignItems='center'
+                        height='50px'
+                        width='100%'
+                        px={1}
+                        borderRadius='3rem'
+                        border='1px'
+                        defaultValue='renter'
+                        {...register("role")}
+                        _focus={{
+                          borderColor: 'orange.500',
+                          boxShadow: '0 0 5px 0 rgba(246,94,57,.5)',
+                        }}
+                        //</InputGroup>onChange={(event: any) => setCity(event.target.value)}
+                        >
+                        <option value='renter'>Người thuê phòng</option>
+                        <option value='owner'>Chủ phòng</option>
+                      </Select>
+                      </InputGroup>
                     </FormControl>
                     <FormControl
                       id='identity'
@@ -397,7 +425,7 @@ const SignUp = () => {
                         Bạn đã có tài khoản 3S?{' '}
                         <Link
                           as={ReactLink}
-                          to='/owner/login'
+                          to='/login'
                           color='orange.600'
                           textDecoration='none'
                           _hover={{ textDecoration: 'none', color: 'black' }}>

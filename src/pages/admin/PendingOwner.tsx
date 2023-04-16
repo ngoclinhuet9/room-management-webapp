@@ -61,7 +61,7 @@ function PendingOwner() {
         const { data } = res.data
         const temp: any = []
         data.forEach((item: any) => {
-          temp.push({ ...item.owner, _id: item._id })
+          temp.push({ ...item, _id: item._id })
         })
         setPendingList(temp)
       })

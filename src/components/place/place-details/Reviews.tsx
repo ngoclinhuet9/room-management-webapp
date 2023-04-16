@@ -64,7 +64,7 @@ const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any
         data?.map((r: any) => (
           <Box className='single-review' my={8}>
             <Box display='flex' flexDirection='row'>
-              <Avatar name={r.renter?.name || 'Me'} />
+              <Avatar name={r.user?.name || 'Me'} />
               <Box ml={2} display='flex' pt={1}>
                 <Box>
                   <Heading
@@ -73,7 +73,7 @@ const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any
                     lineHeight='shorter'
                     fontSize='md'>
                     {!isLoading ? (
-                      r.renter?.name || 'Me'
+                      r.user?.name || 'Me'
                     ) : (
                         <Skeleton mt={1} height='12px' width='120px' />
                       )}

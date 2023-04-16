@@ -12,6 +12,7 @@ import PlaceRoute from 'components/place/place-details/PlaceRoute'
 import PolicyAndRule from 'components/place/place-details/PolicyAndRule'
 import BookingForm from 'components/place/place-details/BookingForm'
 import Actions from './Action'
+import Reviews from 'components/place/place-details/Reviews'
 
 type Intro = {
   _id: string
@@ -32,7 +33,7 @@ type Intro = {
   electricityPrice: number
   status: string
   images: Array<string>
-  owner: { name: string; _id: string }
+  user: { name: string; _id: string }
   description: string
   rule: string
 }
@@ -49,6 +50,7 @@ const PlaceDetailsComponent = () => {
 
   const [showStickyNavBar, setShowStickyNavBar] = useState(false)
   const [details, setDetails] = useState<Intro>()
+  const [reviews, setReviews] = useState([])
   const [payFlag, setPayFlag] = useState(false)
   const handleScroll = () => {
     const position = window.pageYOffset
@@ -63,9 +65,9 @@ const PlaceDetailsComponent = () => {
       axios
         .get(`/owner/rooms/rent/${params?.room_id}`)
         .then((res) => {
-          setDetails(res.data.data.room)
-          console.log(res.data.data.payFlag, '....')
-          setPayFlag(res.data.data.payFlag)
+          setDetails(res.data.data.renterRooms.room)
+          setPayFlag(res.data.data.renterRooms.payFlag)
+          setReviews(res.data.data.reviews)
         })
         .catch((err) => {
           console.log(err)
@@ -75,11 +77,13 @@ const PlaceDetailsComponent = () => {
         .get(`/rooms/${params?.room_id}`)
         .then((res) => {
           setDetails(res.data.data.room)
-          console.log(res.data.data.room)
+          setReviews(res.data.data.reviews)
         })
         .catch((err) => {
           console.log(err)
         })
+        console.log('tesst');
+        
     }
   }, [])
 
@@ -173,9 +177,10 @@ const PlaceDetailsComponent = () => {
                     description={details?.description}
                     placeType={details?.roomType}
                     maxNumOfPeople='2'
-                    ownerName={details?.owner?.name}
+                    ownerName={details?.user?.name}
                   />
                   <Amenities listAmenties={details} />
+                  <Reviews roomId={details?._id} reviews={reviews} />
                   <PolicyAndRule rule={details?.rule} />
                   <Location />
                 </Box>

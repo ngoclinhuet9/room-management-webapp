@@ -29,7 +29,7 @@ const Actions = (props: any) => {
 
   const [payFlag, setPayFlag] = useState(false)
   useEffect(() => setPayFlag(isPay), [isPay])
-  const handleAccept = (id: any) => {
+  const handleAccept = () => {
     axios
       .put(`owner/rooms/${params?.room_id}/rent`)
       .then((res) => {

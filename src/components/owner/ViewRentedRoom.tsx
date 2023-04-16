@@ -33,7 +33,7 @@ type Intro = {
   waterPrice: number
   electricityPrice: number
   images: Array<string>
-  owner: { name: string }
+  user: { name: string }
   rule: string
 }
 type Params = {
@@ -162,7 +162,7 @@ const ViewRoom = () => {
                     details={details?.description}
                     placeType={details?.roomType}
                     maxNumOfPeople='2'
-                    ownerName={details?.owner?.name}
+                    ownerName={details?.user?.name}
                     description={details?.description}
                   />
                   <Amenities listAmenties={details} />

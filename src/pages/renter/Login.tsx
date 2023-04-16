@@ -27,16 +27,17 @@ import TopSales from 'assets/signin/top-sales.png'
 import Wallet from 'assets/signin/wallet.png'
 import BackPack from 'assets/signin/backpack.png'
 import { isValidEmail } from 'utils/validation'
+import axios from 'utils/axios'
 
 const Login = () => {
   const toast = useToast()
   const history = useHistory()
   const { dispatch, selector } = useRedux()
   const auth = selector((state: any) => state?.auth)
-
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [role, setRole] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleShowPassword = () => setShowPassword(!showPassword)
@@ -69,15 +70,8 @@ const Login = () => {
       })
     )
     setLoading(false)
-  }
-
-  useEffect(() => {
-    console.log(auth,'auth');
     
-    if (auth.isAuth) {
-      history.push('/')
-    }
-  }, [auth.isAuth, history])
+  }
 
   return (
     <>

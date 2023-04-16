@@ -27,13 +27,15 @@ import { auth } from 'firebase-config'
 import useRedux from 'hooks/useRedux'
 import actions from 'store/actions'
 
+
 import { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import Logo from 'assets/logo2.png'
 
 export default function Header() {
   const toast = useToast()
   const history = useHistory()
-  const { dispatch } = useRedux()
+  const { dispatch, selector } = useRedux()
+  const [isAuth, setIsAuth] = useState(false)
   const { isOpen, onClose, onOpen } = useDisclosure()
   const [name, setName] = useState('')
 
@@ -44,7 +46,6 @@ export default function Header() {
         const { data } = result.data
         setName(data.name)
       })
-      console.log(name,'name')
     } catch (error: any) {
       if (error.response.status === 403) {
         signOut()
@@ -68,11 +69,11 @@ export default function Header() {
       actions.signOut()
     )
     localStorage.clear()
-    history.push('/renter')
+    history.push('/')
   }
 
   const redirectToOwner = () => {
-    history.push('/owner')
+    history.push('/login')
   }
 
   return (
@@ -106,10 +107,10 @@ export default function Header() {
             <DrawerHeader>Create your account</DrawerHeader>
             <DrawerBody>
               <Button >
-                <Link to='/renter/login'>Đăng nhập</Link>
+                <Link to='/login'>Đăng nhập</Link>
               </Button>
               <Button variant='ghost'>
-                <Link to='/renter/signup'>Đăng ký</Link>
+                <Link to='/signup'>Đăng ký</Link>
               </Button>
 
             </DrawerBody>
@@ -136,11 +137,8 @@ export default function Header() {
             </Text>
           </Link>
           <Spacer />
-          {name !== '' ? (
+          {name ? (
             <>
-              <Button variant='ghost' onClick={redirectToOwner}>
-                Host
-              </Button>
               <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                   {name}
@@ -165,14 +163,11 @@ export default function Header() {
             </>
           ) : (
               <Flex display='flex' alignItems='center'>
-                <Button variant='ghost' onClick={redirectToOwner}>
-                  Host
+                <Button variant='ghost'>
+                  <Link to='/login'>Đăng nhập</Link>
                 </Button>
                 <Button variant='ghost'>
-                  <Link to='/renter/login'>Đăng nhập</Link>
-                </Button>
-                <Button variant='ghost'>
-                  <Link to='/renter/signup'>Đăng ký</Link>
+                  <Link to='/signup'>Đăng ký</Link>
                 </Button>
               </Flex>
             )}

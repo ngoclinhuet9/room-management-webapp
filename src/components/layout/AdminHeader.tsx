@@ -44,7 +44,31 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
       if (hasToVerify) {
         axios.get('/profile').then((result) => {
           const { data } = result.data
-          setName(data.name)
+          if(data.role === 'admin'){
+            setName(data.name)
+          }
+          if(data.role === 'owner'){
+            toast({
+              title: 'Có sự cố xảy ra',
+              description: 'Bạn không có quyền truy cập trang này',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top',
+            })
+            history.push('/owner')
+          }
+          if(data.role === 'renter'){
+            toast({
+              title: 'Có sự cố xảy ra',
+              description: 'Bạn không có quyền truy cập trang này',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top',
+            })
+            history.push('/')
+          }
         }).catch((error) => {
           if (error.response?.status === 403 || 401) {
             signOut()
@@ -69,7 +93,7 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
       actions.signOut()
     )
     localStorage.clear()
-    history.push('/admin/login')
+    history.push('/')
   }
 
   return (
@@ -103,10 +127,10 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
             <DrawerHeader>Create your account</DrawerHeader>
             <DrawerBody>
               <Button variant='ghost'>
-                <Link to='/admin/login'>Đăng nhập</Link>
+                <Link to='/login'>Đăng nhập</Link>
               </Button>
               <Button variant='ghost'>
-                <Link to='/admin/signup'>Đăng ký</Link>
+                <Link to='/signup'>Đăng ký</Link>
               </Button>
 
             </DrawerBody>
@@ -140,13 +164,13 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
               </MenuButton>
               <MenuList>
                 <MenuItem>
-                  <Button onClick={signOut} variant='link'>
-                    Đăng xuất
+                  <Button onClick={() => history.push('/admin/dashboard')} variant='link'>
+                    Dashboard
                   </Button>
                 </MenuItem>
                 <MenuItem>
-                  <Button onClick={() => history.push('/admin/dashboard')} variant='link'>
-                    Dashboard
+                  <Button onClick={signOut} variant='link'>
+                    Đăng xuất
                   </Button>
                 </MenuItem>
               </MenuList>
@@ -154,7 +178,7 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
           ) : (
               <Flex display='flex' alignItems='center'>
                 <Button variant='ghost'>
-                  <Link to='/admin/login'>Đăng nhập</Link>
+                  <Link to='/login'>Đăng nhập</Link>
                 </Button>
               </Flex>
             )}

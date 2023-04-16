@@ -12,7 +12,7 @@ function RenterList() {
         const { data } = res.data
         const temp: any = []
         data.forEach((item: any) => {
-          temp.push({ ...item.renter })
+          temp.push({ ...item, _id: item._id })
         })
         setRenterList(temp)
       })
@@ -32,6 +32,22 @@ function RenterList() {
       dataIndex: 'email',
       key: 'email',
       render: (text: string) => <a>{text}</a>,
+    },
+    {
+      title: 'CMND',
+      dataIndex: 'identity',
+      key: 'identity',
+      render: (text: string) => <a>{text}</a>,
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+      key: 'phone',
     },
     {
       title: 'Active',

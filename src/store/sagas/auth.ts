@@ -28,9 +28,31 @@ function* logInByEmailAndPasswordSaga({
 
     const token: string = yield auth?.currentUser?.getIdToken(true)
 
-    localStorage.setItem('token', token)
     if (token) {
+      localStorage.setItem('token', token)
       yield put(authSuccess(token))
+
+      axios.get('/profile')
+        .then((result) => {
+          switch(result.data.data.role) {
+            case 'admin':
+              window.location.pathname = '/admin'
+              break;
+            case 'owner':
+              window.location.pathname = '/owner'
+              break;
+            default:
+              window.location.pathname = '/'
+    
+          }
+        })
+        .catch((error) => {
+          switch(error.response.status) {
+            case 401:
+            case 404:
+              alert('Email hoặc mật khẩu không chính xác')
+          }
+        })
     }
   } catch (e) {
     console.log(e)
@@ -58,21 +80,31 @@ function* signUpByEmailAndPasswordSaga({
     if (token) {
       yield put(authSuccess(token))
       const path = window.location.pathname
-      if (path.startsWith("/renter")) {
-        yield axios.post('/renters/create', {
-          email: payload.email,
-          name: payload.name,
-        })
-      }
-      if (path.startsWith("/owner")) {
-        yield axios.post('/owners/create', {
-          email: payload.email,
-          name: payload.name,
-          identity: payload.identity,
-          phone: payload.phone,
-          address: payload.address,
-        })
-      }
+      console.log(path)
+      yield axios.post('/user/create', {
+        email: payload.email,
+        name: payload.name,
+        role: payload.role,
+        identity: payload.identity,
+        phone: payload.phone,
+        address: payload.address,
+      })
+      // if (path.startsWith("/renter") || path === "/") {
+      //   yield axios.post('/renters/create', {
+      //     email: payload.email,
+      //     phone: payload.phone,
+      //     name: payload.name,
+      //   })
+      // }
+      // if (path.startsWith("/owner")) {
+      //   yield axios.post('/owners/create', {
+      //     email: payload.email,
+      //     name: payload.name,
+      //     identity: payload.identity,
+      //     phone: payload.phone,
+      //     address: payload.address,
+      //   })
+      // }
     }
   } catch (e) {
     console.log(e)

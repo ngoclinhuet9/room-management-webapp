@@ -1,49 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Area } from '@ant-design/plots';
+import axios from 'utils/axios';
 
-const DemoArea = () => {
-  const [data, setData] = useState([]);
+const DashBoardRentRate = () => {
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    asyncFetch();
+    axios
+      .get(`/admin/getDashBoardRentRate`)
+      .then((res) => {
+        setData(res.data.data)
+        //data.sort((item1: any, item2: any) => item1._id > item2._id ? 1 : -1)
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+    
   }, []);
 
-  const asyncFetch = () => {
-    fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.log('fetch data failed', error);
-      });
-  };
+  
   const config = {
     data,
-    xField: 'Date',
-    yField: 'scales',
-    annotations: [
-      {
-        type: 'text',
-        position: ['min', 'median'],
-        content: 'số phòng trung bình được đặt mỗi ngày',
-        offsetY: -4,
-        style: {
-          textBaseline: 'bottom',
-        },
+    xField: '_id',
+    yField: 'count',
+    xAxis: {
+      tickCount: 5,
+    },
+    animation: false,
+    slider: {
+      start: 0.1,
+      end: 0.9,
+      trendCfg: {
+        isArea: true,
       },
-      {
-        type: 'line',
-        start: ['min', 'median'],
-        end: ['max', 'median'],
-        style: {
-          stroke: 'red',
-          lineDash: [2, 2],
-        },
-      },
-    ],
+    },
   };
 
   return <Area {...config} />;
 };
 
-ReactDOM.render(<DemoArea />, document.getElementById('container'));
+export default DashBoardRentRate

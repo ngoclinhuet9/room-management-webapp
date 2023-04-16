@@ -65,9 +65,9 @@ function RentedRooms() {
         res.data.data.forEach((item: any) => {
           result.push({
             roomName: item.room?.name,
-            renterName: item.renter?.name,
-            renterPhone: item.renter?.phone,
-            renterEmail: item.renter?.email,
+            renterName: item.user?.name,
+            renterPhone: item.user?.phone,
+            renterEmail: item.user?.email,
             renterRoomID: item._id,
             payFlag: item?.payFlag,
             status: item?.payFlag ? 'Đã thanh toán' : 'Chưa thanh toán',

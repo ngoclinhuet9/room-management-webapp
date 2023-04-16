@@ -49,7 +49,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
 
   const [placeImage, setPlaceImage] = useState<Array<string>>([])
   const [placePolicy, setPlacePolicy] = useState({
-    roomPrice: 500000,
+    roomPrice: 2000000,
     waterPrice: 5000,
     electricityPrice: 5000,
   })

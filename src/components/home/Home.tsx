@@ -122,8 +122,8 @@ const Home = () => {
               </Text>
               <Text>
                 {' '}
-                <Link href='/renter/login'>Đăng nhập</Link> hoặc{' '}
-                <Link href='/renter/signup'>Đăng ký</Link> để trải nghiệm !
+                <Link href='/login'>Đăng nhập</Link> hoặc{' '}
+                <Link href='/signup'>Đăng ký</Link> để trải nghiệm !
               </Text>
             </Box>
             <Box
