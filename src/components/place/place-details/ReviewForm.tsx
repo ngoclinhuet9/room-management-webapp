@@ -63,10 +63,11 @@ const ReviewForm = ({ addReview }: { addReview: Function }) => {
         <Button
           // disabled={disable || commentLoading}
           onClick={handleSubmit}
-          ml='700px'
+          //ml='100px'
+          mt='20px'
           backgroundColor='#F66038'
           color='white'>
-          Submit
+          Đăng
         </Button>
       </Box>
     </Box>

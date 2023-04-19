@@ -154,10 +154,10 @@ function Search(data: any) {
             pl={2}
           >
             <Box pl='2'>
-            <Button width= '80px' colorScheme='orange' onClick={onSearch}>Search</Button>
+            <Button width= '80px' colorScheme='orange' onClick={onSearch}>Tìm kiếm</Button>
             </Box>
             <Box pl='5'>
-            <Button width= '80px' colorScheme='gray' onClick={onClear}>Clear</Button>
+            <Button width= '80px' colorScheme='gray' onClick={onClear}>Xóa</Button>
             </Box>
           </Box>
         </Flex>

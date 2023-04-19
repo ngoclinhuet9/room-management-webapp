@@ -119,7 +119,7 @@ function RoomItem({
             <Skeleton mt={2} width='30%' height={3} />
           ) : (
               <Stack mt={2} direction='row' spacing={3} fontSize={14}>
-                <Text fontWeight='bolder'>{AmountFormat(price)}₫/đêm</Text>
+                <Text fontWeight='bolder'>{AmountFormat(price)}₫/tháng</Text>
               </Stack>
             )}
         </Box>

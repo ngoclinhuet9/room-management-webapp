@@ -72,7 +72,7 @@ const Actions = ({
           colorScheme='green'
           mr='10px'
           fontWeight='500'>
-          Đồng ý
+          Phê duyệt
         </Button>
         <Button
           onClick={handleReject}

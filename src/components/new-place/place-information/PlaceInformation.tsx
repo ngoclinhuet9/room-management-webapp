@@ -44,6 +44,7 @@ const PlaceInformation = ({
   const [address, setAddress] = useState(data.address)
   const [rule, setRule] = useState(data.rule)
   const [area, setArea] = useState(data.area)
+  const [amount, setAmount] = useState(data.amount)
   const [bathroomType, setBathroomType] = useState(data.bathroomType)
   const [kitchenType, setKitchenType] = useState(data.kitchenType)
   const [isWithOwner, setIsWithOwner] = useState(data.isWithOwner)
@@ -63,6 +64,7 @@ const PlaceInformation = ({
       setAddress(data.address)
       setRule(data.rule)
       setArea(data.area)
+      setAmount(data.amount)
       setBathroomType(data.bathroomType)
       setKitchenType(data.kitchenType)
       setIsWithOwner(data.isWithOwner)
@@ -92,6 +94,7 @@ const PlaceInformation = ({
         address,
         rule,
         area,
+        amount,
         bathroomType,
         kitchenType,
         isWithOwner,
@@ -143,6 +146,7 @@ const PlaceInformation = ({
     name,
     roomType,
     area,
+    amount,
     bathroomType,
     kitchenType,
     isWithOwner,
@@ -241,7 +245,7 @@ const PlaceInformation = ({
         <TabPanel>
           <Room
             completeTab={setIsCompleteRoom}
-            syncArea={setArea}
+            syncAmount={setAmount}
             syncBathroomType={setBathroomType}
             syncKitchen={setKitchenType}
             syncIsWithOwner={setIsWithOwner}

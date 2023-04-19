@@ -21,48 +21,48 @@ import { useEffect, useState } from 'react'
 
 const Room = ({
   completeTab,
-  syncArea,
+  syncAmount,
   syncBathroomType,
   syncKitchen,
   syncIsWithOwner,
   data,
 }: {
   completeTab: Function
-  syncArea: Function
+  syncAmount: Function
   syncBathroomType: Function
   syncKitchen: Function
   syncIsWithOwner: Function
   data: any
 }) => {
-  const [area, setArea] = useState(data.area)
+  const [amount, setAmount] = useState(data.amount)
   const [bathroomType, setBathroomType] = useState(data.bathroomType)
   const [kitchenType, setKitchenType] = useState(data.kitchenType)
   const [isWithOwner, setIsWithOwner] = useState(data.isWithOwner)
   useEffect(() => {
     if (data) {
-      setArea(data.area)
+      setAmount(data.amount)
       setBathroomType(data.bathroomType)
       setKitchenType(data.kitchenType)
       setIsWithOwner(data.isWithOwner)
     }
   }, [data])
   useEffect(() => {
-    if (bathroomType === '' || kitchenType === '' || area === 0) {
+    if (bathroomType === '' || kitchenType === '' || amount === 0) {
       completeTab(false)
     } else {
-      syncArea(area)
+      syncAmount(amount)
       syncBathroomType(bathroomType)
       syncKitchen(kitchenType)
       syncIsWithOwner(isWithOwner)
       completeTab(true)
     }
   }, [
-    area,
+    amount,
     bathroomType,
     completeTab,
     isWithOwner,
     kitchenType,
-    syncArea,
+    syncAmount,
     syncBathroomType,
     syncIsWithOwner,
     syncKitchen,
@@ -77,14 +77,14 @@ const Room = ({
           </Text>
         </Box>
         <FormControl id='square' isRequired mb={5}>
-          <FormLabel>Diện tích chỗ nghỉ của bạn là: </FormLabel>
+          <FormLabel>Tiền cọc: </FormLabel>
           <NumberInput
-            step={10}
-            defaultValue={15}
+            step={500000}
+            defaultValue={2000000}
             min={10}
-            max={500}
-            onChange={(value) => setArea(parseInt(value))}
-            value={area}>
+            max={10000000}
+            onChange={(value) => setAmount(parseInt(value))}
+            value={amount}>
             <NumberInputField />
             <NumberInputStepper>
               <NumberIncrementStepper />

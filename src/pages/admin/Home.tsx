@@ -11,10 +11,10 @@ function Home() {
     <AdminLayout title='Home'>
       <Tabs maxW='90%' m='40px auto'>
         <TabList>
-          <Tab>Pending Owners</Tab>
-          <Tab>Pending Rooms</Tab>
-          <Tab>Owners List</Tab>
-          <Tab>User List</Tab>
+          <Tab>Chủ phòng chờ phê duyệt</Tab>
+          <Tab>Phòng chờ phê duyệt</Tab>
+          <Tab>Danh sách chủ phòng</Tab>
+          <Tab>Danh sách người dùng</Tab>
         </TabList>
 
         <TabPanels>

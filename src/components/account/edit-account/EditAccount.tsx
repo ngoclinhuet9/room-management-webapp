@@ -23,8 +23,11 @@ import axios from 'utils/axios'
 type Intro = {
   _id: string
   name: string
+  identity: string
   email: string
+  role: string
   phone: string
+  address: string
 }
 const EditAccount = () => {
   // const [session, loading] = useSession()
@@ -107,7 +110,12 @@ const EditAccount = () => {
             boxShadow='inset 0 1px 2px 0 rgba(0,0,0,.15)!important'
             isDisabled = {isView}
             defaultValue={details?.name}
-            //onChange ={(event: any) => {}}
+            onChange = {(event: any) => {
+              //setDetails({name:event.target.value})
+              //setDetails(prev => ({...prev, name:event.target.value}))
+              console.log(details);
+              
+            }}
           />
         </Box>
         <Box mt={6}>

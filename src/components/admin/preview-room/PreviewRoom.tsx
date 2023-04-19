@@ -31,7 +31,7 @@ type Intro = {
   waterPrice: number
   electricityPrice: number
   images: Array<string>
-  owner: { name: string; _id: string }
+  user: { name: string; _id: string }
   description: string
   rule: string
 }
@@ -79,9 +79,8 @@ const PlaceDetailsComponent = () => {
   const navLabels = [
     { label: 'Tổng quan', to: 'overview' },
     { label: 'Tiện nghi', to: 'amenities' },
-    { label: 'Đánh giá', to: 'reviews' },
     { label: 'Nội quy', to: 'policies' },
-    { label: 'Vị trí', to: 'location' },
+    { label: 'Đánh giá', to: 'reviews' },
   ]
 
   return (
@@ -158,16 +157,15 @@ const PlaceDetailsComponent = () => {
                     description={details?.description}
                     placeType={details?.roomType}
                     maxNumOfPeople='2'
-                    ownerName={details?.owner?.name}
+                    ownerName={details?.user?.name}
                   />
                   <Amenities listAmenties={details} />
                   <PolicyAndRule rule={details?.rule} />
-                  <Location />
                 </Box>
               </Box>
 
               <Box flex='1'>
-                <Actions roomId={details?._id} ownerId={details?.owner?._id} />
+                <Actions roomId={details?._id} ownerId={details?.user?._id} />
                 <BookingForm
                   roomPrice={details?.roomPrice}
                   waterPrice={details?.waterPrice}

@@ -62,31 +62,6 @@ const Home = () => {
     xl: 2,
   }
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   latestData: { data } = {} as any,
-  // }: {
-  //   isLoading: boolean
-  //   isError: boolean
-  //   latestData: { data: PlacesByCity }
-  // } = usePlacesByCityData({
-  //   city: 'hanoi',
-  //   page: 0,
-  // })
-
-  // if (isError) {
-  //   toast({
-  //     title: 'Đã có lỗi xảy ra',
-  //     description:
-  //       'Lỗi khi tải dữ liệu, vui lòng kiểm tra lại đường truyền mạng!',
-  //     status: 'error',
-  //     duration: 3000,
-  //     isClosable: true,
-  //     position: 'top',
-  //   })
-  // }
-
   return (
     <Container maxW='calc(1296px + 5.6rem)' px={10}>
       <Box mt={12}>

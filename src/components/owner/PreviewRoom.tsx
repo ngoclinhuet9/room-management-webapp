@@ -98,9 +98,8 @@ const PlaceDetailsComponent = () => {
   const navLabels = [
     { label: 'Tổng quan', to: 'overview' },
     { label: 'Tiện nghi', to: 'amenities' },
-    { label: 'Đánh giá', to: 'reviews' },
     { label: 'Nội quy', to: 'policies' },
-    { label: 'Vị trí', to: 'location' },
+    { label: 'Đánh giá', to: 'reviews' },
   ]
 
   return (
@@ -180,9 +179,8 @@ const PlaceDetailsComponent = () => {
                     ownerName={details?.user?.name}
                   />
                   <Amenities listAmenties={details} />
-                  <Reviews roomId={details?._id} reviews={reviews} />
                   <PolicyAndRule rule={details?.rule} />
-                  <Location />
+                  <Reviews roomId={details?._id} reviews={reviews} />
                 </Box>
               </Box>
 

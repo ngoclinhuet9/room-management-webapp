@@ -13,7 +13,8 @@ const Header = () => {
   const ActiveBar = {
     editAccount: '/renter/account',
     wishList: '/renter/bookmarks',
-    history: '/renter/histories'
+    history: '/renter/histories',
+    renting: '/renter/renting'
   }
 
   return (
@@ -63,6 +64,20 @@ const Header = () => {
                   cursor: 'pointer',
                 },
               }}>Lịch sử đặt phòng</Text>
+            </Link>
+            <Link as={ReactLink}
+              to='/renter/renting'
+            >
+              <Text sx={{
+                borderBottom: location.pathname === ActiveBar.renting ? '4px solid #F65E39' : '',
+                color: location.pathname === ActiveBar.renting ? '#222' : '',
+                py: '3',
+                fontWeight: 'medium',
+                ':hover': {
+                  color: '#222',
+                  cursor: 'pointer',
+                },
+              }}>Danh sách phòng đang thuê</Text>
             </Link>
           </Stack>
         </Container>

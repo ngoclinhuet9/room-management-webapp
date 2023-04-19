@@ -83,9 +83,8 @@ const ViewRoom = () => {
   const navLabels = [
     { label: 'Tổng quan', to: 'overview' },
     { label: 'Tiện nghi', to: 'amenities' },
-    { label: 'Đánh giá', to: 'reviews' },
     { label: 'Nội quy', to: 'policies' },
-    { label: 'Vị trí', to: 'location' },
+    { label: 'Đánh giá', to: 'reviews' },
   ]
 
   return (

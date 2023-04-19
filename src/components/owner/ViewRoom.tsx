@@ -84,9 +84,8 @@ const ViewRoom = () => {
   const navLabels = [
     { label: 'Tổng quan', to: 'overview' },
     { label: 'Tiện nghi', to: 'amenities' },
-    { label: 'Đánh giá', to: 'reviews' },
     { label: 'Nội quy', to: 'policies' },
-    { label: 'Vị trí', to: 'location' },
+    { label: 'Đánh giá', to: 'reviews' },
   ]
 
   return (
@@ -167,9 +166,8 @@ const ViewRoom = () => {
                     description={details?.description}
                   />
                   <Amenities listAmenties={details} />
-                  <Reviews roomId={details?._id} reviews={reviews} />
                   <PolicyAndRule rule={details?.rule} />
-                  <Location />
+                  <Reviews roomId={details?._id} reviews={reviews} />
                 </Box>
               </Box>
               <Box flex='1'>

@@ -29,6 +29,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
     address: data?.address || '',
     rule: data?.rule || '',
     area: data?.area || 15,
+    amount: data?.amount || '',
     bathroomType: data?.bathroomType || 'PRIVATE',
     kitchenType: data?.kitchenType || 'PRIVATE',
     isWithOwner: data?.isWithOwner || true,
@@ -241,19 +242,19 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
           </Steps>
           <div className='steps-content'>{steps[current].content}</div>
           <div className='steps-action buttonWrapperClass'>
+          {current > 0 && (
+              <Button colorScheme='teal' mr={5} onClick={() => prev()}>
+                Quay lại
+              </Button>
+            )}
             {current < steps.length - 1 && (
               <Button colorScheme='orange' mr={5} onClick={() => next()}>
-                Next
+                Tiếp
               </Button>
             )}
             {current === steps.length - 1 && (
               <Button colorScheme='orange' mr={5} onClick={() => next()}>
-                Done
-              </Button>
-            )}
-            {current > 0 && (
-              <Button colorScheme='teal' onClick={() => prev()}>
-                Previous
+                Hoàn thành
               </Button>
             )}
           </div>

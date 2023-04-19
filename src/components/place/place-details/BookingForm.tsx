@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 import { Box, Stack, Text } from '@chakra-ui/react'
 import { useState } from 'react'
+import { AmountFormat } from 'utils/amountFormat'
 
 const BookingForm = ({ roomPrice, waterPrice, electricityPrice }: any) => {
   return (
@@ -14,21 +15,21 @@ const BookingForm = ({ roomPrice, waterPrice, electricityPrice }: any) => {
           <Box className='pricing'>
             <Stack direction='row' align='baseline' mb={2}>
               <Text fontWeight='bolder' fontSize='3xl'>
-                {roomPrice}₫
+                {AmountFormat(roomPrice)}₫
               </Text>
               <Text fontSize='sm'>/tháng</Text>
             </Stack>
             <Stack direction='row' align='baseline'>
               <Text>Giá điện</Text>
               <Text fontWeight='bolder' fontSize='xl'>
-                {electricityPrice}₫
+                {AmountFormat(electricityPrice)}₫
               </Text>
               <Text fontSize='sm'>/số</Text>
             </Stack>
             <Stack direction='row' align='baseline' mb={2}>
               <Text>Giá nước</Text>
               <Text fontWeight='bolder' fontSize='xl'>
-                {waterPrice}₫
+                {AmountFormat(waterPrice)}₫
               </Text>
               <Text fontSize='sm'>/số</Text>
             </Stack>

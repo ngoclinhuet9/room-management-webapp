@@ -25,6 +25,7 @@ import Header from 'components/layout/Header'
 import { DatePicker, DatePickerProps } from 'antd'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import { AmountFormat } from 'utils/amountFormat'
 import Amenities from './Amenities'
 import ImageSlider from './ImageSlider'
 import Location from './Location'
@@ -51,6 +52,7 @@ type Intro = {
   hasBalcony: boolean
   hasFridge: boolean
   hasBed: boolean
+  amount: number
   hasWardrobe: boolean
   roomPrice: number
   waterPrice: number
@@ -65,7 +67,8 @@ type Params = {
 }
 
 const PlaceDetailsComponent = () => {
-  let date = new Date()
+  let stdate = new Date()
+  let edDate = new Date((new Date().getTime() - (30 * 24 * 60 * 60 * 1000)))
   const token = localStorage.getItem('token')
   const toast = useToast()
   const params: Params = useParams()
@@ -81,18 +84,7 @@ const PlaceDetailsComponent = () => {
   const [endDate, setEndDate] = useState('2023/04/05')
   const history = useHistory()
 
-  let amount = '100000000'  //thêm field tiền đặt cọc khi tạo phòng
-  let vnp_Command = 'pay'
-  let vnp_CreateDate = dayjs(new Date()).format('YYYYMMDDHHmmss')
-  let vnp_CurrCode = 'VND'
-  let vnp_IpAddr = '192.168.10.102'
-  let vnp_OrderInfo = 'Thanh+toan+don+hang'
-  let vnp_OrderType = '170000'
-  let vnp_ReturnUrl ='http://room-management.local:3000/'
-  let vnp_TmnCode = 'GJKNDUTB'
-  let vnp_TxnRef='2'
-  let vnp_Version= '2.1.0'
-  let vnp_SecureHash='JKIJTKECTGVIMIHECGARUPTCMKUKDVPD'
+  //let amount = '100000000'  //thêm field tiền đặt cọc khi tạo phòng
 
   const handleScroll = () => {
     const position = window.pageYOffset
@@ -105,9 +97,10 @@ const PlaceDetailsComponent = () => {
 
   const handlePayment = () => {
     axios
-      .post(`/payment`)
+      .post(`/payment`, {amount: details?.amount})
       .then((res) => {
-        window.open(res.data.data.vnpUrl)
+        //redirect(res.data.data.vnpUrl)
+        window.location.href = res.data.data.vnpUrl
       })
       .catch((err) => {
         console.log(err)
@@ -120,10 +113,7 @@ const PlaceDetailsComponent = () => {
           position: 'top',
         })
       })
-
-    //https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-    //window.open(`https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=${amount}&vnp_Command=${vnp_Command}&vnp_CreateDate=${vnp_CreateDate}&vnp_CurrCode=${vnp_CurrCode}&vnp_IpAddr=${vnp_IpAddr}&vnp_Locale=vn&vnp_OrderInfo=${vnp_OrderInfo}&vnp_OrderType=${vnp_OrderType}&vnp_ReturnUrl=${vnp_ReturnUrl}&vnp_TmnCode=${vnp_TmnCode}&vnp_TxnRef=${vnp_TxnRef}&vnp_Version=${vnp_Version}&vnp_SecureHash=${vnp_SecureHash}`)
-  }
+}
 
   const next = async () => {
     if (startDate <= endDate) {
@@ -201,9 +191,8 @@ const PlaceDetailsComponent = () => {
   const navLabels = [
     { label: 'Tổng quan', to: 'overview' },
     { label: 'Tiện nghi', to: 'amenities' },
-    { label: 'Đánh giá', to: 'reviews' },
     { label: 'Nội quy', to: 'policies' },
-    { label: 'Vị trí', to: 'location' },
+    { label: 'Đánh giá', to: 'reviews' },
   ]
 
   return (
@@ -285,9 +274,8 @@ const PlaceDetailsComponent = () => {
                     description={details?.description}
                   />
                   <Amenities listAmenties={details} />
-                  <Price />
-                  <Reviews roomId={details?._id} reviews={reviews} />
                   <PolicyAndRule rule={details?.rule} />
+                  <Reviews roomId={details?._id} reviews={reviews} />
                 </Box>
               </Box>
               <Box padding='1.5rem 0' flex='2'>
@@ -310,14 +298,15 @@ const PlaceDetailsComponent = () => {
                           <FormControl mt={4}>
                             <FormLabel>Số tiền cần đặt cọc</FormLabel>
                             <Input
+                              width='80%'
                               isDisabled={inputDisable}
-                              placeholder={amount}
+                              placeholder={AmountFormat(details?.amount)}
                             />
                           </FormControl>
                           <FormControl>
                             <FormLabel>Thời gian thuê</FormLabel>
                             <DatePicker
-                              // defaultValue={dayjs(date).format('YYYY-MM-DD')}
+                              defaultValue={moment(stdate, 'YYYY/MM/DD')}
                               format='YYYY/MM/DD'
                               onSelect={(event: any) => {
                                 setStartDate(
@@ -328,7 +317,7 @@ const PlaceDetailsComponent = () => {
                             />
                             <text> ~ </text>
                             <DatePicker
-                              // defaultValue={dayjs(date, 'YYYY/MM/DD')}
+                              defaultValue={moment(edDate , 'YYYY/MM/DD')}
                               format='YYYY/MM/DD'
                               onSelect={(event: any) => {
                                 setEndDate(dayjs(event._d).format('YYYY/MM/DD'))
@@ -341,11 +330,11 @@ const PlaceDetailsComponent = () => {
                           <Button
                             colorScheme='orange'
                             mb='15px'
-                            mr='20px'
+                            mr='30px'
                             onClick={() => next()}>
                             Thanh toán sau
                           </Button>
-                          <Button colorScheme='orange' mr='50px' mb='15px' onClick={() => handlePayment()}>
+                          <Button colorScheme='orange' mr='80px' mb='15px' onClick={() => handlePayment()}>
                             Thanh toán ngay
                           </Button>
                         </ModalFooter>
