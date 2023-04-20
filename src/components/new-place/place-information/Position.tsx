@@ -79,12 +79,12 @@ const Position = ({
       <Box w='35%'>
         <InfoBox
           title='Ghi địa chỉ như thế nào là đúng?'
-          content='Địa chỉ 3S của bạn sẽ được cung cấp cho Khách hàng khi họ hoàn tất đặt chỗ. Đối với địa chỉ nhà cụ thể (ngõ/ ngách), bạn ghi theo thứ tự lần lượt là: Ngõ/kiệt/ngách/hẻm.
+          content='Địa chỉ của bạn sẽ được cung cấp cho Khách hàng khi họ hoàn tất đặt chỗ. Đối với địa chỉ nhà cụ thể (ngõ/ ngách), bạn ghi theo thứ tự lần lượt là: Ngõ/kiệt/ngách/hẻm.
         Ví dụ: Số nhà 250 ngách 78 ngõ 162 Kim Mã, Ba Đình, Hà Nội sẽ được điền là: 162/78/250 Kim Mã, Ba Đình, Hà Nội hoặc SN 250 ngõ 162/78 Ba Đình, Hà Nội.'
         />
         <InfoBox
           title='Lưu ý:'
-          content='Hãy kiểm tra kỹ thông tin trước khi đi tới bước tiếp theo bởi sau khi chỗ nghỉ được duyệt và đăng tải trên hệ thống Luxstay, bạn sẽ không thể tự ý chỉnh sửa địa chỉ. Tất cả sự thay đổi vị trí sau đó đều cần có sự hỗ trợ và kiểm duyệt của 3S.'
+          content='Hãy kiểm tra kỹ thông tin trước khi đi tới bước tiếp theo bởi sau khi chỗ nghỉ được duyệt và đăng tải trên hệ thống Nhà Trọ Online, bạn sẽ không thể tự ý chỉnh sửa địa chỉ. Tất cả sự thay đổi vị trí sau đó đều cần có sự hỗ trợ và kiểm duyệt của chúng tôi'
         />
       </Box>
     </Flex>

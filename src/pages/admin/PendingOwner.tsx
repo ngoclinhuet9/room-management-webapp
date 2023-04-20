@@ -7,7 +7,7 @@ import axios from 'utils/axios'
 function PendingOwner() {
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'name',
       key: 'name',
       render: (text: string) => <a>{text}</a>,
@@ -25,17 +25,17 @@ function PendingOwner() {
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Address',
+      title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Phone',
+      title: 'Số điện thoại',
       dataIndex: 'phone',
       key: 'phone',
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: '_id',
       key: '_id',
       render: (id: string) => (

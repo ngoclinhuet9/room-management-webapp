@@ -18,6 +18,7 @@ type Intro = {
   name: string
   address: string
   area: number
+  amount: number
   roomType: string
   bathroomType: string
   kitchenType: string
@@ -61,7 +62,6 @@ const PlaceDetailsComponent = () => {
       .get(`/rooms/${params?.room_id}`)
       .then((res) => {
         setDetails(res.data.data.room)
-        console.log(res.data.data.room)
       })
       .catch((err) => {
         console.log(err)
@@ -170,6 +170,7 @@ const PlaceDetailsComponent = () => {
                   roomPrice={details?.roomPrice}
                   waterPrice={details?.waterPrice}
                   electricityPrice={details?.electricityPrice}
+                  amount={details?.amount}
                 />
               </Box>
             </Flex>

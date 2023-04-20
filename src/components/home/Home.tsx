@@ -89,11 +89,11 @@ const Home = () => {
           <Box>
             <Box mt={8} marginBottom='8px'>
               <Text fontSize='3xl' fontWeight='bold'>
-                Chào mừng đến với 3S!
+                Chào mừng đến với Nhà Trọ Online!
               </Text>
               <Text>
                 Đặt chỗ ở, homestay, cho thuê xe, trải nghiệm và nhiều hơn nữa
-                trên 3S
+                trên Nhà Trọ Online
               </Text>
               <Text>
                 {' '}
@@ -180,7 +180,7 @@ const Home = () => {
             }}>
             <HomeSectionHeader
               name='Địa điểm nổi bật'
-              description='Cùng 3S bắt đầu chuyến hành trình chinh phục thế giới của bạn'
+              description='Cùng chúng tôi bắt đầu chuyến hành trình chinh phục thế giới của bạn'
             />
             <Box
               display={{
@@ -335,7 +335,7 @@ const Home = () => {
           <Box mt={12}>
             <HomeSectionHeader
               name='Ưu đãi độc quyền'
-              description='Chỉ có tại 3S, hấp dẫn và hữu hạn, book ngay!'
+              description='Chỉ có tại Nhà Trọ Online, hấp dẫn và hữu hạn, book ngay!'
             />
 
             <Grid templateColumns='repeat(3, 1fr)' gap={4}>

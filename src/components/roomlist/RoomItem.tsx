@@ -3,6 +3,7 @@
 /* eslint-disable no-redeclare */
 
 import { Box, Image, Text, Stack, Skeleton } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { AiFillStar } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { AmountFormat } from 'utils/amountFormat'
@@ -31,7 +32,13 @@ function RoomItem({
   })
 
   avg = ratings?.length === 0 ? sum / ratings?.length : 0
-
+  const [roomType, setRoomType] = useState('')
+  useEffect(() => {
+    if(placeType == 'MOTEL') {setRoomType('Phòng trọ')}
+    if(placeType == 'APARTMENT') {setRoomType('Chung cư')}
+    if(placeType == 'WHOLE_HOUSE') {setRoomType('Nhà nguyên căn')}
+    if(placeType == 'WHOLE_APARTMENT') {setRoomType('PChung cư nguyên căn')}
+  }, [])
   return (
     <Box mt={3} w='100%' mx='0.3rem' my='0.4rem'>
       <Box>
@@ -80,7 +87,7 @@ function RoomItem({
                   justifyContent='space-between'
                   alignItems='center'>
                   <Text fontSize='sm' color='#718096'>
-                    {placeType}
+                    {roomType}
                   </Text>
                   {/* <Stack fontSize='sm' direction='row'>
                     <AiFillStar color='#FFB025' size='18' />
@@ -119,7 +126,7 @@ function RoomItem({
             <Skeleton mt={2} width='30%' height={3} />
           ) : (
               <Stack mt={2} direction='row' spacing={3} fontSize={14}>
-                <Text fontWeight='bolder'>{AmountFormat(price)}₫/tháng</Text>
+                <Text fontWeight='bolder' textColor='orange'>{AmountFormat(price)}₫/tháng</Text>
               </Stack>
             )}
         </Box>

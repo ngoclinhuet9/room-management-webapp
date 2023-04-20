@@ -83,6 +83,19 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
         }
       })
     }
+
+    axios.put('/updatetoken')
+    .catch((err: any) => {
+      console.log(err)
+      toast({
+        title: 'Có sự cố xảy ra',
+        description: 'Bạn không đủ quyền để truy cập trang này',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+    })
   // })
 }, [])
     // if(!hasToVerify) return;
@@ -196,10 +209,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
           alignItems='center'>
           <Box width='100%'>
             <Link to='/owner'>
-              <Image display='inline' src={Logo} width='60px' height='60px' />
-              <Text display='inline' fontSize='xl' fontWeight='500' ml={4} position='absolute' left='240px' top='29px'>
-                    3S PLACE
-              </Text>
+              <Image display='inline' src={Logo} width='20%' height='25%' mt='10px' />
             </Link>
           </Box>
           <Spacer />

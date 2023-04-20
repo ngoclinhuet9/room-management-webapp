@@ -18,25 +18,22 @@ export default function Footer() {
             templateColumns={{ sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}>
             <Box mt={4}>
               <Box display='flex' alignItems='center' mb={5}>
-                <Image src={Logo} height={14} width={14} />
-                <Text fontSize='xl' fontWeight='500' ml={4}>
-                  3S PLACE
-                </Text>
+                <Image display='inline' src={Logo} width='40%' height='50%'/>
               </Box>
               <Box display='flex' alignItems='center'>
                 <Image src={Message} />
                 <Box ml={8}>
                   <Text fontSize='md' fontWeight='500'>
-                    Messenger
+                    Nhắn tin
                   </Text>
-                  <Text fontSize='sm'>http://m.me/3s-place</Text>
+                  <Text fontSize='sm'>http://m.me/nhatroonline</Text>
                 </Box>
               </Box>
               <Box display='flex' alignItems='center' mt={4}>
                 <Image src={Phone} />
                 <Box ml={8}>
                   <Text fontSize='md' fontWeight='500'>
-                    Call center
+                    Gọi cho chúng tôi
                   </Text>
                   <Text fontSize='sm'>0123456789</Text>
                 </Box>
@@ -86,7 +83,7 @@ export default function Footer() {
             <Box mt={4}>
               <Box>
                 <Text fontSize='md' mb={5} fontWeight='700'>
-                  TẢI ỨNG DỤNG 3S PLACE
+                  TẢI ỨNG DỤNG Nhà Trọ Online
                 </Text>
                 <Box display='flex'>
                   <Box>

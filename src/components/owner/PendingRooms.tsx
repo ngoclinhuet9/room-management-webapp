@@ -8,35 +8,35 @@ import axios from 'utils/axios'
 function PendingRooms() {
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên phòng',
       dataIndex: 'name',
       key: 'name',
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Address',
+      title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Room Type',
+      title: 'Loại phòng',
       dataIndex: 'roomType',
       key: 'roomType',
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'roomPrice',
       key: 'roomPrice',
     },
     {
-      title: 'Area',
+      title: 'Diện tích',
       dataIndex: 'area',
       key: 'area',
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: '_id',
       key: '_id',
       render: (id: string) => (
@@ -45,7 +45,7 @@ function PendingRooms() {
             <Link to={`/owner/rooms/${id}/pending`}>Xem</Link>
           </Button>
           <Button colorScheme='orange' mr='5px'>
-            <Link to={`/owner/rooms/${id}/edit`}>Edit</Link>
+            <Link to={`/owner/rooms/${id}/edit`}>Sửa</Link>
           </Button>
         </Box>
       ),

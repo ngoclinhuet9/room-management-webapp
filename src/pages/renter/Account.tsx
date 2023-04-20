@@ -5,8 +5,11 @@ import SideBar from 'components/account/edit-account/SideBar'
 
 function Account() {
   return (
-    <Layout>
+    <Layout title = 'Cài đặt tài khoản'>
+      {window.location.pathname.startsWith('/renter')?
       <Header />
+      :null
+      }
       <SideBar />
     </Layout>
   )

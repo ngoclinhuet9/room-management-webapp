@@ -108,7 +108,7 @@ const BaseInformation = ({
       <Box w='35%'>
         <InfoBox
           title='Tại sao cần phân loại chỗ nghỉ?'
-          content='Tại 3S, chúng tôi phân chỗ nghỉ thành 29 loại, việc này giúp cho khách hàng lựa chọn nơi ở dễ dàng hơn. Đồng thời Luxstay cũng có điều kiện hỗ trợ bạn tốt hơn.'
+          content='Chúng tôi phân chỗ nghỉ thành 29 loại, việc này giúp cho khách hàng lựa chọn nơi ở dễ dàng hơn. Đồng thời Luxstay cũng có điều kiện hỗ trợ bạn tốt hơn.'
         />
       </Box>
     </Flex>

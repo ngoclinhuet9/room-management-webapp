@@ -90,7 +90,7 @@ const Login = () => {
             <Container px={10} maxW='calc(1296px + 5.6rem)'>
               <Box px={2} maxW='60%'>
                 <Box as='h1' fontSize='2xl' fontWeight='bold' mb={3}>
-                  Đăng ký thành viên 3S - Tích điểm thưởng và nhận ưu đãi
+                  Đăng ký thành viên - Tích điểm thưởng và nhận ưu đãi
                 </Box>
                 <Text fontSize='lg' fontWeight='semibold'>
                   Nhanh chóng, tiện lợi và an toàn. Đăng ký liền tay, rinh ngay
@@ -112,7 +112,7 @@ const Login = () => {
                     Đăng nhập
                   </Box>
                   <Text fontWeight='bold' mb={4}>
-                    Đăng nhập 3S để trải nghiệm
+                    Đăng nhập ngay để trải nghiệm
                   </Text>
                   <InputGroup mt={8} size='lg'>
                     <Input
@@ -191,7 +191,7 @@ const Login = () => {
                       </Link>
                     </Box>
                     <Box mt={8}>
-                      Bạn chưa có tài khoản 3S?{' '}
+                      Bạn chưa có tài khoản?{' '}
                       <Link
                         as={ReactLink}
                         to='/owner/signup'
@@ -210,7 +210,7 @@ const Login = () => {
                     <MediaBox
                       imageUrl={Coins}
                       title='Tích điểm nhanh chóng'
-                      description='Tích điểm đối với mỗi lượt đặt chỗ thành công. Quy đổi thành 3S Credit để du lịch nhiều hơn nữa.'
+                      description='Tích điểm đối với mỗi lượt đặt chỗ thành công. Quy đổi điểm để du lịch nhiều hơn nữa.'
                     />
                   </GridItem>
                   <GridItem>
@@ -231,7 +231,7 @@ const Login = () => {
                     <MediaBox
                       imageUrl={BackPack}
                       title='Ưu đãi mỗi ngày'
-                      description='Nhận thông báo ưu đãi từ 3S khi có kế hoạch du lịch để lựa chọn và đặt ngay cho mình một chỗ ở phù hợp, tiện nghi với giá tốt nhất.'
+                      description='Nhận thông báo ưu đãi khi có kế hoạch du lịch để lựa chọn và đặt ngay cho mình một chỗ ở phù hợp, tiện nghi với giá tốt nhất.'
                     />
                   </GridItem>
                 </Grid>

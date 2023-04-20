@@ -57,7 +57,7 @@ const Actions = (props: any) => {
       })
   }
 
-  const removeRent = (id: any) => {
+  const removeRent = () => {
     axios
       .put(`owner/rooms/${params?.room_id}/return`)
       .then((res) => {

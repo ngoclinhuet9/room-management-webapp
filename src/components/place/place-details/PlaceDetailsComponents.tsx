@@ -355,6 +355,7 @@ const PlaceDetailsComponent = () => {
                     roomPrice={details?.roomPrice}
                     waterPrice={details?.waterPrice}
                     electricityPrice={details?.electricityPrice}
+                    amount={details?.amount}
                   />
                 </Box>
               </Box>

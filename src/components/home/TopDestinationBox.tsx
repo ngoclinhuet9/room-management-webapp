@@ -45,14 +45,6 @@ function TopDestinationBox ({ name, imageUrl, city }: Props) {
               <Box as='h4' fontWeight='bold' fontSize='2xl' color='white'>
                 {name}
               </Box>
-              <Box>
-                <Box display='inline-block' fontWeight='bold'>
-                  1000
-                </Box>{' '}
-                <Box display='inline-block' color='gray.100'>
-                  Chỗ ở
-                </Box>
-              </Box>
             </Box>
           </Box>
         </Link>

@@ -24,11 +24,11 @@ function OwnerList() {
   }
 
   const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Tên', dataIndex: 'name', key: 'name' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'CMND', dataIndex: 'identity', key: 'identity' },
-    { title: 'Address', dataIndex: 'address', key: 'address' },
-    { title: 'Phone', dataIndex: 'phone', key: 'phone' },
+    { title: 'Địa chỉ', dataIndex: 'address', key: 'address' },
+    { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },
   ]
 
   const [ownerList, setOwnerList] = useState<any>([])

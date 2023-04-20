@@ -20,6 +20,7 @@ type Intro = {
   description: string
   address: string
   area: number
+  amount: number
   roomType: string
   bathroomType: string
   kitchenType: string
@@ -177,6 +178,7 @@ const ViewRoom = () => {
                   roomPrice={details?.roomPrice}
                   waterPrice={details?.waterPrice}
                   electricityPrice={details?.electricityPrice}
+                  amount={details?.amount}
                 />
               </Box>
             </Flex>

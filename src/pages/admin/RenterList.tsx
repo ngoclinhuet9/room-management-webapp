@@ -22,7 +22,7 @@ function RenterList() {
   }, [])
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'name',
       key: 'name',
       render: (text: string) => <a>{text}</a>,
@@ -40,17 +40,17 @@ function RenterList() {
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Address',
+      title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Phone',
+      title: 'Số điện thoại',
       dataIndex: 'phone',
       key: 'phone',
     },
     {
-      title: 'Active',
+      title: 'Trạng thái',
       dataIndex: 'isActive',
       key: 'isActive',
       render: (isActive: any) => (

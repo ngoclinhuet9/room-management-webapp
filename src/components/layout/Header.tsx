@@ -60,6 +60,18 @@ export default function Header() {
       }
     }
     })
+    axios.put('/updatetoken')
+    .catch((err: any) => {
+      console.log(err)
+      toast({
+        title: 'Có sự cố xảy ra',
+        description: 'Bạn không đủ quyền để truy cập trang này',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+    })
   }, [])
 
   const signOut = async () => {
@@ -131,10 +143,7 @@ export default function Header() {
           m='0 auto'
           alignItems='center'>
           <Link to='/'>
-            <Image display='inline' src={Logo} width='60px' height='60px' />
-            <Text display='inline' fontSize='xl' fontWeight='500' ml={4} position='absolute' left='240px' top='29px'>
-                  3S PLACE
-            </Text>
+            <Image display='inline' src={Logo} width='20%' height='25%' mt='10px'/>
           </Link>
           <Spacer />
           {name ? (

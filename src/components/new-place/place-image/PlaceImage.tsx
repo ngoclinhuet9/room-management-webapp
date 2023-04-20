@@ -141,7 +141,7 @@ const PlaceImage = ({
             </Text>
           </Box>
           <FormControl id='overview_image' isRequired mb={5}>
-            <FormLabel>Ảnh chỗ nghỉ (Ít nhất 1 ảnh):</FormLabel>
+            <FormLabel>Ảnh chỗ nghỉ (Ít nhất 3 ảnh):</FormLabel>
             <Upload
               customRequest={({file, onSuccess}) => customRequest({file, onSuccess})}
               action='localhost:3000'

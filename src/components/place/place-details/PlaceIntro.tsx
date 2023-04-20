@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable camelcase */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Avatar,
   Box,
@@ -27,6 +27,13 @@ const PlaceIntro = ({
 }: any) => {
   const NavLabel = chakra(Element)
   const [truncated, setTruncated] = useState(true)
+  const [roomType, setRoomType] = useState('')
+  useEffect(() => {
+    if(placeType == 'MOTEL') {setRoomType('Phòng trọ')}
+    if(placeType == 'APARTMENT') {setRoomType('Chung cư')}
+    if(placeType == 'WHOLE_HOUSE') {setRoomType('Nhà nguyên căn')}
+    if(placeType == 'WHOLE_APARTMENT') {setRoomType('PChung cư nguyên căn')}
+  }, [])
   return (
     <NavLabel className='place-details-overviews' name='overview'>
       <Box>
@@ -49,7 +56,7 @@ const PlaceIntro = ({
           flexDirection='row'
           alignItems='center'>
           <BiLocationPlus size='1.5rem' />
-          <Text fontWeight='bolder' ml={3}>
+          <Text fontWeight='bolder' ml={3} fontSize='xl'>
             {address}
           </Text>
         </Flex>
@@ -60,18 +67,20 @@ const PlaceIntro = ({
           flexDirection='row'
           alignItems='center'>
           <BiBuildings size='1.5rem' />
-          <Text fontWeight='bolder' ml={3}>
-            {placeType}
-          </Text>
-          <Text fontWeight='medium' fontSize='medium' ml={5}>
-            Diện tích · {roomData} m<sup>2</sup>
+          <Text fontWeight='bolder' ml={3} fontSize='xl'>
+            {roomType}
           </Text>
         </Flex>
       </Box>
+      <Box mt={3} fontSize='sm'>
+        <Text fontWeight='medium' fontSize='medium'>
+          Diện tích · {roomData} m<sup>2</sup>
+        </Text>
+      </Box>
       <Box mt={4}>
         <Stack spacing='5px' direction='column'>
-          <Text>Phòng bếp : {kitchenType} </Text>
-          <Text>Phòng tắm : {bathRoomType}</Text>
+          <Text>Phòng bếp : {kitchenType=='PRIVATE'?'Riêng tư':'Dùng chung'} </Text>
+          <Text>Phòng tắm : {bathRoomType=='PRIVATE'?'Riêng tư':'Dùng chung'}</Text>
           <Text>
             Chung chủ : {isWithOwner ? 'Có chung chủ' : 'Không chung chủ'}
           </Text>
