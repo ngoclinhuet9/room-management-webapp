@@ -84,7 +84,8 @@ const Room = ({
             min={10}
             max={10000000}
             onChange={(value) => setAmount(parseInt(value))}
-            value={amount}>
+            value={amount}
+            >
             <NumberInputField />
             <NumberInputStepper>
               <NumberIncrementStepper />

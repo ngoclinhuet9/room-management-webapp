@@ -70,7 +70,7 @@ export default function Footer() {
                   Điều khoản hoạt động
                 </Text>
                 <Text fontSize='md' mt={2}>
-                  +84 962605699
+                  +84 962609999
                 </Text>
                 <Text fontSize='md' mt={2}>
                   Thông tin dành cho chủ nhà
@@ -83,7 +83,7 @@ export default function Footer() {
             <Box mt={4}>
               <Box>
                 <Text fontSize='md' mb={5} fontWeight='700'>
-                  TẢI ỨNG DỤNG Nhà Trọ Online
+                  TẢI ỨNG DỤNG NHÀ TRỌ ONLINE
                 </Text>
                 <Box display='flex'>
                   <Box>

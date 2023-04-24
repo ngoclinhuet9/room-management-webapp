@@ -49,16 +49,16 @@ function RenterList() {
       dataIndex: 'phone',
       key: 'phone',
     },
-    {
-      title: 'Trạng thái',
-      dataIndex: 'isActive',
-      key: 'isActive',
-      render: (isActive: any) => (
-        <>
-          <Tag color={isActive ? 'green' : 'red'}>{isActive}</Tag>
-        </>
-      ),
-    },
+    // {
+    //   title: 'Trạng thái',
+    //   dataIndex: 'isActive',
+    //   key: 'isActive',
+    //   render: (isActive: any) => (
+    //     <>
+    //       <Tag color={isActive ? 'green' : 'red'}>{isActive}</Tag>
+    //     </>
+    //   ),
+    // },
   ]
 
   return <Table columns={columns} dataSource={renterList} />

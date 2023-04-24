@@ -81,7 +81,6 @@ const SignUp = () => {
       })
       history.push('/')
     } catch (error: any) {
-      console.log(error?.response?.data?.error)
       setLoading(false)
       return toast({
         title: 'Lỗi',

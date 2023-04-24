@@ -26,7 +26,6 @@ const ReviewForm = ({ addReview }: { addReview: Function }) => {
   const [disable, setDisable] = useState(true)
 
   const handleSubmit = () => {
-    console.log(comment)
     addReview({ comment, score })
   }
 

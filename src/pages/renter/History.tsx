@@ -8,7 +8,7 @@ function History(){
   return (
     <Layout title='Lịch sử đặt phòng'>
       <Header />
-      <Box maxW='90%' m='40px auto'>
+      <Box maxW='90%' m='auto 140px'>
         <Histories />
       </Box>
     </Layout>

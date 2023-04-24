@@ -80,7 +80,6 @@ function* signUpByEmailAndPasswordSaga({
     if (token) {
       yield put(authSuccess(token))
       const path = window.location.pathname
-      console.log(path)
       yield axios.post('/user/create', {
         email: payload.email,
         name: payload.name,

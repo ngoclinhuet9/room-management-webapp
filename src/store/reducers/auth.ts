@@ -9,7 +9,6 @@ const initialState = {
 
 const auth = createReducer(initialState, {
   [authSuccess.type]: () => {
-    debugger
     return { isAuth: true }
   },
   [signOut.type]: () => {

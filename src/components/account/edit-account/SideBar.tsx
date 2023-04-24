@@ -47,7 +47,7 @@ const SideBar = () => {
           </Button>
         </ListItem>
       </List>
-      <Box flex='3' ml='50px'>
+      <Box flex='4' m='auto 50px'>
         {part === 'info' ? (
           <EditAccount />
         ) :(

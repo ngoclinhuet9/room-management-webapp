@@ -1,4 +1,4 @@
-import { Box, Button, Flex, useToast } from '@chakra-ui/react'
+import { Box, Button, Flex, toast, useToast } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import axios from 'utils/axios'
 import { useParams, useHistory } from 'react-router-dom'
@@ -14,6 +14,7 @@ const Actions = ({
   roomId: string | undefined
   ownerId: string | undefined
 }) => {
+  const toast = useToast()
   const params: Params = useParams()
   const history = useHistory()
   const handleAccept = async () => {
@@ -21,19 +22,18 @@ const Actions = ({
       axios
         .put(`rooms/${params?.room_id}/approve`)
         .then((res) => {
-          console.log(res)
+          toast({
+            title: 'Thành công',
+            description: 'Bạn đã phê duyệt yêu cầu thành công',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
         })
         .catch((err) => {
           console.log(err)
         })
-      // firestore().collection('notifications').add({
-      //   sender: '',
-      //   senderType: 'admin',
-      //   receiver: ownerId,
-      //   receiverType: 'owner',
-      //   roomId,
-      //   type: 'APPROVE_ROOM',
-      // })
       history.push('/admin')
     } catch (error) {
       console.log(error)
@@ -44,7 +44,14 @@ const Actions = ({
       axios
         .put(`rooms/${params?.room_id}/reject`)
         .then((res) => {
-          console.log(res)
+          toast({
+            title: 'Thành công',
+            description: 'Bạn đã từ chối yêu cầu thành công',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
         })
         .catch((err) => {
           console.log(err)

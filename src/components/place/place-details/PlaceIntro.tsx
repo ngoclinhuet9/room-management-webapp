@@ -33,7 +33,7 @@ const PlaceIntro = ({
     if(placeType == 'APARTMENT') {setRoomType('Chung cư')}
     if(placeType == 'WHOLE_HOUSE') {setRoomType('Nhà nguyên căn')}
     if(placeType == 'WHOLE_APARTMENT') {setRoomType('PChung cư nguyên căn')}
-  }, [])
+  }, [placeType])
   return (
     <NavLabel className='place-details-overviews' name='overview'>
       <Box>

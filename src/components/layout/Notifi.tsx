@@ -14,7 +14,6 @@ function Notifi({ role }: { role: string }): any {
   const initData = async () => {
     axios.get('/profile').then(async (res) => {
       const dataTemp = res.data.data as any
-      console.log(dataTemp)
       // await firestore().collection('notifications').where('receiver', '==', dataTemp?._id).onSnapshot(async (documentSnapshot) => {
       //   let notifications = [] as Array<Notification>
       //   await documentSnapshot.forEach(async (doc) => {

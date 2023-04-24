@@ -173,9 +173,14 @@ export default function AdminHeader({ hasToVerify = true }: { hasToVerify?: Bool
                 {name}
               </MenuButton>
               <MenuList>
+              <MenuItem>
+                  <Button onClick={() => history.push('/admin/account')} variant='link'>
+                    Cài đặt tài khoản
+                  </Button>
+                </MenuItem>
                 <MenuItem>
                   <Button onClick={() => history.push('/admin/dashboard')} variant='link'>
-                    Dashboard
+                    Thống kê
                   </Button>
                 </MenuItem>
                 <MenuItem>

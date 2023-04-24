@@ -37,6 +37,7 @@ import Reviews from './Reviews'
 import ShareAndLikeBtn from './ShareAndLikeBtn'
 import Price from './Price'
 import moment from 'moment'
+import { on } from 'events'
 
 type Intro = {
   _id: string
@@ -68,7 +69,7 @@ type Params = {
 
 const PlaceDetailsComponent = () => {
   let stdate = new Date()
-  let edDate = new Date((new Date().getTime() - (30 * 24 * 60 * 60 * 1000)))
+  let edDate = new Date((new Date().getTime() + (30 * 24 * 60 * 60 * 1000)))
   const token = localStorage.getItem('token')
   const toast = useToast()
   const params: Params = useParams()
@@ -80,6 +81,7 @@ const PlaceDetailsComponent = () => {
   const [details, setDetails] = useState<Intro>()
   const [isBookmarked, setIsBookmarked] = useState(true)
   const [reviews, setReviews] = useState([])
+  const [renterRooms, setRenterRooms] = useState<any>(null)
   const [startDate, setStartDate] = useState('2023/04/05')
   const [endDate, setEndDate] = useState('2023/04/05')
   const history = useHistory()
@@ -97,7 +99,7 @@ const PlaceDetailsComponent = () => {
 
   const handlePayment = () => {
     axios
-      .post(`/payment`, {amount: details?.amount})
+      .post(`/payment`, {amount: details?.amount, returnURL: `http://localhost:7002/renter/payment_VN_pay?room_id=${params.room_id}&startDate=${startDate}&endDate=${endDate}`})
       .then((res) => {
         //redirect(res.data.data.vnpUrl)
         window.location.href = res.data.data.vnpUrl
@@ -126,7 +128,6 @@ const PlaceDetailsComponent = () => {
             _endDate: endDate,
           },
         })
-        console.log(res)
         if (res) {
           toast({
             title: 'Thành công',
@@ -149,8 +150,6 @@ const PlaceDetailsComponent = () => {
         })
       }
     } else {
-      console.log(startDate)
-      console.log(endDate)
       toast({
         title: 'Ngày kết thúc cần lớn hơn ngày bắt đầu',
         description: 'Vui lòng điền lại ngày kết thúc',
@@ -170,6 +169,9 @@ const PlaceDetailsComponent = () => {
         setDetails(res.data.data.room)
         setIsBookmarked(res.data.data.is_bookmarked)
         setReviews(res.data.data.reviews)
+        if (res.data.data.renterRooms) {
+          setRenterRooms(res.data.data.renterRooms)
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -194,6 +196,39 @@ const PlaceDetailsComponent = () => {
     { label: 'Nội quy', to: 'policies' },
     { label: 'Đánh giá', to: 'reviews' },
   ]
+
+  const onCheckout = async () => {
+    try {
+      const res = await axios({
+        url: `/renters/${params?.room_id}/returnRoom`,
+        method: 'put'
+      })
+      if (res) {
+        toast({
+          title: 'Thành công',
+          description: 'Bạn đã gửi yêu cầu trả phòng thành công',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+          position: 'top',
+        })
+      }
+      history.push('/')
+    } catch (error: any) {
+      toast({
+        title: 'Sai định dạng dữ liệu',
+        description: error?.response?.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+    }
+  }
+
+  const showButtonCheckout = () => {
+    return renterRooms?.requestType === "0" && renterRooms?.status === 0
+  }
 
   return (
     <Box>
@@ -260,7 +295,7 @@ const PlaceDetailsComponent = () => {
               <Box flex='2'>
                 <Box paddingRight='30px'
                   width='900px'>
-                  <PlaceRoute city={details?.city} />
+                  <PlaceRoute name={details?.name} />
                   <PlaceIntro
                     name={details?.name}
                     address={details?.address}
@@ -280,75 +315,83 @@ const PlaceDetailsComponent = () => {
               </Box>
               <Box padding='1.5rem 0' flex='2'>
                 <Flex width='100%' flexDirection='row'>
-                  <Box ml='16px'>
-                    <Button colorScheme='orange' onClick={onOpen}>
-                      Đặt phòng
-                    </Button>
-                    <Modal
-                      initialFocusRef={initialRef}
-                      finalFocusRef={finalRef}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      z-index='1'>
-                      <ModalOverlay />
-                      <ModalContent>
-                        <ModalHeader>Đặt phòng</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody pb={6}>
-                          <FormControl mt={4}>
-                            <FormLabel>Số tiền cần đặt cọc</FormLabel>
-                            <Input
-                              width='80%'
-                              isDisabled={inputDisable}
-                              placeholder={AmountFormat(details?.amount)}
-                            />
-                          </FormControl>
-                          <FormControl>
-                            <FormLabel>Thời gian thuê</FormLabel>
-                            <DatePicker
-                              defaultValue={moment(stdate, 'YYYY/MM/DD')}
-                              format='YYYY/MM/DD'
-                              onSelect={(event: any) => {
-                                setStartDate(
-                                  dayjs(event._d).format('YYYY/MM/DD')
-                                )
-                              }}
-                              id='startDate'
-                            />
-                            <text> ~ </text>
-                            <DatePicker
-                              defaultValue={moment(edDate , 'YYYY/MM/DD')}
-                              format='YYYY/MM/DD'
-                              onSelect={(event: any) => {
-                                setEndDate(dayjs(event._d).format('YYYY/MM/DD'))
-                              }}
-                              id='endDate'
-                            />
-                          </FormControl>
-                        </ModalBody>
-                        <ModalFooter>
-                          <Button
-                            colorScheme='orange'
-                            mb='15px'
-                            mr='30px'
-                            onClick={() => next()}>
-                            Thanh toán sau
-                          </Button>
-                          <Button colorScheme='orange' mr='80px' mb='15px' onClick={() => handlePayment()}>
-                            Thanh toán ngay
-                          </Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
-                  </Box>
-                  <Box ml='5px'>
-                    {token ? (
-                      <ShareAndLikeBtn
-                        roomId={details?._id}
-                        isBookmarked={isBookmarked}
-                      />
-                    ) : null}
-                  </Box>
+                  {!renterRooms ? <>
+                    <Box ml='16px'>
+                      <Button colorScheme='orange' onClick={onOpen}>
+                        Đặt phòng
+                      </Button>
+                      <Modal
+                        initialFocusRef={initialRef}
+                        finalFocusRef={finalRef}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        z-index='1'>
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>Đặt phòng</ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody pb={6}>
+                            <FormControl mt={4}>
+                              <FormLabel>Số tiền cần đặt cọc</FormLabel>
+                              <Input
+                                width='80%'
+                                isDisabled={inputDisable}
+                                placeholder={AmountFormat(details?.amount)}
+                              />
+                            </FormControl>
+                            <FormControl>
+                              <FormLabel>Thời gian thuê</FormLabel>
+                              <DatePicker
+                                defaultValue={moment(stdate, 'YYYY/MM/DD')}
+                                format='YYYY/MM/DD'
+                                onSelect={(event: any) => {
+                                  setStartDate(
+                                    dayjs(event._d).format('YYYY/MM/DD')
+                                  )
+                                }}
+                                id='startDate'
+                              />
+                              <text> ~ </text>
+                              <DatePicker
+                                defaultValue={moment(edDate , 'YYYY/MM/DD')}
+                                format='YYYY/MM/DD'
+                                onSelect={(event: any) => {
+                                  setEndDate(dayjs(event._d).format('YYYY/MM/DD'))
+                                }}
+                                id='endDate'
+                              />
+                            </FormControl>
+                          </ModalBody>
+                          <ModalFooter>
+                            <Button
+                              colorScheme='orange'
+                              mb='15px'
+                              mr='30px'
+                              onClick={() => next()}>
+                              Thanh toán sau
+                            </Button>
+                            <Button colorScheme='orange' mr='80px' mb='15px' onClick={() => handlePayment()}>
+                              Thanh toán ngay
+                            </Button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
+                    </Box>
+                    <Box ml='5px'>
+                      {token ? (
+                        <ShareAndLikeBtn
+                          roomId={details?._id}
+                          isBookmarked={isBookmarked}
+                        />
+                      ) : null}
+                    </Box>
+                  </> : 
+                  <>
+                    { showButtonCheckout() && <Button colorScheme='orange' onClick={onCheckout}>
+                        Trả phòng
+                      </Button>
+                    }
+                  </>}
                 </Flex>
                 <Box>
                   <BookingForm

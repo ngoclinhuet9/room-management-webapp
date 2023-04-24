@@ -43,7 +43,6 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
     if (hasToVerify) {
       axios.get('/profile').then((result) => {
         const { data } = result.data
-        console.log(data);
         if(data.role === 'owner'){
           setName(data.name)
         }
@@ -67,7 +66,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
             isClosable: true,
             position: 'top',
           })
-          history.push('/')
+          history.push('/admin')
         }
       }).catch((error) => {
         if (error.response?.status === 403 || 401) {
@@ -98,52 +97,6 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
     })
   // })
 }, [])
-    // if(!hasToVerify) return;
-    // //auth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    //       axios.get('/profile').then((result) => {
-    //         const { data } = result.data
-    //         setName(data.name)
-    //         if (data.status !== 'APPROVED') {
-    //           signOut()
-    //           toast({
-    //             title: 'Có sự cố xảy ra',
-    //             description: 'Tài khoản đang chờ phê duyệt',
-    //             status: 'error',
-    //             duration: 3000,
-    //             isClosable: true,
-    //             position: 'top',
-    //           })
-    //         }
-    //       }).catch((error: any) => {
-    //         if (error.response?.status === 403 || 401) {
-    //           signOut()
-    //           toast({
-    //             title: 'Có sự cố xảy ra',
-    //             description: 'Bạn không đủ quyền để truy cập trang này Linhowner',
-    //             status: 'error',
-    //             duration: 3000,
-    //             isClosable: true,
-    //             position: 'top',
-    //           })
-    //         }
-    //       })
-    //   } 
-    //   else {
-    //     history.push('/login')
-    //     toast({
-    //       title: 'Có sự cố xảy ra',
-    //       description: 'Bạn cần đăng nhập tài khoản owner để tiếp tục',
-    //       status: 'error',
-    //       duration: 3000,
-    //       isClosable: true,
-    //       position: 'top',
-    //     })
-    //   }
-    // })
-    // return;
-  //})
-
   const signOut = async () => {
     await auth.signOut()
     setName('')
@@ -209,7 +162,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
           alignItems='center'>
           <Box width='100%'>
             <Link to='/owner'>
-              <Image display='inline' src={Logo} width='20%' height='25%' mt='10px' />
+              <Image display='inline' src={Logo} width='16%' height='22%' mt='10px' />
             </Link>
           </Box>
           <Spacer />
@@ -233,7 +186,7 @@ export default function Header({hasToVerify = true}: {hasToVerify?: Boolean}) {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link to='/renter/account'>Cài đặt tài khoản</Link>
+                    <Link to='/owner/account'>Cài đặt tài khoản</Link>
                   </MenuItem>
                   <MenuItem>
                     <Button onClick={signOut} variant='link'>

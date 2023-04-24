@@ -78,7 +78,7 @@ const BaseInformation = ({
           content=' Không gian lưu trú nơi các vị khách được sinh hoạt trong những ngôi nhà dân theo phong cách sống bản địa.'
         />
         <FormControl id='roomQuantity' isRequired mb={5}>
-          <FormLabel>Diện tích chỗ nghỉ của bạn là: </FormLabel>
+          <FormLabel>Diện tích chỗ nghỉ của bạn là (m2): </FormLabel>
           <NumberInput
             step={1}
             defaultValue={15}

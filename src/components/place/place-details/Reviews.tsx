@@ -60,7 +60,7 @@ const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any
           Đánh giá
         </Heading>
       </Box>
-      {data?.length &&
+      {data?.length !== 0 &&
         data?.map((r: any) => (
           <Box className='single-review' my={8}>
             <Box display='flex' flexDirection='row'>

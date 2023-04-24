@@ -4,6 +4,7 @@ import { Button, useToast, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'utils/axios'
+import { AmountFormat } from 'utils/amountFormat'
 
 function Histories() {
   const toast = useToast()
@@ -21,7 +22,7 @@ function Histories() {
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Giá phòng',
+      title: 'Giá phòng (VNĐ)',
       dataIndex: 'roomPrice',
       key: 'roomPrice',
     },
@@ -41,7 +42,7 @@ function Histories() {
       key: 'ownerEmail',
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: '_id',
       key: '_id',
       render: (id: string) => (
@@ -62,12 +63,12 @@ function Histories() {
         res.data.data.forEach((item: any) => {
           result.push({
             roomName: item.room?.name,
-            roomPrice: item.room?.roomPrice,
-            roomAddress: item.room?.roomAddress,
-            ownerName: item.user?.name,
-            ownerPhone: item.user?.phone,
-            ownerEmail: item.user?.email,
-            _id: item._id,
+            roomPrice: AmountFormat(item.room?.roomPrice),
+            roomAddress: item.room?.address,
+            ownerName: item.room.user?.name,
+            ownerPhone: item.room.user?.phone,
+            ownerEmail: item.room.user?.email,
+            _id: item.room?._id,
           })
         })
         setHistories(result)

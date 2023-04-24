@@ -38,8 +38,8 @@ export default function Header() {
         w='80%'>
         <TabList>
           <Tab>Phòng đang trống</Tab>
-          <Tab>Danh sách chờ</Tab>
-          <Tab>Phòng đã cho thuê</Tab>
+          <Tab>Phòng chờ phê duyệt</Tab>
+          <Tab>Phòng đang cho thuê</Tab>
           <Tab>Danh sách bị từ chối</Tab>
         </TabList>
         <TabPanels>

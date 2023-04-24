@@ -34,6 +34,7 @@ import { Link as ReactLink, useHistory } from 'react-router-dom'
 import useRedux from 'hooks/useRedux'
 import actions from 'store/actions'
 import { auth } from 'firebase-config'
+import Header from 'components/layout/Header'
 
 type FormData = {
   name: string
@@ -66,6 +67,9 @@ const SignUp = () => {
   const toast = useToast()
 
   const onSubmit: SubmitHandler<FormData> = async (formData: any) => {
+    if (formData.password_confirmation !== formData.password) {
+      return;
+    }
     try {
       setLoading(true)
       dispatch(
@@ -74,19 +78,30 @@ const SignUp = () => {
         })
       )
       setLoading(false)
-      toast({
-        title: 'Thành công',
-        description: 'Tài khoản của bạn đang được chờ phê duyệt',
-        status: 'success',
-        position: 'top',
-        duration: 3000,
-        isClosable: true,
-      })
+      if (formData.role == 'renter'){
+        toast({
+          title: 'Thành công',
+          description: 'Tài khoản của bạn đã được đăng ký thành công',
+          status: 'success',
+          position: 'top',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+      if (formData.role == 'owner'){
+        toast({
+          title: 'Thành công',
+          description: 'Tài khoản của bạn đang được chờ phê duyệt',
+          status: 'success',
+          position: 'top',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
       auth.signOut()
       localStorage.clear()
       history.push('/login')
     } catch (error: any) {
-      console.log(error?.response?.data?.error)
       setLoading(false)
       return toast({
         title: 'Lỗi',
@@ -99,9 +114,24 @@ const SignUp = () => {
     }
   }
 
+  const checkConfirmPassword = (rePassword: string) => {
+    const password = getValues('password')
+    
+    clearErrors('passwordNotMatch')
+    
+    if (password !== rePassword) {
+      setError('passwordNotMatch', {
+        type: 'manual',
+        message:
+          'Mật khẩu và nhập lại mật khẩu không trùng khớp!',
+      })
+    }
+  }
+
   return (
     <>
       <Grid templateRows='auto 1fr auto' maxWidth='100%' minH='100vh'>
+        <Header />
         <Box>
           <Box
             background='linear-gradient(90deg,#f65e38 0,#f68a39 51%,#f65e38)'
@@ -316,6 +346,7 @@ const SignUp = () => {
                         <Input
                           pr='4.5rem'
                           required
+                          autoComplete='off'
                           type={showPassword ? 'text' : 'password'}
                           borderRadius='3rem'
                           {...register("password", {
@@ -363,21 +394,7 @@ const SignUp = () => {
                               message: 'Mật khẩu tối thiểu 6 ký tự',
                             },
                           })}
-                          onChange={() => {
-                            const password = getValues('password')
-                            const passwordConfirmation = getValues(
-                              'password_confirmation'
-                            )
-                            clearErrors('passwordNotMatch')
-
-                            if (password !== passwordConfirmation) {
-                              setError('passwordNotMatch', {
-                                type: 'manual',
-                                message:
-                                  'Mật khẩu và nhập lại mật khẩu không trùng khớp!',
-                              })
-                            }
-                          }}
+                          onChange={(event) => checkConfirmPassword(event.target.value)}
                           borderRadius='3rem'
                           _placeholder={{ fontSize: 'md' }}
                           _focus={{

@@ -153,7 +153,7 @@ const ViewRoom = () => {
             <Flex width='100%' flexDirection='row'>
               <Box flex='2'>
                 <Box paddingRight='50px'>
-                  <PlaceRoute city={details?.city} />
+                  <PlaceRoute name={details?.name} />
                   <PlaceIntro
                     name={details?.name}
                     address={details?.address}

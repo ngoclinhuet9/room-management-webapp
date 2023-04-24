@@ -29,7 +29,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
     address: data?.address || '',
     rule: data?.rule || '',
     area: data?.area || 15,
-    amount: data?.amount || '',
+    amount: data?.amount || 2000000,
     bathroomType: data?.bathroomType || 'PRIVATE',
     kitchenType: data?.kitchenType || 'PRIVATE',
     isWithOwner: data?.isWithOwner || true,
@@ -95,7 +95,6 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
               position: 'top',
             })
             history.push(`/owner/rooms/${params?.room_id}/preview`)
-            console.log(res.data.data.owner)
             // await firestore.collection('notifications').add({
             //   sender: res.data.data.owner,
             //   senderType: 'owner',
@@ -155,7 +154,6 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
               position: 'top',
             })
             history.push(`/owner/rooms/${res.data.data._id}/preview`)
-            console.log(res.data.data.owner)
             // await firestore.collection('notifications').add({
             //   sender: res.data.data.owner,
             //   senderType: 'owner',
@@ -216,7 +214,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
       ),
     },
     {
-      title: 'Giá và quy định nhận chỗ',
+      title: 'Giá chỗ nghỉ',
       content: (
         <PricePolicy
           completeStep={setIsCompletePlacePolicy}
@@ -243,17 +241,17 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
           <div className='steps-content'>{steps[current].content}</div>
           <div className='steps-action buttonWrapperClass'>
           {current > 0 && (
-              <Button colorScheme='teal' mr={5} onClick={() => prev()}>
+              <Button colorScheme='teal' onClick={() => prev()}>
                 Quay lại
               </Button>
             )}
             {current < steps.length - 1 && (
-              <Button colorScheme='orange' mr={5} onClick={() => next()}>
+              <Button colorScheme='orange' mr={5} ml={5} onClick={() => next()}>
                 Tiếp
               </Button>
             )}
             {current === steps.length - 1 && (
-              <Button colorScheme='orange' mr={5} onClick={() => next()}>
+              <Button colorScheme='orange' ml={5} onClick={() => next()}>
                 Hoàn thành
               </Button>
             )}

@@ -4,6 +4,7 @@ import { Button, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'utils/axios'
+import { AmountFormat } from 'utils/amountFormat'
 
 function PendingRooms() {
   const columns = [
@@ -26,12 +27,12 @@ function PendingRooms() {
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Giá',
+      title: 'Giá (VNĐ)',
       dataIndex: 'roomPrice',
       key: 'roomPrice',
     },
     {
-      title: 'Diện tích',
+      title: 'Diện tích (m2)',
       dataIndex: 'area',
       key: 'area',
     },
@@ -56,8 +57,20 @@ function PendingRooms() {
     axios
       .get(`/owner/rooms/pending`)
       .then((res) => {
-        setpendingRoom(res.data.data)
-        console.log(res)
+        let result: any[] = []
+        res.data.data.forEach((item: any) => {
+          result.push({
+            name: item?.name,
+            address: item?.address,
+            //roomType: item?.roomType,
+            roomPrice: AmountFormat(item?.roomPrice),
+            area: item?.area,
+            _id: item?._id,
+            roomType: item?.roomType ==='APARTMENT' ? 'Chung cư' 
+            : (item?.roomType === 'MOTEL'? 'Nhà trọ' : (item?.roomType === 'WHOLE_HOUSE' ? 'Nhà nguyên căn' : 'Chung cư nguyên căn'))
+          })
+        })
+        setpendingRoom(result)
       })
       .catch((err) => {
         console.log(err)

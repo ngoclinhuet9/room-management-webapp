@@ -160,7 +160,10 @@ export default function Header() {
                     <Link to='/renter/bookmarks'>Yêu thích</Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to='/renter/bookmarks'>Lịch sử đặt phòng</Link>
+                    <Link to='/renter/renting'>Danh sách phòng đang thuê</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to='/renter/histories'>Lịch sử đặt phòng</Link>
                   </MenuItem>
                   <MenuItem>
                     <Button onClick={signOut} variant='link'>

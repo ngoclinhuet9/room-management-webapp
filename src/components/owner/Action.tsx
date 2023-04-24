@@ -7,7 +7,7 @@ type Params = {
   room_id: string
 }
 const Actions = (props: any) => {
-  const { isPay, status } = props
+  const { statusRenter, isPay, status } = props
   const toast = useToast()
   const params: Params = useParams()
   const router = useRouteMatch()
@@ -31,12 +31,12 @@ const Actions = (props: any) => {
   useEffect(() => setPayFlag(isPay), [isPay])
   const handleAccept = () => {
     axios
-      .put(`owner/rooms/${params?.room_id}/rent`)
+      .put(`owner/rooms/${params?.room_id}/accept`)
       .then((res) => {
         setPayFlag(true)
         toast({
           title: 'Thành công',
-          description: 'Bạn đã cho thuê thành công',
+          description: 'Bạn đã phê duyệt yêu cầu thành công',
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -63,7 +63,7 @@ const Actions = (props: any) => {
       .then((res) => {
         toast({
           title: 'Thành công',
-          description: 'Bạn đã cho thuê thành công',
+          description: 'Bạn đã từ chối yêu cầu thành công',
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -112,13 +112,12 @@ const Actions = (props: any) => {
   }
 
   const getCondition = (): boolean => {
-    return typePage === 'rent_preview' && !payFlag
+    return typePage === 'rent_preview' && statusRenter == 1;
   }
-
   return (
     <Box padding='1.5rem 0'>
       <Flex flexDirection='row' justifyContent='flex-end'>
-        {getCondition() && (
+        {getCondition() ? (
           <>
             <Button
               outline='0'
@@ -127,7 +126,7 @@ const Actions = (props: any) => {
               colorScheme='green'
               mr='10px'
               fontWeight='500'>
-              Cho Thuê
+              Phê duyệt
             </Button>
             <Button
               outline='0'
@@ -139,7 +138,7 @@ const Actions = (props: any) => {
               Từ chối
             </Button>
           </>
-        )}
+        ) : (<></>)}
 
         {(status === 'REJECTED' || typePage === 'live_room') && (
           <Button

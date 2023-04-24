@@ -1,19 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Box } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
-import axios from 'utils/axios'
+import Layout from 'layouts/Layout'
+import ReturnScreen from 'pages/renter/ReturnVNPAY'
 
 export default function ReturnVP() {
-    useEffect(() => {
-        axios
-          .get(`/returnURL`)
-          .then((res) => {
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }, [])
   return (
-    <Box></Box>
+    <Box>
+      <Layout>
+      <ReturnScreen />
+      </Layout>
+    </Box>
   )
 }

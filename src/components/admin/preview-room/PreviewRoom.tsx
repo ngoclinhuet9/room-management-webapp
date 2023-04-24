@@ -4,6 +4,7 @@ import { Link } from 'react-scroll'
 import axios from 'utils/axios'
 import { useParams } from 'react-router-dom'
 
+import { AmountFormat } from 'utils/amountFormat'
 import ImageSlider from '../../place/place-details/ImageSlider'
 import Amenities from '../../place/place-details/Amenities'
 import Location from '../../place/place-details/Location'
@@ -147,7 +148,7 @@ const PlaceDetailsComponent = () => {
             <Flex width='100%' flexDirection='row'>
               <Box flex='2' width = '850px'>
                 <Box paddingRight='50px'>
-                  <PlaceRoute />
+                  <PlaceRoute name={details?.name} />
                   <PlaceIntro
                     name={details?.name}
                     address={details?.address}

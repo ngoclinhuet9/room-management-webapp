@@ -17,7 +17,7 @@ const cities = {
   hoian: 'Hội An',
   quangninh: 'Quảng Ninh',
 } as any
-const PlaceRoute = ({ city }: any) => {
+const PlaceRoute = ({ name }: any) => {
   const [pathname, setPathname] = useState('/')
   useEffect(() => {
     if(window.location.pathname.startsWith('/admin')){
@@ -38,10 +38,7 @@ const PlaceRoute = ({ city }: any) => {
       </BreadcrumbItem>
 
       <BreadcrumbItem>
-        <BreadcrumbLink href='#'>Việt Nam</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <BreadcrumbLink href={`/cities/${city}`}>{cities[city]}</BreadcrumbLink>
+        <BreadcrumbLink href='#'>{name}</BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
   </Box>

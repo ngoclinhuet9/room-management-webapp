@@ -71,7 +71,6 @@ function PendingOwner() {
   }, [])
   const handleAccept = (id: any) => {
     setPendingList(pendingList.filter((item: any) => item._id !== id))
-    console.log(pendingList)
     axios
       .put(`owners/${id}/approve`)
       .then((res) => {
@@ -83,7 +82,6 @@ function PendingOwner() {
   }
   const handleReject = (id: any) => {
     setPendingList(pendingList.filter((item: any) => item._id !== id))
-    console.log(pendingList)
     axios
       .put(`owners/${id}/reject`)
       .then((res) => {

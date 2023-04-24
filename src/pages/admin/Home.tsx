@@ -14,7 +14,7 @@ function Home() {
           <Tab>Chủ phòng chờ phê duyệt</Tab>
           <Tab>Phòng chờ phê duyệt</Tab>
           <Tab>Danh sách chủ phòng</Tab>
-          <Tab>Danh sách người dùng</Tab>
+          <Tab>Danh sách người thuê phòng</Tab>
         </TabList>
 
         <TabPanels>

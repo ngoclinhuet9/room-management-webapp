@@ -42,10 +42,11 @@ function App() {
       <Route path={`/renter/bookmarks`} component={Bookmark} />
       <Route path={`/renter/histories`} component={History} />
       <Route path={`/renter/renting`} component={RentingRoom} />
-      <Route path={`/renter/payment_VN_pay`} component={ReturnVNPAY} />
+      <Route path={`/renter/payment_VN_pay`} component={ReturnVP} />
 
       <Route exact path={`/owner`} component={OwnerHome} />
       <Route path={`/signup`} component={OwnerSignup} />
+      <Route path={`/owner/account`} component={Account} />
       <Route path={`/owner/create-room`} component={CreatPlace} />
       <Route path={`/owner/rooms/:room_id/preview`} component={OwnerPreviewRoom} />
       <Route path={`/owner/rooms/:room_id/rent_preview`} component={OwnerPreviewRoom} />
@@ -56,11 +57,10 @@ function App() {
       <Route path={`/owner/rooms/:room_id/edit`} component={EditRoom} />
 
       <Route exact path={`/admin`} component={AdminHome} />
+      <Route path={`/admin/account`} component={Account} />
       <Route path={`/admin/rooms/:room_id/preview`} component={AdminPreviewRoom} />
       <Route path={`/admin/dashboard`} component={Dashboard} />
-
-      <Route exact path={`/returnURL`} component={ReturnVP} />
-
+      
       <Route component={NotFound} />
     </Switch>
   )

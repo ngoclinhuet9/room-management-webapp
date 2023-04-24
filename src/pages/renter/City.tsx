@@ -4,7 +4,7 @@ import RoomList from 'components/roomlist/RoomList'
 import Layout from 'layouts/Layout'
 import axios from 'utils/axios'
 import { useHistory, useParams } from 'react-router-dom'
-import { Text, Box, Menu, MenuButton, MenuItem, MenuList, Button } from '@chakra-ui/react'
+import { Text, Box, Menu, MenuButton, MenuItem, MenuList, Button, CircularProgress } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
 type Params = {
@@ -17,13 +17,16 @@ type Params = {
 const City = () => {
   const [roomList, setRoomList] = useState([])
   const [nameOrder, setNameOrder] = useState('Sắp xếp')
+  const [isLoading, setIsLoading] = useState(false)
   const params: Params = useParams()
   const history = useHistory()
   useEffect(() => {
+    setIsLoading(true)
     axios
       .get('/rooms', { params: history.location.state })
       .then((res) => {
         setRoomList(res.data.data)
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err)
@@ -55,24 +58,32 @@ const City = () => {
   return (
     <Layout>
       <Search data={history.location.state} />
-      <Box display='flex' justifyContent='space-between'>
-        <Text fontSize='28px' fontWeight='semibold' mx={22} mt={5} ml='125px'>
-          {`Kết quả search- ${roomList?.length} phòng`}
-        </Text>
-        <Box margin='30px 110px'>
-          <Menu>
-            <MenuButton as={Button} width='150px' rightIcon={<ChevronDownIcon />}>
-              {nameOrder}
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
-              <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
-              <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
-            </MenuList>
-          </Menu>
+      {
+      !isLoading ?
+       <>
+        <Box display='flex' justifyContent='space-between'>
+          <Text fontSize='28px' fontWeight='semibold' mx={22} mt={5} ml='125px'>
+            {`Kết quả search- ${roomList?.length} phòng`}
+          </Text>
+          <Box margin='30px 110px'>
+            <Menu>
+              <MenuButton as={Button} width='150px' rightIcon={<ChevronDownIcon />}>
+                {nameOrder}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
+                <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
+                <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
         </Box>
+        <RoomList roomList={roomList} />
+      </> :
+      <Box display='flex' justifyContent='center'>
+        <CircularProgress isIndeterminate color='orange.500' />
       </Box>
-      <RoomList roomList={roomList} />
+      }
     </Layout>
   )
 }

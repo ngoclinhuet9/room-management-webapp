@@ -11,6 +11,7 @@ import {
   Text,
   Flex,
   Spacer,
+  Button,
 } from '@chakra-ui/react'
 import { Upload, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
@@ -52,7 +53,7 @@ const PlaceImage = ({
   }, [])
 
   const getBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = () => resolve(reader.result)
@@ -60,11 +61,12 @@ const PlaceImage = ({
     })
   }
 
+
   const handleCancel = () => setPreviewVisible(false)
 
   const handlePreview = async (file: any) => {
     if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj)
+      file.preview = await getBase64(file.originFileObj )
     }
     setPreviewImage(file.url || file.preview)
     setPreviewVisible(true)
@@ -74,7 +76,6 @@ const PlaceImage = ({
   }
 
   const handleChange = ({ fileList }: { fileList: Array<any> }) => {
-    console.log(fileList)
     setFileList(fileList)
     const images: Array<string> = []
     // fileList.map((file: any) => {
@@ -87,7 +88,6 @@ const PlaceImage = ({
       }
     })
     syncData(images)
-    console.log(images)
   }
 
   const uploadButton = (
@@ -144,7 +144,7 @@ const PlaceImage = ({
             <FormLabel>Ảnh chỗ nghỉ (Ít nhất 3 ảnh):</FormLabel>
             <Upload
               customRequest={({file, onSuccess}) => customRequest({file, onSuccess})}
-              action='localhost:3000'
+              action='localhost:7002'
               listType='picture-card'
               fileList={fileList}
               onPreview={handlePreview}
@@ -152,7 +152,7 @@ const PlaceImage = ({
               {fileList.length >= 8 ? null : uploadButton}
             </Upload>
             <Modal
-              visible={previewVisible}
+              open={previewVisible}
               title={previewTitle}
               footer={null}
               onCancel={handleCancel}>

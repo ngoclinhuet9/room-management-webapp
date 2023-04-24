@@ -65,8 +65,6 @@ const Login = () => {
         password,
       })
     )
-    setLoading(false)
-    
   }
 
   return (
@@ -157,6 +155,7 @@ const Login = () => {
 
                   <Button
                     colorScheme='orange'
+                    isLoading={loading}
                     size='md'
                     mt={8}
                     w='100%'

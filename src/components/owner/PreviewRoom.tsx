@@ -1,4 +1,4 @@
-import { Container, Box, Flex, chakra, useToast } from '@chakra-ui/react'
+import { Container, Box, Flex, chakra, useToast, Button } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import axios from 'utils/axios'
@@ -7,6 +7,7 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import ImageSlider from 'components/place/place-details/ImageSlider'
 import Amenities from 'components/place/place-details/Amenities'
 import Location from 'components/place/place-details/Location'
+import Layout from 'layouts/OwnerLayout'
 import PlaceIntro from 'components/place/place-details/PlaceIntro'
 import PlaceRoute from 'components/place/place-details/PlaceRoute'
 import PolicyAndRule from 'components/place/place-details/PolicyAndRule'
@@ -52,6 +53,7 @@ const PlaceDetailsComponent = () => {
   const [showStickyNavBar, setShowStickyNavBar] = useState(false)
   const [details, setDetails] = useState<Intro>()
   const [reviews, setReviews] = useState([])
+  const [renterRooms, setRenterRooms] = useState<any>(null)
   const [payFlag, setPayFlag] = useState(false)
   const handleScroll = () => {
     const position = window.pageYOffset
@@ -69,6 +71,7 @@ const PlaceDetailsComponent = () => {
           setDetails(res.data.data.renterRooms.room)
           setPayFlag(res.data.data.renterRooms.payFlag)
           setReviews(res.data.data.reviews)
+          setRenterRooms(res.data.data.renterRooms)
         })
         .catch((err) => {
           console.log(err)
@@ -102,103 +105,104 @@ const PlaceDetailsComponent = () => {
   ]
 
   return (
-    <Box>
-      <Nav
-        padding='1.5rem 0'
-        display={showStickyNavBar ? 'flex' : 'none'}
-        position='sticky'
-        backgroundColor='white'
-        zIndex={10}
-        top={0}
-        left={0}
-        borderTop='1px solid rgb(230, 230, 230)'
-        borderBottom='1px solid rgb(230, 230, 230)'
-        boxShadow='0 3px 5px 0 rgba(0,0,0,.07), 0 1px 0 0 rgba(0,0,0,.05)'
-        fontSize='lg'
-        transition='transform .2s'>
-        <Container
-          maxW='calc(1100px + 5.6rem)'
-          centerContent
-          flexDirection='row'
-          display='flex'
-          justifyContent='space-between'>
-          <Box>
-            {navLabels.map(({ label, to }) => (
-              <NavItem
-                key={to}
-                activeClass='nav-item-sticky-active'
-                sx={{
-                  marginRight: '18px',
-                  padding: '1.8125rem',
-                  cursor: 'pointer',
-                  transform: 'translateY(0)',
-                  transition: 'all .2s',
-                  ':hover': {
-                    cursor: 'pointer',
-                    color: '#f65e39',
-                  },
-                }}
-                to={to}
-                spy
-                smooth
-                duration={200}
-                offset={-182}>
-                {label}
-              </NavItem>
-            ))}
-          </Box>
-          <Box paddingRight='1.7rem'>
-            <Box padding='1.5rem 0' />
-          </Box>
-        </Container>
-      </Nav>
-      <ImageSlider
-        // slide={placeData?.overviews_attributes}
-        slide={details?.images}
-      />
+    <Layout title = 'Xem trước'>
       <Box>
-        <Container
-          padding='0 2.8rem'
-          centerContent
-          maxW='calc(1100px + 5.6rem)'>
-          <Box width='100%'>
-            <Flex width='100%' flexDirection='row'>
-              <Box flex='2' width='850px'>
-                <Box paddingRight='50px'>
-                  <PlaceRoute />
-                  <PlaceIntro
-                    name={details?.name}
-                    address={details?.address}
-                    roomData={details?.area}
-                    bathRoomType={details?.bathroomType}
-                    kitchenType={details?.kitchenType}
-                    description={details?.description}
-                    placeType={details?.roomType}
-                    maxNumOfPeople='2'
-                    ownerName={details?.user?.name}
-                  />
-                  <Amenities listAmenties={details} />
-                  <PolicyAndRule rule={details?.rule} />
-                  <Reviews roomId={details?._id} reviews={reviews} />
+        <Nav
+          padding='1.5rem 0'
+          display={showStickyNavBar ? 'flex' : 'none'}
+          position='sticky'
+          backgroundColor='white'
+          zIndex={10}
+          top={0}
+          left={0}
+          borderTop='1px solid rgb(230, 230, 230)'
+          borderBottom='1px solid rgb(230, 230, 230)'
+          boxShadow='0 3px 5px 0 rgba(0,0,0,.07), 0 1px 0 0 rgba(0,0,0,.05)'
+          fontSize='lg'
+          transition='transform .2s'>
+          <Container
+            maxW='calc(1100px + 5.6rem)'
+            centerContent
+            flexDirection='row'
+            display='flex'
+            justifyContent='space-between'>
+            <Box>
+              {navLabels.map(({ label, to }) => (
+                <NavItem
+                  key={to}
+                  activeClass='nav-item-sticky-active'
+                  sx={{
+                    marginRight: '18px',
+                    padding: '1.8125rem',
+                    cursor: 'pointer',
+                    transform: 'translateY(0)',
+                    transition: 'all .2s',
+                    ':hover': {
+                      cursor: 'pointer',
+                      color: '#f65e39',
+                    },
+                  }}
+                  to={to}
+                  spy
+                  smooth
+                  duration={200}
+                  offset={-182}>
+                  {label}
+                </NavItem>
+              ))}
+            </Box>
+            <Box paddingRight='1.7rem'>
+              <Box padding='1.5rem 0' />
+            </Box>
+          </Container>
+        </Nav>
+        <ImageSlider
+          // slide={placeData?.overviews_attributes}
+          slide={details?.images}
+        />
+        <Box>
+          <Container
+            padding='0 2.8rem'
+            centerContent
+            maxW='calc(1100px + 5.6rem)'>
+            <Box width='100%'>
+              <Flex width='100%' flexDirection='row'>
+                <Box flex='2' width='850px'>
+                  <Box paddingRight='50px'>
+                    <PlaceRoute name={details?.name} />
+                    <PlaceIntro
+                      name={details?.name}
+                      address={details?.address}
+                      roomData={details?.area}
+                      bathRoomType={details?.bathroomType}
+                      kitchenType={details?.kitchenType}
+                      description={details?.description}
+                      placeType={details?.roomType}
+                      maxNumOfPeople='2'
+                      ownerName={details?.user?.name}
+                    />
+                    <Amenities listAmenties={details} />
+                    <PolicyAndRule rule={details?.rule} />
+                    <Reviews roomId={details?._id} reviews={reviews} />
+                  </Box>
                 </Box>
-              </Box>
-
-              <Box flex='1'>
-                {details && (
-                  <Actions isPay={payFlag} status={details?.status} />
-                )}
-                <BookingForm
-                  roomPrice={details?.roomPrice}
-                  waterPrice={details?.waterPrice}
-                  electricityPrice={details?.electricityPrice}
-                  mount={details?.amount}
-                />
-              </Box>
-            </Flex>
-          </Box>
-        </Container>
+                <Box flex='1'>
+                  {details && (
+                    <Actions statusRenter={renterRooms?.status} isPay={payFlag} status={details?.status} />
+                  )}
+                  <BookingForm
+                    roomPrice={details?.roomPrice}
+                    waterPrice={details?.waterPrice}
+                    electricityPrice={details?.electricityPrice}
+                    amount={details?.amount}
+                  />
+                </Box>
+              </Flex>
+            </Box>
+          </Container>
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   )
 }
 

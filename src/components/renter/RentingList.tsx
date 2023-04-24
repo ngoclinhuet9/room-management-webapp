@@ -40,7 +40,7 @@ function RentingList() {
       key: 'status',
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: '_id',
       key: '_id',
       render: (id: string) => (
@@ -58,8 +58,7 @@ function RentingList() {
       .get(`/renters/renting`)
       .then((res) => {
         let result: any[] = []
-        console.log(res.data.data);
-        
+
         res.data.data.forEach((item: any) => {
           result.push({
             roomName: item.room?.name,
@@ -72,7 +71,6 @@ function RentingList() {
           })
         })
         setRentingList(result)
-        console.log(rentingList,'linh');
         
       })
       .catch((err) => {

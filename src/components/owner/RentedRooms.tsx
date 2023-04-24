@@ -40,13 +40,25 @@ function RentedRooms() {
       render: (text: string) => <a>{text}</a>,
     },
     {
+      title: 'Thanh toán',
+      dataIndex: 'payStatus',
+      key: 'payStatus',
+      render: (text: string) => <a>{text}</a>,
+    },
+    {
+      title: 'Yêu cầu',
+      dataIndex: 'typeRequest',
+      key: 'typeRequest',
+      render: (text: string) => <a>{text}</a>,
+    },
+    {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: 'Action',
+      title: '',
       dataIndex: 'renterRoomID',
       key: 'renterRoomID',
       render: (id: any) => (
@@ -70,43 +82,18 @@ function RentedRooms() {
             renterEmail: item.user?.email,
             renterRoomID: item._id,
             payFlag: item?.payFlag,
-            status: item?.payFlag ? 'Đã thanh toán' : 'Chưa thanh toán',
+            payStatus: item?.payFlag ? 'Đã thanh toán' : 'Chưa thanh toán',
+            status: item?.status === 0 ? 'Đã phê duyệt' : 'Chờ phê duyệt',
+            typeRequest: item?.requestType=== '0' ? 'Thuê phòng' : 'Trả phòng',
           })
         })
-        setRentRoom(result)
+        setRentRoom(result) 
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
-  console.log(rentRoom, 'n----linh')
-  // const handleRemake = (id: any) => {
-  //   axios
-  //     .put(`/owner/rooms/${id}/return`)
-  //     .then((res) => {
-  //       console.log(res)
-  //       setRentRoom(rentRoom.filter((item: any) => item._id !== id))
-  //       toast({
-  //         title: 'Thành công',
-  //         description: 'Bạn đã remake thành công',
-  //         status: 'success',
-  //         duration: 3000,
-  //         isClosable: true,
-  //         position: 'top',
-  //       })
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //       toast({
-  //         title: 'Có sự cố xảy ra',
-  //         description: 'Bạn không đủ quyền để truy cập trang này',
-  //         status: 'error',
-  //         duration: 3000,
-  //         isClosable: true,
-  //         position: 'top',
-  //       })
-  //     })
-  // }
+
   return <Table columns={columns} dataSource={rentRoom} />
 }
 
