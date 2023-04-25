@@ -14,6 +14,8 @@ function RoomItem({
   placeType,
   price,
   ratings,
+  rate,
+  countRent,
   isLoading,
   image,
 }: Partial<{
@@ -22,6 +24,8 @@ function RoomItem({
   placeType: string
   price: number
   ratings?: []
+  rate:any
+  countRent: number
   isLoading: boolean
   image: string
 }>) {
@@ -42,94 +46,106 @@ function RoomItem({
   return (
     <Box mt={3} w='100%' mx='0.3rem' my='0.4rem'>
       <Box>
-        <Box
-          sx={{
-            ':before': {
-              content: '""',
-              display: 'block',
-              width: '100%',
-            },
-          }}
-          position='relative'
-          zIndex='0'>
-          {isLoading ? (
-            <Skeleton
-              width='100%'
-              height={230}
-              top={0}
-              left={0}
-              objectFit='cover'
-              borderRadius='3px'
-            />
-          ) : (
-              <Link to={`/renter/rooms/${placeId}`}>
-                <Image
-                  cursor='pointer'
-                  fallbackSrc='https://www.luxstay.com/loading-img.svg'
-                  width='100%'
-                  height={230}
-                  top={0}
-                  left={0}
-                  objectFit='cover'
-                  borderRadius='3px'
-                  src={image}
-                />
-              </Link>
-            )}
-        </Box>
-        <Box mt={3} fontSize={18} color='#222'>
-          {isLoading ? (
-            <Skeleton my={0.5} width='100%' height={3} />
-          ) : (
-              <Box my={0.5}>
-                <Box
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'>
-                  <Text fontSize='sm' color='#718096'>
-                    {roomType}
-                  </Text>
-                  {/* <Stack fontSize='sm' direction='row'>
-                    <AiFillStar color='#FFB025' size='18' />
-                    <span>
-                      {avg} ({ratings?.length})
-                  </span>
-                  </Stack> */}
-                </Box>
-              </Box>
-            )}
-
           <Box
             sx={{
-              ':hover': {
-                color: '#f65e39',
+              ':before': {
+                content: '""',
+                display: 'block',
+                width: '100%',
               },
             }}
-            cursor='pointer'
-            transition='all .3s'
-            fontWeight='bold'>
+            position='relative'
+            zIndex='0'>
             {isLoading ? (
-              <Skeleton height={5} width='50%' />
+              <Skeleton
+                width='100%'
+                height={230}
+                top={0}
+                left={0}
+                objectFit='cover'
+                borderRadius='3px'
+              />
             ) : (
                 <Link to={`/renter/rooms/${placeId}`}>
-                  <Box
-                    wordBreak='break-all'
-                    overflow='hidden'
-                    maxH='52px'
-                    textOverflow='ellipsis'>
-                    {name}
-                  </Box>
+                  <Image
+                    cursor='pointer'
+                    fallbackSrc='https://www.luxstay.com/loading-img.svg'
+                    width='100%'
+                    height={230}
+                    top={0}
+                    left={0}
+                    objectFit='cover'
+                    borderRadius='3px'
+                    src={image}
+                  />
                 </Link>
               )}
           </Box>
-          {isLoading ? (
-            <Skeleton mt={2} width='30%' height={3} />
-          ) : (
-              <Stack mt={2} direction='row' spacing={3} fontSize={14}>
-                <Text fontWeight='bolder' textColor='orange'>{AmountFormat(price)}₫/tháng</Text>
-              </Stack>
-            )}
-        </Box>
+          <Box mt={3} fontSize={18} color='#222'>
+            {isLoading ? (
+              <Skeleton my={0.5} width='100%' height={3} />
+            ) : (
+                <Box my={0.5}>
+                  <Box
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'>
+                    <Text fontSize='sm' color='#718096'>
+                      {roomType}
+                    </Text>
+                    <Text fontSize='sm' color='#718096'>
+                      {rate}/5.0
+                    </Text>
+                    {/* <Stack fontSize='sm' direction='row'>
+                      <AiFillStar color='#FFB025' size='18' />
+                      <span>
+                        {avg} ({ratings?.length})
+                    </span>
+                    </Stack> */}
+                  </Box>
+                </Box>
+              )}
+
+            <Box
+              sx={{
+                ':hover': {
+                  color: '#f65e39',
+                },
+              }}
+              cursor='pointer'
+              transition='all .3s'
+              fontWeight='bold'>
+              {isLoading ? (
+                <Skeleton height={5} width='50%' />
+              ) : (
+                <Link to={`/renter/rooms/${placeId}`}>
+                    <Box
+                      wordBreak='break-all'
+                      overflow='hidden'
+                      maxH='52px'
+                      textOverflow='ellipsis'>
+                      {name}
+                    </Box>
+                  </Link>
+                )}
+            </Box>
+            {isLoading ? (
+              <Skeleton mt={2} width='30%' height={3} />
+            ) : (
+                <Box
+                mt={2} 
+                display='flex'
+                justifyContent='space-between'
+                alignItems='center'>
+                <Stack direction='row' spacing={3} fontSize={14}>
+                  <Text fontWeight='bolder' textColor='orange'>{AmountFormat(price)}₫/tháng</Text>
+                </Stack>
+                <Text fontSize='sm' color='#718096'>
+                  Đã thuê: {countRent}
+                </Text>
+                </Box>
+              )}
+          </Box>
       </Box>
     </Box>
   )

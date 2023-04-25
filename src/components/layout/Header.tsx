@@ -35,44 +35,159 @@ export default function Header() {
   const toast = useToast()
   const history = useHistory()
   const { dispatch, selector } = useRedux()
-  const [isAuth, setIsAuth] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const { isOpen, onClose, onOpen } = useDisclosure()
   const [name, setName] = useState('')
+  const [role, setRole] = useState('')
+  const [urlHeader, setUrlHeader] = useState('/')
+  const isAuth = localStorage.getItem('infoUser')
 
   useEffect(() => {
-    auth.onAuthStateChanged(async () => {
-    try {
-      axios.get('/profile').then((result) => {
-        const { data } = result.data
-        setName(data.name)
-      })
-    } catch (error: any) {
-      if (error.response.status === 403) {
-        signOut()
+    if (isAuth) {
+      setName(JSON.parse(localStorage.getItem('infoUser') as string).name)
+      setRole(JSON.parse(localStorage.getItem('infoUser') as string).role)
+      console.log(JSON.parse(localStorage.getItem('infoUser') as string).name, role,'infor');
+       }
+    else{
+      if(window.location.pathname.startsWith('/owner') || window.location.pathname.startsWith('/admin')){
+                toast({
+                  title: 'Có sự cố xảy ra:',
+                  description: 'Bạn không đủ quyền để truy cập trang này',
+                  status: 'error',
+                  duration: 3000,
+                  isClosable: true,
+                  position: 'top',
+                })
+                history.push('/')
+              }
+    }
+    // auth.onAuthStateChanged(async () => {
+    // try {
+    //   setIsLoading(true)
+    //   axios.get('/profile').then((result) => {
+    //     const { data } = result.data
+    //     // localStorage.setItem('infoUser', JSON.stringify(data))
+    //     setName(data.name)
+    //     setRole(data.role)
+    //     setIsLoading(false)
+    //     if(role === 'renter'){
+    //       setUrlHeader('/')
+    //       if(window.location.pathname.startsWith('/owner') || window.location.pathname.startsWith('/admin')){
+    //         toast({
+    //           title: 'Có sự cố xảy ra:',
+    //           description: 'Bạn không đủ quyền để truy cập trang này',
+    //           status: 'error',
+    //           duration: 3000,
+    //           isClosable: true,
+    //           position: 'top',
+    //         })
+    //         history.push('/')
+    //       }
+    //     }
+    //     if(role === 'owner'){
+    //       setUrlHeader('/owner')
+    //       if(window.location.pathname.startsWith('/admin')){
+    //         toast({
+    //           title: 'Có sự cố xảy ra:',
+    //           description: 'Bạn không đủ quyền để truy cập trang này',
+    //           status: 'error',
+    //           duration: 3000,
+    //           isClosable: true,
+    //           position: 'top',
+    //         })
+    //         history.push('/owner')
+    //       }
+    //     }
+    //     if(role === 'admin'){
+    //       setUrlHeader('/admin')
+    //       if(window.location.pathname.startsWith('/owner')){
+    //         toast({
+    //           title: 'Có sự cố xảy ra:',
+    //           description: 'Bạn không đủ quyền để truy cập trang này',
+    //           status: 'error',
+    //           duration: 3000,
+    //           isClosable: true,
+    //           position: 'top',
+    //         })
+    //         history.push('/admin')
+    //       }
+    //     }
+    //   })
+    // } catch (error: any) {
+    //   if (error.response.status === 403) {
+    //     signOut()
+    //     toast({
+    //       title: 'Có sự cố xảy ra',
+    //       description: 'Bạn không đủ quyền để truy cập trang này',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //       position: 'top',
+    //     })
+    //   }
+    // }
+    // })
+    axios.put('/updatetoken')
+    .catch((err: any) => {
+      console.log(err)
+    })
+  }, [isAuth])
+  useEffect(() => {
+      if(role === 'renter'){
+        console.log(role, 'check role');
+        setUrlHeader('/')
+        if(window.location.pathname.startsWith('/owner') || window.location.pathname.startsWith('/admin')){
+          toast({
+            title: 'Có sự cố xảy ra:',
+            description: 'Bạn không đủ quyền để truy cập trang này',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
+          history.push('/')
+        }
+        if(window.location.pathname.startsWith('/login') || window.location.pathname.startsWith('/signup')){
+          history.push('/')
+        }
+      }
+    if(role === 'owner'){
+      console.log(role, 'check owner');
+      setUrlHeader('/owner')
+      if(window.location.pathname.startsWith('/admin')){
         toast({
-          title: 'Có sự cố xảy ra',
+          title: 'Có sự cố xảy ra:',
           description: 'Bạn không đủ quyền để truy cập trang này',
           status: 'error',
           duration: 3000,
           isClosable: true,
           position: 'top',
         })
+        history.push('/owner')
+      }
+      if(window.location.pathname.startsWith('/login') || window.location.pathname.startsWith('/signup')){
+        history.push('/owner')
       }
     }
-    })
-    axios.put('/updatetoken')
-    .catch((err: any) => {
-      console.log(err)
-      toast({
-        title: 'Có sự cố xảy ra',
-        description: 'Bạn không đủ quyền để truy cập trang này',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      })
-    })
-  }, [])
+    if(role === 'admin'){
+      console.log(role, 'check admin');
+      setUrlHeader('/admin')
+      if(window.location.pathname.startsWith('/owner')){
+        toast({
+          title: 'Có sự cố xảy ra:',
+          description: 'Bạn không đủ quyền để truy cập trang này',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+          position: 'top',
+        })
+        history.push('/admin')
+      }
+      if(window.location.pathname.startsWith('/login') || window.location.pathname.startsWith('/signup')){
+        history.push('/admin')
+      }
+    }
+  },[role])
 
   const signOut = async () => {
     await auth.signOut()
@@ -82,6 +197,7 @@ export default function Header() {
     )
     localStorage.clear()
     history.push('/')
+    setIsLoading(false)
   }
 
   const redirectToOwner = () => {
@@ -142,16 +258,17 @@ export default function Header() {
           height='100%'
           m='0 auto'
           alignItems='center'>
-          <Link to='/'>
+          <Link to={urlHeader}>
             <Image display='inline' src={Logo} width='20%' height='25%' mt='10px'/>
           </Link>
           <Spacer />
-          {name ? (
+          {isAuth ? (
             <>
               <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                   {name}
                 </MenuButton>
+                {(role === 'renter') && (
                 <MenuList>
                   <MenuItem>
                     <Link to='/renter/account'>Cài đặt tài khoản</Link>
@@ -170,7 +287,36 @@ export default function Header() {
                       Đăng xuất
                   </Button>
                   </MenuItem>
-                </MenuList>
+                </MenuList>)}
+                {(role === 'owner') && (
+                <MenuList>
+                <MenuItem>
+                  <Link to='/owner/account'>Cài đặt tài khoản</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Button onClick={signOut} variant='link'>
+                    Đăng xuất
+                  </Button>
+                </MenuItem>
+              </MenuList>)}
+                {(role === 'admin') && (
+                <MenuList>
+                <MenuItem>
+                    <Button onClick={() => history.push('/admin/account')} variant='link'>
+                      Cài đặt tài khoản
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button onClick={() => history.push('/admin/dashboard')} variant='link'>
+                      Thống kê
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button onClick={signOut} variant='link'>
+                      Đăng xuất
+                    </Button>
+                  </MenuItem>
+                </MenuList>)}
               </Menu>
             </>
           ) : (

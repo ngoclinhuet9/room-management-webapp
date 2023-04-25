@@ -1,4 +1,16 @@
-import { Container, Box, Flex, chakra, useToast } from '@chakra-ui/react'
+import {
+  Container,
+  Box,
+  Flex,
+  chakra,
+  useToast,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Heading
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import axios from 'utils/axios'
@@ -11,8 +23,9 @@ import PlaceRoute from 'components/place/place-details/PlaceRoute'
 import PolicyAndRule from 'components/place/place-details/PolicyAndRule'
 import BookingForm from 'components/place/place-details/BookingForm'
 import Reviews from 'components/place/place-details/Reviews'
-import Layout from 'layouts/OwnerLayout'
+import Layout from 'layouts/Layout'
 import Action from './Action'
+import Comment from 'components/place/place-details/Comment'
 
 type Intro = {
   _id: string
@@ -48,10 +61,11 @@ const ViewRoom = () => {
   const params: Params = useParams()
   const Nav = chakra('nav')
   const NavItem = chakra(Link)
-
+  let isStar = false
   const [showStickyNavBar, setShowStickyNavBar] = useState(false)
   const [details, setDetails] = useState<Intro>()
   const [isBookmarked, setIsBookmarked] = useState(true)
+  const [comments, setComments] = useState([])
   const [reviews, setReviews] = useState([])
   const handleScroll = () => {
     const position = window.pageYOffset
@@ -68,6 +82,7 @@ const ViewRoom = () => {
         setDetails(res.data.data.room)
         setIsBookmarked(res.data.data.is_bookmarked)
         setReviews(res.data.data.reviews)
+        setComments(res.data.data.comments)
       })
       .catch((err) => {
         console.log(err)
@@ -168,7 +183,38 @@ const ViewRoom = () => {
                   />
                   <Amenities listAmenties={details} />
                   <PolicyAndRule rule={details?.rule} />
-                  <Reviews roomId={details?._id} reviews={reviews} />
+                  <Tabs style={{ marginTop: '16px' }}>
+                    <TabList>
+                      <Tab>
+                        <Heading
+                          as='h3'
+                          fontSize='3xl'
+                          fontWeight='bolder'
+                          lineHeight='shorter'>
+                          Bình luận
+                        </Heading>
+                      </Tab>
+                      <Tab>
+                        <Heading
+                          as='h3'
+                          fontSize='3xl'
+                          fontWeight='bolder'
+                          lineHeight='shorter'>
+                          Đánh giá
+                        </Heading>
+                      </Tab>
+                    </TabList>
+
+                    <TabPanels>
+                      <TabPanel>
+                        <Comment roomId={details?._id} comments={comments} />
+                      </TabPanel>
+                      <TabPanel>
+                        <Reviews roomId={details?._id} reviews={reviews} isStar={isStar} />
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                  {/* <Reviews roomId={details?._id} reviews={reviews} isStar={isStar} /> */}
                 </Box>
               </Box>
               <Box flex='1'>

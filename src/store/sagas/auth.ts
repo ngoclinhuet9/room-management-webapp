@@ -34,6 +34,7 @@ function* logInByEmailAndPasswordSaga({
 
       axios.get('/profile')
         .then((result) => {
+          localStorage.setItem('infoUser', JSON.stringify(result.data.data))
           switch(result.data.data.role) {
             case 'admin':
               window.location.pathname = '/admin'

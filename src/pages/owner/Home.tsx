@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 
 import { useHistory } from 'react-router-dom'
-import OwnerLayout from 'layouts/OwnerLayout'
+import Layout from 'layouts/Layout'
 import LiveRooms from 'components/owner/LiveRooms'
 import PendingRooms from 'components/owner/PendingRooms'
 import RentedRooms from 'components/owner/RentedRooms'
@@ -21,7 +21,7 @@ export default function Header() {
     history.push('/owner/create-room')
   }
   return (
-    <OwnerLayout title='Home'>
+    <Layout title='Home'>
       <Button
         colorScheme='orange'
         position='absolute'
@@ -57,6 +57,6 @@ export default function Header() {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </OwnerLayout>
+    </Layout>
   )
 }

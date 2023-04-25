@@ -5,7 +5,7 @@ import PlaceImage from 'components/new-place/place-image/PlaceImage'
 import PricePolicy from 'components/new-place/price-policy/PricePolicy'
 import React, { useEffect, useState } from 'react'
 
-import OwnerLayout from 'layouts/OwnerLayout'
+import Layout from 'layouts/Layout'
 import { Steps } from 'antd'
 import axios from 'utils/axios'
 import { useHistory, useParams } from 'react-router-dom'
@@ -226,7 +226,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
   ]
 
   return (
-    <OwnerLayout title={placeInfo?.name}>
+    <Layout title={placeInfo?.name}>
       <Box mb={5}>
         <Box maxW='80%' m='30px auto' pb={5}>
           <Steps current={current} direction='horizontal'>
@@ -258,7 +258,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
           </div>
         </Box>
       </Box>
-    </OwnerLayout>
+    </Layout>
   )
 }
 

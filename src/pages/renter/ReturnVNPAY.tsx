@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Text, useToast, Button } from '@chakra-ui/react'
+import { Box, useToast, Button } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'utils/axios'
@@ -22,7 +22,7 @@ export default function ReturnScreen() {
   } 
 
   useEffect(() => {
-    if (vnp_Param?.responseCode == '00') {
+    if (vnp_Param?.responseCode === '00') {
       setMessage('Bạn đã thanh toán thành công')
     }
     else{
@@ -31,7 +31,7 @@ export default function ReturnScreen() {
   }, [vnp_Param])
 
   useEffect(() => {
-    if (vnp_Param?.responseCode == '00') {
+    if (vnp_Param?.responseCode === '00') {
       axios
       .put(`/renters/rentByPay`, {room_id, vnp_Param,startDate, endDate})
       .then((res) => {
@@ -66,7 +66,7 @@ export default function ReturnScreen() {
         <Box fontSize='1.5rem' fontWeight='bold' mt={8} mb={10}>
           {message}
         </Box>
-          {vnp_Param?.responseCode == '00'?
+          {vnp_Param?.responseCode === '00'?
             (<Button colorScheme='orange' mr='10px'>
               <Link to={`/renter/renting`}>Về danh sách các phòng đã đặt</Link>
             </Button>)

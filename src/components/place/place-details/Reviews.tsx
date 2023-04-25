@@ -14,6 +14,7 @@ import {
   Heading,
   Skeleton,
   Text,
+  useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import axios from 'utils/axios'
@@ -28,9 +29,13 @@ type RatingType = {
   user_avatar: string
 }[]
 
-const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any }) => {
+const Reviews = ({ roomId, reviews, isStar }: { roomId: any | undefined, reviews: any, isStar: boolean }) => {
   const NavLabel = chakra(Element)
-  const [isLoading, setLoading] = useState(false)
+  const toast = useToast()
+  const [isLoading, setLoading] = useState(false);
+  const userName = JSON.parse(localStorage.getItem('infoUser') as string).name
+
+
   const [data, setData] = useState([]) as any
   const addReview = ({
     comment,
@@ -39,50 +44,56 @@ const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any
     comment: string
     score: number
   }) => {
-    setData([...data, { content: comment, rating: score }])
-    axios.post('/reviews/create', { content: comment, rating: score, roomId })
-      .then((res) => { console.log(res) })
-      .catch((err) => { console.log(err) })
+    if (comment) {
+      axios.post('/reviews/create', { content: comment, rating: score, roomId, type: 1 })
+        .then((res) => {
+          setData([...data, { content: comment, rating: score, user: { name: userName } }])
+        })
+        .catch((err) => {
+          toast({
+            title: 'Có sự cố xảy ra:',
+            description: 'Cần đăng nhập để đặt phòng.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+          })
+        })
+    }
+    else {
+      toast({
+        title: 'Có sự cố xảy ra:',
+        description: 'Vui lòng nhập nội dung đánh giá',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'top',
+      })
+    }
   }
-
   useEffect(() => {
     setData(reviews)
   }, [reviews])
 
   return (
-    <NavLabel className='place-details-reviews' name='reviews' mt={20}>
-      <Box className='reviews-title'>
-        <Heading
-          as='h3'
-          fontSize='3xl'
-          fontWeight='bolder'
-          lineHeight='shorter'>
-          Đánh giá
-        </Heading>
-      </Box>
-      {data?.length !== 0 &&
+    <NavLabel className='place-details-reviews' name='reviews'>
+      {data?.length !== 0 ?
         data?.map((r: any) => (
           <Box className='single-review' my={8}>
             <Box display='flex' flexDirection='row'>
               <Avatar name={r.user?.name || 'Me'} />
               <Box ml={2} display='flex' pt={1}>
                 <Box>
-                  <Heading
-                    as='h5'
-                    fontWeight='bolder'
-                    lineHeight='shorter'
-                    fontSize='md'>
-                    {!isLoading ? (
+                  <Text fontSize='xl'>{!isLoading ? (
                       r.user?.name || 'Me'
-                    ) : (
-                        <Skeleton mt={1} height='12px' width='120px' />
-                      )}
-                  </Heading>
+                  ) : (
+                      <Skeleton mt={1} height='12px' width='120px' />
+                  )}</Text>
                 </Box>
                 <Box display='flex' marginLeft={3} color='#FFB500' pt={0.25}>
-                  {[...Array(r.rating)].map((_, idx) => (
-                    <AiFillStar fontSize={24} key={idx} />
-                  ))}
+                    {[...Array(r.rating)].map((_, idx) => (
+                        <AiFillStar fontSize={24} key={idx} />
+                    ))}
                 </Box>
               </Box>
             </Box>
@@ -91,14 +102,17 @@ const Reviews = ({ roomId, reviews }: { roomId: string | undefined, reviews: any
                 {!isLoading ? (
                   r.content
                 ) : (
-                    <Skeleton mt={1} height='12px' width='240px' />
-                  )}
+                  <Skeleton mt={1} height='12px' width='240px' />
+                )}
               </Text>
             </Box>
           </Box>
-        ))}
+        )) : <span>Chưa có đánh giá nào</span>
+      }
       <Divider />
-      {localStorage.getItem('token') ? <ReviewForm addReview={addReview} /> : null}
+      {
+        isStar && <ReviewForm isComment={false} addReview={addReview} isStar={isStar} />
+      }
     </NavLabel>
   )
 }

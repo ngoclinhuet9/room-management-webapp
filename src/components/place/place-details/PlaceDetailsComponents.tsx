@@ -16,6 +16,12 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Heading,
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-scroll'
@@ -34,6 +40,7 @@ import PlaceRoute from './PlaceRoute'
 import PolicyAndRule from './PolicyAndRule'
 import BookingForm from './BookingForm'
 import Reviews from './Reviews'
+import Comment from './Comment'
 import ShareAndLikeBtn from './ShareAndLikeBtn'
 import Price from './Price'
 import moment from 'moment'
@@ -80,7 +87,12 @@ const PlaceDetailsComponent = () => {
   const [inputDisable] = useState(true)
   const [details, setDetails] = useState<Intro>()
   const [isBookmarked, setIsBookmarked] = useState(true)
+  const [user, setUser] = useState('')
+  const [isStar, setIsStar] = useState(false)
+
+  const [histories, setHistories] = useState<any>(null)
   const [reviews, setReviews] = useState([])
+  const [comments, setComments] = useState([])
   const [renterRooms, setRenterRooms] = useState<any>(null)
   const [startDate, setStartDate] = useState('2023/04/05')
   const [endDate, setEndDate] = useState('2023/04/05')
@@ -99,7 +111,7 @@ const PlaceDetailsComponent = () => {
 
   const handlePayment = () => {
     axios
-      .post(`/payment`, {amount: details?.amount, returnURL: `http://localhost:7002/renter/payment_VN_pay?room_id=${params.room_id}&startDate=${startDate}&endDate=${endDate}`})
+      .post(`/payment`, { amount: details?.amount, returnURL: `http://localhost:7002/renter/payment_VN_pay?room_id=${params.room_id}&startDate=${startDate}&endDate=${endDate}` })
       .then((res) => {
         //redirect(res.data.data.vnpUrl)
         window.location.href = res.data.data.vnpUrl
@@ -107,15 +119,15 @@ const PlaceDetailsComponent = () => {
       .catch((err) => {
         console.log(err)
         toast({
-          title: 'Có sự cố xảy ra',
-          description: 'Bạn không đủ quyền để truy cập trang này',
+          title: 'Có sự cố xảy ra:',
+          description: 'Cần đăng nhập để đặt phòng.',
           status: 'error',
           duration: 3000,
           isClosable: true,
           position: 'top',
         })
       })
-}
+  }
 
   const next = async () => {
     if (startDate <= endDate) {
@@ -138,11 +150,11 @@ const PlaceDetailsComponent = () => {
             position: 'top',
           })
         }
-        history.push('/')
+        history.push('/renter/renting')
       } catch (error: any) {
         toast({
-          title: 'Sai định dạng dữ liệu',
-          description: error?.response?.message,
+          title: 'Có sự cố xảy ra:',
+          description: 'Cần đăng nhập để đặt phòng.',
           status: 'error',
           duration: 3000,
           isClosable: true,
@@ -169,15 +181,19 @@ const PlaceDetailsComponent = () => {
         setDetails(res.data.data.room)
         setIsBookmarked(res.data.data.is_bookmarked)
         setReviews(res.data.data.reviews)
+        setComments(res.data.data.comments)
+        setUser(res.data.data.user_id)
         if (res.data.data.renterRooms) {
           setRenterRooms(res.data.data.renterRooms)
+        }
+        if (res.data.data.histories) {
+          setHistories(res.data.data.histories)
         }
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
-
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -186,6 +202,11 @@ const PlaceDetailsComponent = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if ((renterRooms?.reviewed === false && !(renterRooms?.requestType === 0 && renterRooms?.status === 1)) || histories) {
+      setIsStar(true)
+    };
+  }, [renterRooms, histories])
   const backToScreen = () => {
     window.location.hostname = 'localhost'
   }
@@ -213,7 +234,7 @@ const PlaceDetailsComponent = () => {
           position: 'top',
         })
       }
-      history.push('/')
+      history.push('/renter/renting')
     } catch (error: any) {
       toast({
         title: 'Sai định dạng dữ liệu',
@@ -310,7 +331,37 @@ const PlaceDetailsComponent = () => {
                   />
                   <Amenities listAmenties={details} />
                   <PolicyAndRule rule={details?.rule} />
-                  <Reviews roomId={details?._id} reviews={reviews} />
+                  <Tabs  style={{marginTop: '16px'}}>
+                    <TabList>
+                      <Tab>
+                        <Heading
+                          as='h3'
+                          fontSize='3xl'
+                          fontWeight='bolder'
+                          lineHeight='shorter'>
+                          Bình luận
+                        </Heading>
+                      </Tab>
+                      <Tab>
+                        <Heading
+                          as='h3'
+                          fontSize='3xl'
+                          fontWeight='bolder'
+                          lineHeight='shorter'>
+                          Đánh giá
+                        </Heading>
+                      </Tab>
+                    </TabList>
+
+                    <TabPanels>
+                      <TabPanel>
+                        <Comment roomId={details?._id} comments={comments} />
+                      </TabPanel>
+                      <TabPanel>
+                        <Reviews roomId={details?._id} reviews={reviews} isStar={isStar} />
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </Box>
               </Box>
               <Box padding='1.5rem 0' flex='2'>
@@ -353,7 +404,7 @@ const PlaceDetailsComponent = () => {
                               />
                               <text> ~ </text>
                               <DatePicker
-                                defaultValue={moment(edDate , 'YYYY/MM/DD')}
+                                defaultValue={moment(edDate, 'YYYY/MM/DD')}
                                 format='YYYY/MM/DD'
                                 onSelect={(event: any) => {
                                   setEndDate(dayjs(event._d).format('YYYY/MM/DD'))
@@ -385,13 +436,13 @@ const PlaceDetailsComponent = () => {
                         />
                       ) : null}
                     </Box>
-                  </> : 
-                  <>
-                    { showButtonCheckout() && <Button colorScheme='orange' onClick={onCheckout}>
+                  </> :
+                    <>
+                      {showButtonCheckout() && <Button colorScheme='orange' onClick={onCheckout}>
                         Trả phòng
                       </Button>
-                    }
-                  </>}
+                      }
+                    </>}
                 </Flex>
                 <Box>
                   <BookingForm

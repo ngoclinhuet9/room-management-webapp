@@ -1,4 +1,12 @@
-import { Container, Box, Flex, chakra, useToast, Button } from '@chakra-ui/react'
+import {
+  Container, Box, Flex, chakra, useToast, Button,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Heading
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import axios from 'utils/axios'
@@ -7,13 +15,14 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import ImageSlider from 'components/place/place-details/ImageSlider'
 import Amenities from 'components/place/place-details/Amenities'
 import Location from 'components/place/place-details/Location'
-import Layout from 'layouts/OwnerLayout'
+import Layout from 'layouts/Layout'
 import PlaceIntro from 'components/place/place-details/PlaceIntro'
 import PlaceRoute from 'components/place/place-details/PlaceRoute'
 import PolicyAndRule from 'components/place/place-details/PolicyAndRule'
 import BookingForm from 'components/place/place-details/BookingForm'
 import Actions from './Action'
 import Reviews from 'components/place/place-details/Reviews'
+import Comment from 'components/place/place-details/Comment'
 
 type Intro = {
   _id: string
@@ -49,9 +58,10 @@ const PlaceDetailsComponent = () => {
   const Nav = chakra('nav')
   // const NavItem = chakra(Link)
   const NavItem = chakra(Link)
-
+  let isStar = false
   const [showStickyNavBar, setShowStickyNavBar] = useState(false)
   const [details, setDetails] = useState<Intro>()
+  const [comments, setComments] = useState([])
   const [reviews, setReviews] = useState([])
   const [renterRooms, setRenterRooms] = useState<any>(null)
   const [payFlag, setPayFlag] = useState(false)
@@ -72,6 +82,7 @@ const PlaceDetailsComponent = () => {
           setPayFlag(res.data.data.renterRooms.payFlag)
           setReviews(res.data.data.reviews)
           setRenterRooms(res.data.data.renterRooms)
+          setComments(res.data.data.comment)
         })
         .catch((err) => {
           console.log(err)
@@ -105,7 +116,7 @@ const PlaceDetailsComponent = () => {
   ]
 
   return (
-    <Layout title = 'Xem trước'>
+    <Layout title='Xem trước'>
       <Box>
         <Nav
           padding='1.5rem 0'
@@ -183,7 +194,37 @@ const PlaceDetailsComponent = () => {
                     />
                     <Amenities listAmenties={details} />
                     <PolicyAndRule rule={details?.rule} />
-                    <Reviews roomId={details?._id} reviews={reviews} />
+                    <Tabs style={{ marginTop: '16px' }}>
+                      <TabList>
+                        <Tab>
+                          <Heading
+                            as='h3'
+                            fontSize='3xl'
+                            fontWeight='bolder'
+                            lineHeight='shorter'>
+                            Bình luận
+                          </Heading>
+                        </Tab>
+                        <Tab>
+                          <Heading
+                            as='h3'
+                            fontSize='3xl'
+                            fontWeight='bolder'
+                            lineHeight='shorter'>
+                            Đánh giá
+                          </Heading>
+                        </Tab>
+                      </TabList>
+
+                      <TabPanels>
+                        <TabPanel>
+                          <Comment roomId={details?._id} comments={comments} />
+                        </TabPanel>
+                        <TabPanel>
+                          <Reviews roomId={details?._id} reviews={reviews} isStar={isStar} />
+                        </TabPanel>
+                      </TabPanels>
+                    </Tabs>
                   </Box>
                 </Box>
                 <Box flex='1'>

@@ -22,32 +22,36 @@ const BaseInformation = ({
   completeTab,
   syncPlaceName,
   syncPlaceType,
+  syncArea,
   data,
 }: {
   completeTab: Function
   syncPlaceName: Function
   syncPlaceType: Function
+  syncArea: Function
   data: any
 }) => {
   const [placeName, setPlaceName] = useState(data.name)
   const [roomType, setRoomType] = useState(data.roomType)
-  const [roomQuantity, setRoomQuantity] = useState(data.roomQuantity)
+  const [area, setArea] = useState(data.area)
   useEffect(() => {
     if (data) {
       setPlaceName(data.name)
       setRoomType(data.roomType)
+      setArea(data.area)
     }
   }, [data])
 
   useEffect(() => {
-    if (placeName === '' || roomType === '' || placeName?.length < 6) {
+    if (placeName === '' || roomType === '' || placeName?.length < 6 || area === '') {
       completeTab(false)
     } else {
       syncPlaceName(placeName)
       syncPlaceType(roomType)
+      syncArea(area)
       completeTab(true)
     }
-  }, [placeName, completeTab, syncPlaceName, syncPlaceType, roomType])
+  }, [placeName, completeTab, syncPlaceName, syncPlaceType, roomType, area, syncArea])
 
   return (
     <Flex>
@@ -84,8 +88,8 @@ const BaseInformation = ({
             defaultValue={15}
             min={1}
             max={500}
-            onChange={(value) => setRoomQuantity(parseInt(value))}
-            value={roomQuantity}>
+            onChange={(value) => setArea(parseInt(value))}
+            value={area}>
             <NumberInputField />
             <NumberInputStepper>
               <NumberIncrementStepper />

@@ -16,6 +16,8 @@ function RoomList({ roomList }: { roomList: Array<any> }) {
               placeType={item.roomType}
               price={item.roomPrice}
               isLoading={false}
+              countRent={item.countRent}
+              rate = {item.rating}
               image={item.images[0]}
             />
           )

@@ -231,6 +231,7 @@ const PlaceInformation = ({
             completeTab={setIsCompleteBaseInfo}
             syncPlaceName={setPlaceName}
             syncPlaceType={setRoomType}
+            syncArea={setArea}
             data={data}
           />
         </TabPanel>

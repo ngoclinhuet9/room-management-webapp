@@ -1,7 +1,6 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import Signup from 'pages/renter/Signup'
 import Home from 'pages/renter/Home'
 import NotFound from 'pages/static-page/NotFound'
 import SearchResult from 'pages/renter/City'
@@ -19,12 +18,10 @@ import OwnerPreviewRoom from 'components/owner/PreviewRoom'
 import OwnerSignup from 'pages/owner/Signup'
 import ViewRoom from 'components/owner/ViewRoom'
 import EditRoom from 'pages/owner/EditRoom'
-import OwnerLogin from 'pages/owner/Login';
 
 import AdminHome from 'pages/admin/Home'
 import AdminPreviewRoom from 'pages/admin/PreviewRoom'
 import Dashboard from 'pages/admin/Dashboard'
-import AdminLogin from 'pages/admin/Login';
 
 import ReturnVP from 'components/vnpay/ReturnVNPAY'
 import ReturnVNPAY from 'pages/renter/ReturnVNPAY'
@@ -37,7 +34,6 @@ function App() {
       <Route path={`/login`} component={RenterLogin} />
       <Route path={`/renter/rooms/:room_id`} component={RoomDetail} />
       <Route path={`/renter/search`} component={SearchResult} />
-      <Route path={`/renter/signup`} component={Signup} />
       <Route path={`/renter/account`} component={Account} />
       <Route path={`/renter/bookmarks`} component={Bookmark} />
       <Route path={`/renter/histories`} component={History} />

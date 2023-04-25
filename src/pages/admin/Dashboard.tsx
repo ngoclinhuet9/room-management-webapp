@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminLayout from 'layouts/AdminLayout'
+import Layout from 'layouts/Layout'
 import DashboardRoom from 'components/dashboard/DashboardRoom'
 import DashboardUserView from 'components/dashboard/DashboardUserView'
 import DashBoardRentRate from 'components/dashboard/DashboardRentedRate'
@@ -8,7 +8,7 @@ import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-u
 
 function Dashboard() {
   return (
-    <AdminLayout title='Thống kê'>
+    <Layout title='Thống kê'>
       <Box>
     <Breadcrumb
       padding='1.5rem 0'
@@ -39,7 +39,7 @@ function Dashboard() {
           </Text>
         </Box>
       </Box>
-    </AdminLayout>
+    </Layout>
   )
 }
 

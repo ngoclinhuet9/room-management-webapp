@@ -13,17 +13,20 @@ import {
   Textarea,
   Button,
   useToast,
+  Text
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
-const ReviewForm = ({ addReview }: { addReview: Function }) => {
+const ReviewForm = ({ addReview, isComment, isStar }: { addReview: Function, isComment: boolean, isStar: boolean }) => {
   const toast = useToast()
   const [score, setScore] = useState(0)
   const [comment, setComment] = useState('')
   const [commentLoading, setCommentLoading] = useState(false)
   const [commentSuccess, setCommentSuccess] = useState(false)
   const [disable, setDisable] = useState(true)
+
+  const userName = JSON.parse(localStorage.getItem('infoUser') as string).name
 
   const handleSubmit = () => {
     addReview({ comment, score })
@@ -32,7 +35,8 @@ const ReviewForm = ({ addReview }: { addReview: Function }) => {
   return (
     <Box className='single-review' my={8}>
       <Box display='flex' flexDirection='row'>
-        <Avatar name='Me' />
+        <Avatar name={userName} />
+        <Text ml={2} fontSize='xl'>{userName}</Text>
         <Box ml={2} display='flex' pt={1}>
           <Box>
             <Heading
@@ -42,20 +46,22 @@ const ReviewForm = ({ addReview }: { addReview: Function }) => {
               fontSize='md'
             />
           </Box>
+          {!isComment &&
           <Box display='flex' marginLeft={3} color='#FFB500' pt={0.25}>
-            {[1, 2, 3, 4, 5].map((value) => (
-              <Box key={value} fontSize='24px' onClick={() => setScore(value)}>
-                {score < value ? <AiOutlineStar /> : <AiFillStar />}
-              </Box>
-            ))}
-          </Box>
+              {[1, 2, 3, 4, 5].map((value) => (
+                <Box key={value} fontSize='24px' onClick={() => setScore(value)}>
+                  {score < value ? <AiOutlineStar /> : <AiFillStar />}
+                </Box>
+              ))}
+            </Box>
+          }
         </Box>
       </Box>
       <Box className='reviews-content' mt={5}>
         <Textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder='Để lại bình luận về địa điểm này'
+          placeholder={`Để lại ${isComment ? 'bình luận' : 'đánh giá' } về địa điểm này`}
           size='md'
           resize='none'
         />

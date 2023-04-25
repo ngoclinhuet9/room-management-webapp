@@ -37,8 +37,13 @@ const City = () => {
     let listData = roomList;
     switch (value) {
       case 'sale':
-        listData.sort((item1: any, item2: any) => item1.countRent > item2.countRent ? 1 : -1)
+        listData.sort((item1: any, item2: any) => item1.countRent < item2.countRent ? 1 : -1)
         setNameOrder('Bán chạy nhất')
+      break;
+
+      case 'rating':
+        listData.sort((item1: any, item2: any) => item1.rating < item2.rating ? 1 : -1)
+        setNameOrder('Uy tín nhất')
       break;
 
       case 'increase':
@@ -72,6 +77,7 @@ const City = () => {
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
+                <MenuItem onClick={() => filterOptionChange('rating')}>Uy tín nhất</MenuItem>
                 <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
                 <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>
               </MenuList>
