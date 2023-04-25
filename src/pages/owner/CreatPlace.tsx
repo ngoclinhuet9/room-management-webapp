@@ -94,7 +94,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
               isClosable: true,
               position: 'top',
             })
-            history.push(`/owner/rooms/${params?.room_id}/preview`)
+            history.push(`/owner/rooms/${params?.room_id}/pending`)
             // await firestore.collection('notifications').add({
             //   sender: res.data.data.owner,
             //   senderType: 'owner',
@@ -123,7 +123,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
               isClosable: true,
               position: 'top',
             })
-            history.push(`/owner/rooms/${params?.room_id}/preview`)
+            history.push(`/owner/rooms/${params?.room_id}/pending`)
             // await firestore.collection('notifications').add({
             //   sender: res.data.data.owner,
             //   senderType: 'owner',
@@ -153,7 +153,7 @@ const CreatePlace = ({ data, status }: { data?: any; status: string }) => {
               isClosable: true,
               position: 'top',
             })
-            history.push(`/owner/rooms/${res.data.data._id}/preview`)
+            history.push(`/owner/rooms/${res.data.data._id}/pending`)
             // await firestore.collection('notifications').add({
             //   sender: res.data.data.owner,
             //   senderType: 'owner',

@@ -46,17 +46,17 @@ export default function ReturnScreen() {
           })
         }
       })
-      .catch((err) => {
-        console.log(err)
-        toast({
-          title: 'Lỗi',
-          description: 'Phòng đã được thuê trước đó.',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        })
-      })
+      // .catch((err) => {
+      //   console.log(err)
+      //   toast({
+      //     title: 'Lỗi',
+      //     description: 'Phòng đã được thuê trước đó.',
+      //     status: 'error',
+      //     duration: 3000,
+      //     isClosable: true,
+      //     position: 'top',
+      //   })
+      // })
     }}, [room_id,vnp_Param,startDate, endDate])
 
   return (
@@ -68,7 +68,7 @@ export default function ReturnScreen() {
         </Box>
           {vnp_Param?.responseCode === '00'?
             (<Button colorScheme='orange' mr='10px'>
-              <Link to={`/renter/renting`}>Về danh sách các phòng đã đặt</Link>
+              <Link to={`/renter/renting`}>Về danh sách phòng đang thuê</Link>
             </Button>)
             :
             (<Button colorScheme='orange' mr='10px'>

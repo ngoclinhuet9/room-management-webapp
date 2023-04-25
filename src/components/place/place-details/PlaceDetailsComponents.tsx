@@ -203,8 +203,10 @@ const PlaceDetailsComponent = () => {
   }, [])
 
   useEffect(() => {
+    console.log(histories, '=====5=');
     if ((renterRooms?.reviewed === false && !(renterRooms?.requestType === 0 && renterRooms?.status === 1)) || histories) {
       setIsStar(true)
+      console.log(histories, '=====6=');
     };
   }, [renterRooms, histories])
   const backToScreen = () => {

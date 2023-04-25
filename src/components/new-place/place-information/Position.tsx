@@ -63,7 +63,7 @@ const Position = ({
             <option value='nhatrang'>Nha Trang</option>
             <option value='quangninh'>Quảng Ninh</option>
             <option value='hoian'>Hội An</option>
-            <option value='danang'>Đà Nắng</option>
+            <option value='danang'>Đà Nẵng</option>
           </Select>
         </FormControl>
         <FormControl id='address-detail' isRequired mb={5}>

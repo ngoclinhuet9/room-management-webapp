@@ -27,6 +27,7 @@ const City = () => {
       .then((res) => {
         setRoomList(res.data.data)
         setIsLoading(false)
+        setNameOrder('Sắp xếp')
       })
       .catch((err) => {
         console.log(err)
@@ -38,7 +39,7 @@ const City = () => {
     switch (value) {
       case 'sale':
         listData.sort((item1: any, item2: any) => item1.countRent < item2.countRent ? 1 : -1)
-        setNameOrder('Bán chạy nhất')
+        setNameOrder('Thuê nhiều nhất')
       break;
 
       case 'rating':
@@ -72,11 +73,11 @@ const City = () => {
           </Text>
           <Box margin='30px 110px'>
             <Menu>
-              <MenuButton as={Button} width='150px' rightIcon={<ChevronDownIcon />}>
+              <MenuButton as={Button} width='160px' rightIcon={<ChevronDownIcon />}>
                 {nameOrder}
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => filterOptionChange('sale')} >Bán chạy nhất</MenuItem>
+                <MenuItem onClick={() => filterOptionChange('sale')} >Thuê nhiều nhất</MenuItem>
                 <MenuItem onClick={() => filterOptionChange('rating')}>Uy tín nhất</MenuItem>
                 <MenuItem onClick={() => filterOptionChange('increase')}>Giá tăng dần</MenuItem>
                 <MenuItem onClick={() => filterOptionChange('decrease')}>Giá giảm dần</MenuItem>

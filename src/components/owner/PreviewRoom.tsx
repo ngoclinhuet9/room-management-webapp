@@ -82,7 +82,7 @@ const PlaceDetailsComponent = () => {
           setPayFlag(res.data.data.renterRooms.payFlag)
           setReviews(res.data.data.reviews)
           setRenterRooms(res.data.data.renterRooms)
-          setComments(res.data.data.comment)
+          setComments(res.data.data.comments)
         })
         .catch((err) => {
           console.log(err)
@@ -93,6 +93,7 @@ const PlaceDetailsComponent = () => {
         .then((res) => {
           setDetails(res.data.data.room)
           setReviews(res.data.data.reviews)
+          setComments(res.data.data.comments)
         })
         .catch((err) => {
           console.log(err)
