@@ -41,7 +41,7 @@ function RoomItem({
     if(placeType == 'MOTEL') {setRoomType('Phòng trọ')}
     if(placeType == 'APARTMENT') {setRoomType('Chung cư')}
     if(placeType == 'WHOLE_HOUSE') {setRoomType('Nhà nguyên căn')}
-    if(placeType == 'WHOLE_APARTMENT') {setRoomType('PChung cư nguyên căn')}
+    if(placeType == 'WHOLE_APARTMENT') {setRoomType('Chung cư nguyên căn')}
   }, [])
   return (
     <Box mt={3} w='100%' mx='0.3rem' my='0.4rem'>

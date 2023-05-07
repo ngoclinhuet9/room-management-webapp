@@ -32,10 +32,11 @@ type RatingType = {
 const Reviews = ({ roomId, reviews, isStar }: { roomId: any | undefined, reviews: any, isStar: boolean }) => {
   const NavLabel = chakra(Element)
   const toast = useToast()
+  const [_isStar, set_isStar] = useState(true);
+  console.log(_isStar,'_isStar');
+  
   const [isLoading, setLoading] = useState(false);
   const userName = JSON.parse(localStorage.getItem('infoUser') as string).name
-
-
   const [data, setData] = useState([]) as any
   const addReview = ({
     comment,
@@ -44,10 +45,20 @@ const Reviews = ({ roomId, reviews, isStar }: { roomId: any | undefined, reviews
     comment: string
     score: number
   }) => {
-    if (comment) {
+    if (comment && score !=0) {
       axios.post('/reviews/create', { content: comment, rating: score, roomId, type: 1 })
         .then((res) => {
           setData([...data, { content: comment, rating: score, user: { name: userName } }])
+          if(roomId){
+            axios.get(`/isReview/${roomId}`)
+            .then((res) => {
+              console.log(_isStar, 'trước');
+              if (res.data.data.renterRooms?.reviewed === true || !res.data.data.histories) {
+                set_isStar(false)
+                console.log(_isStar, 'sau');
+              }
+            })
+          }
         })
         .catch((err) => {
           toast({
@@ -63,7 +74,7 @@ const Reviews = ({ roomId, reviews, isStar }: { roomId: any | undefined, reviews
     else {
       toast({
         title: 'Có sự cố xảy ra:',
-        description: 'Vui lòng nhập nội dung đánh giá',
+        description: 'Vui lòng nhập đầy đủ số sao và nội dung đánh giá',
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -111,7 +122,7 @@ const Reviews = ({ roomId, reviews, isStar }: { roomId: any | undefined, reviews
       }
       <Divider />
       {
-        isStar && <ReviewForm isComment={false} addReview={addReview} isStar={isStar} />
+        (isStar && _isStar) && <ReviewForm isComment={false} addReview={addReview} isStar={isStar} />
       }
     </NavLabel>
   )

@@ -12,7 +12,7 @@ const DashboardUserView = () => {
       .then((res) => {
         setData([
           {
-            type: 'Người lạ',
+            type: 'Khách',
             value: res.data.data.user,
             def: 'Số lượng truy cập',
           },

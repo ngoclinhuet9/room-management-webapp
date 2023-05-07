@@ -49,6 +49,7 @@ type FormData = {
 }
 
 const SignUp = () => {
+  const isAuth = localStorage.getItem('infoUser')
   const history = useHistory()
   const { dispatch } = useRedux()
   const [showPassword, setShowPassword] = useState(false)
@@ -78,7 +79,10 @@ const SignUp = () => {
         })
       )
       setLoading(false)
-      if (formData.role == 'renter'){
+      if(isAuth){
+        
+      }
+      if (formData.role === 'renter'){
         toast({
           title: 'Thành công',
           description: 'Tài khoản của bạn đã được đăng ký thành công',
@@ -88,7 +92,7 @@ const SignUp = () => {
           isClosable: true,
         })
       }
-      if (formData.role == 'owner'){
+      if (formData.role === 'owner'){
         toast({
           title: 'Thành công',
           description: 'Tài khoản của bạn đang được chờ phê duyệt',

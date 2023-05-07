@@ -179,6 +179,8 @@ const PlaceDetailsComponent = () => {
       .get(`/rooms/${params?.room_id}`)
       .then((res) => {
         setDetails(res.data.data.room)
+        console.log(res.data.data.room,'0705');
+        
         setIsBookmarked(res.data.data.is_bookmarked)
         setReviews(res.data.data.reviews)
         setComments(res.data.data.comments)
@@ -188,6 +190,10 @@ const PlaceDetailsComponent = () => {
         }
         if (res.data.data.histories) {
           setHistories(res.data.data.histories)
+        }
+        if ((res.data.data.renterRooms?.reviewed === false && !(res.data.data.renterRooms?.requestType === '0' && res.data.data.renterRooms?.status === 1)) || res.data.data.histories) {
+          setIsStar(true)
+          console.log(isStar, 'sau');
         }
       })
       .catch((err) => {
@@ -202,13 +208,6 @@ const PlaceDetailsComponent = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(histories, '=====5=');
-    if ((renterRooms?.reviewed === false && !(renterRooms?.requestType === 0 && renterRooms?.status === 1)) || histories) {
-      setIsStar(true)
-      console.log(histories, '=====6=');
-    };
-  }, [renterRooms, histories])
   const backToScreen = () => {
     window.location.hostname = 'localhost'
   }

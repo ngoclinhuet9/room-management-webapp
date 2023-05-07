@@ -269,7 +269,7 @@ export default function Header() {
                   {name}
                 </MenuButton>
                 {(role === 'renter') && (
-                <MenuList>
+                <MenuList zIndex='3'>
                   <MenuItem>
                     <Link to='/renter/account'>Cài đặt tài khoản</Link>
                   </MenuItem>
@@ -289,7 +289,7 @@ export default function Header() {
                   </MenuItem>
                 </MenuList>)}
                 {(role === 'owner') && (
-                <MenuList>
+                <MenuList zIndex='3'>
                 <MenuItem>
                   <Link to='/owner/account'>Cài đặt tài khoản</Link>
                 </MenuItem>
@@ -300,7 +300,7 @@ export default function Header() {
                 </MenuItem>
               </MenuList>)}
                 {(role === 'admin') && (
-                <MenuList>
+                <MenuList zIndex='3'>
                 <MenuItem>
                     <Button onClick={() => history.push('/admin/account')} variant='link'>
                       Cài đặt tài khoản

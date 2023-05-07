@@ -25,15 +25,15 @@ const DashboardRoom = () => {
       .then((res) => {
         setData([
           {
-            type: 'Pending Room',
+            type: 'Chờ phê duyệt',
             value: res.data.data.pendingRoom,
           },
           {
-            type: 'Live Room',
+            type: 'Phòng trống',
             value: res.data.data.liveRoom,
           },
           {
-            type: 'Rented Room',
+            type: 'Đang cho thuê',
             value: res.data.data.rentedRoom,
           }
         ])
